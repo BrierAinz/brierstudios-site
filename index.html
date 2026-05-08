@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrierStudios — Where Ancient Meets Digital</title>
+    <meta name="description" content="BrierStudios: Creative technology studio. Dark fantasy, Nordic aesthetics, and cutting-edge development.">
+    <meta name="theme-color" content="#060810">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-rune">ᛒ</div>
+        <div class="loading-bar"></div>
+    </div>
+
+    <!-- Mouse Glow -->
+    <div id="mouse-glow" class="mouse-glow"></div>
+
+    <!-- Runes Background Canvas -->
+    <canvas id="runes-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <img src="logo.png" alt="ᛒ" class="nav-logo-img" onerror="this.style.display='none'">
+                <span class="nav-logo-text">Brier<span class="accent">Studios</span></span>
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-particles" id="hero-particles"></div>
+        <div class="hero-content">
+            <div class="rune-circle">
+                <svg viewBox="0 0 200 200" class="rune-svg">
+                    <defs>
+                        <linearGradient id="runeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#7dd3fc"/>
+                            <stop offset="50%" style="stop-color:#38bdf8"/>
+                            <stop offset="100%" style="stop-color:#0284c7"/>
+                        </linearGradient>
+                        <filter id="runeGlow">
+                            <feGaussianBlur stdDeviation="2" result="blur"/>
+                            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                        </filter>
+                    </defs>
+                    <circle cx="100" cy="100" r="92" fill="none" stroke="url(#runeGrad)" stroke-width="1" opacity="0.3" class="rune-ring-outer"/>
+                    <circle cx="100" cy="100" r="90" fill="none" stroke="url(#runeGrad)" stroke-width="0.5" opacity="0.2" class="rune-ring"/>
+                    <circle cx="100" cy="100" r="70" fill="none" stroke="url(#runeGrad)" stroke-width="0.3" opacity="0.15" class="rune-ring-inner"/>
+                    <circle cx="100" cy="100" r="50" fill="none" stroke="url(#runeGrad)" stroke-width="0.3" opacity="0.1" class="rune-ring-inner2"/>
+                    <!-- Elder Futhark runes -->
+                    <text x="100" y="16" text-anchor="middle" fill="#38bdf8" font-size="11" class="rune-char" filter="url(#runeGlow)">ᚺ</text>
+                    <text x="158" y="46" text-anchor="middle" fill="#7dd3fc" font-size="11" class="rune-char" filter="url(#runeGlow)">ᛏ</text>
+                    <text x="180" y="107" text-anchor="middle" fill="#38bdf8" font-size="11" class="rune-char" filter="url(#runeGlow)">ᛗ</text>
+                    <text x="152" y="165" text-anchor="middle" fill="#818cf8" font-size="11" class="rune-char" filter="url(#runeGlow)">ᚨ</text>
+                    <text x="48" y="165" text-anchor="middle" fill="#7dd3fc" font-size="11" class="rune-char" filter="url(#runeGlow)">ᛚ</text>
+                    <text x="20" y="107" text-anchor="middle" fill="#38bdf8" font-size="11" class="rune-char" filter="url(#runeGlow)">ᛊ</text>
+                    <text x="42" y="46" text-anchor="middle" fill="#818cf8" font-size="11" class="rune-char" filter="url(#runeGlow)">ᛒ</text>
+                    <text x="100" y="196" text-anchor="middle" fill="#7dd3fc" font-size="11" class="rune-char" filter="url(#runeGlow)">ᚦ</text>
+                </svg>
+            </div>
+            <h1 class="hero-title">
+                <span class="title-line">Where <span class="glow">Ancient</span></span>
+                <span class="title-line">Meets <span class="accent">Digital</span></span>
+            </h1>
+            <p class="hero-subtitle">Creative Technology Studio — Forging digital realms with the spirit of the Old World</p>
+            <div class="hero-cta">
+                <a href="#projects" class="btn btn-primary">
+                    <span class="btn-rune">᛭</span> Explore Our Work
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    Summon Us
+                </a>
+            </div>
+            <div class="scroll-indicator">
+                <div class="scroll-rune">᛭</div>
+                <span>Scroll to descend</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-rune">ᚨ</span>
+                <h2 class="section-title">About the <span class="accent">Forge</span></h2>
+                <div class="divider-rune"></div>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-text fade-in-left">
+                    <p class="about-lead">We are <strong>BrierStudios</strong> — a creative technology studio where the ancient artistry of Norse craftsmanship meets the relentless innovation of modern development.</p>
+                    <p>We build digital experiences that feel like discovering a rune-covered artifact in a world of mass-produced apps. Our work spans creative tools, AI-powered applications, and immersive web experiences.</p>
+                    <p>Every project is a saga — crafted with intention, built to endure.</p>
+                </div>
+                <div class="about-values">
+                    <div class="value-card fade-in-right">
+                        <span class="value-rune">ᚦ</span>
+                        <h3>Thruth</h3>
+                        <p>Transparent, honest development. No hidden traps, no dark patterns.</p>
+                    </div>
+                    <div class="value-card fade-in-right">
+                        <span class="value-rune">ᚹ</span>
+                        <h3>Wyrd</h3>
+                        <p>Fate favors the bold. We take creative risks that push boundaries.</p>
+                    </div>
+                    <div class="value-card fade-in-right">
+                        <span class="value-rune">ᛗ</span>
+                        <h3>Manna</h3>
+                        <p>Human-first tech. Tools that empower, never exploit.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-rune">ᛈ</span>
+                <h2 class="section-title">Our <span class="accent">Sagas</span></h2>
+                <div class="divider-rune"></div>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Yggdrasil - Featured -->
+                <div class="project-card project-featured fade-in">
+                    <div class="project-rune">ᛇ</div>
+                    <div class="project-badge">Featured</div>
+                    <h3 class="project-name">Yggdrasil</h3>
+                    <p class="project-tagline">The World Tree — A 9-Realm Development Ecosystem</p>
+                    <p class="project-desc">A modular, Nordic-inspired development ecosystem where each realm serves a purpose: Asgard for core tech, Vanaheim for AI agents, Alfheim for UI prototypes, and more. Built with TypeScript, Python, and the spirit of the Old Gods.</p>
+                    <div class="project-tech">
+                        <span>TypeScript</span>
+                        <span>Python</span>
+                        <span>FastAPI</span>
+                        <span>React</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/BrierAinz/Yggdrasil" target="_blank" rel="noopener" class="project-link">
+                            <span class="link-icon">⌘</span> Repository
+                        </a>
+                        <a href="https://brierainz.github.io/Yggdrasil/" target="_blank" rel="noopener" class="project-link">
+                            <span class="link-icon">↗</span> Live
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Lilith -->
+                <div class="project-card fade-in">
+                    <div class="project-rune">ᛚ</div>
+                    <h3 class="project-name">Lilith</h3>
+                    <p class="project-tagline">AI Agent Framework</p>
+                    <p class="project-desc">A conversational AI agent framework with modular architecture, designed for extensibility and dark-themed aesthetics.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>FastAPI</span>
+                        <span>LLM</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/BrierAinz/Yggdrasil" target="_blank" rel="noopener" class="project-link">
+                            <span class="link-icon">⌘</span> Repository
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Ehyra -->
+                <div class="project-card fade-in">
+                    <div class="project-rune">ᛖ</div>
+                    <h3 class="project-name">Ehyra</h3>
+                    <p class="project-tagline">Character LoRA Training</p>
+                    <p class="project-desc">Custom character generation pipeline: reference curation, auto-captioning, and LoRA training for personalized AI art creation.</p>
+                    <div class="project-tech">
+                        <span>PyTorch</span>
+                        <span>DiT.2</span>
+                        <span>ComfyUI</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link coming-soon">
+                            <span class="link-icon">⌘</span> Coming Soon
+                        </a>
+                    </div>
+                </div>
+
+                <!-- YggdrasilStudio -->
+                <div class="project-card fade-in">
+                    <div class="project-rune">ᚨ</div>
+                    <h3 class="project-name">YggdrasilStudio</h3>
+                    <p class="project-tagline">Creative Asset Studio</p>
+                    <p class="project-desc">A web-based creative studio for 3D asset generation, manipulation, and visualization — powered by Norse-named microservices.</p>
+                    <div class="project-tech">
+                        <span>React</span>
+                        <span>Three.js</span>
+                        <span>Blender</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/BrierAinz/Yggdrasil" target="_blank" rel="noopener" class="project-link">
+                            <span class="link-icon">⌘</span> Repository
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-rune">ᛗ</span>
+                <h2 class="section-title">Send a <span class="accent">Raven</span></h2>
+                <div class="divider-rune"></div>
+                <p class="section-subtitle">Have a project in mind? We forge alliances.</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info fade-in-left">
+                    <div class="contact-item">
+                        <span class="contact-rune">ᚷ</span>
+                        <div>
+                            <h4>GitHub</h4>
+                            <a href="https://github.com/BrierAinz" target="_blank" rel="noopener">BrierAinz</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-rune">ᚹ</span>
+                        <div>
+                            <h4>Web</h4>
+                            <a href="https://brierstudios.com">brierstudios.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-rune">ᛊ</span>
+                        <div>
+                            <h4>Ecosystem</h4>
+                            <a href="https://brierainz.github.io/Yggdrasil/" target="_blank" rel="noopener">Yggdrasil Docs</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="rune-divider-vertical"></div>
+                <form id="contact-form" class="contact-form fade-in-right">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your name, traveler" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="raven@yourdomain.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Describe your quest..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        <span class="btn-rune">᛭</span> Send Raven
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="rune-logo">ᛒ</span> Brier<span class="accent">Studios</span>
+            </div>
+            <div class="footer-runes" id="footer-runes">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛊ ᛏ ᛒ ᛖ ᛗ ᛚ ᛜ ᛞ ᛟ</div>
+            <p class="footer-copy">&copy; 2026 BrierStudios. Forged in the digital void.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
