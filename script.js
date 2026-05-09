@@ -436,28 +436,35 @@ function initStatsCounter() {
         entries.forEach(entry => {
             if (entry.isIntersecting && !animated) {
                 animated = true;
-                statNumbers.forEach(el => {
-                    const target = parseInt(el.dataset.target);
-                    const suffix = el.dataset.suffix || '';
-                    const duration = 2000;
-                    const start = performance.now();
-                    
-                    function animate(now) {
-                        const elapsed = now - start;
-                        const progress = Math.min(elapsed / duration, 1);
-                        // Ease out cubic
-                        const eased = 1 - Math.pow(1 - progress, 3);
-                        const current = Math.floor(eased * target);
-                        el.textContent = current + suffix;
-                        if (progress < 1) {
-                            requestAnimationFrame(animate);
-                        }
-                    }
-                    requestAnimationFrame(animate);
+                // Make stat items visible first
+                document.querySelectorAll('.stat-item').forEach(item => {
+                    item.classList.add('visible');
                 });
+                // Animate numbers after a brief delay for the fade-in
+                setTimeout(() => {
+                    statNumbers.forEach(el => {
+                        const target = parseInt(el.dataset.target);
+                        const suffix = el.dataset.suffix || '';
+                        const duration = 2000;
+                        const start = performance.now();
+                        
+                        function animate(now) {
+                            const elapsed = now - start;
+                            const progress = Math.min(elapsed / duration, 1);
+                            const eased = 1 - Math.pow(1 - progress, 3);
+                            const current = Math.floor(eased * target);
+                            el.textContent = current + suffix;
+                            if (progress < 1) {
+                                requestAnimationFrame(animate);
+                            }
+                        }
+                        requestAnimationFrame(animate);
+                    });
+                }, 300);
+                observer.disconnect();
             }
         });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.1 });
     
     const statsSection = document.getElementById('stats');
     if (statsSection) observer.observe(statsSection);
