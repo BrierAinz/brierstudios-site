@@ -300,23 +300,13 @@ function initMobileMenu() {
 /* ─── Scroll Animations ─── */
 function initScrollAnimations() {
     const elements = document.querySelectorAll(
-        '.value-card, .project-card, .contact-item, .about-text, .about-values, .fade-in, .fade-in-left, .fade-in-right'
+        '.value-card, .project-card, .contact-item, .about-text, .about-values, .stat-item, .fade-in, .fade-in-left, .fade-in-right'
     );
-    
-    // Add initial hidden state
-    elements.forEach(el => {
-        if (!el.classList.contains('fade-in') && 
-            !el.classList.contains('fade-in-left') && 
-            !el.classList.contains('fade-in-right')) {
-            // Don't double-add
-        }
-    });
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Unobserve after animation
                 setTimeout(() => observer.unobserve(entry.target), 1000);
             }
         });
