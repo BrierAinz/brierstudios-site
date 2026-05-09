@@ -665,4 +665,4 @@ section::before {
     .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
     .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
     .skill-rune { font-size: 2rem; }
-}
+}/* v2.1 */
