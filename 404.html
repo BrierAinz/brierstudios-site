@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Realm Not Found | Brier Studios</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --void: #060810;
+      --ice: #38bdf8;
+      --ice-bright: #7dd3fc;
+      --aurora: #818cf8;
+      --text: #cbd5e1;
+      --text-dim: #64748b;
+      --text-bright: #f1f5f9;
+      --font-display: 'Cinzel', serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      background-color: var(--void);
+      color: var(--text);
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .container {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .rune {
+      font-size: 6rem;
+      line-height: 1;
+      color: var(--ice);
+      text-shadow:
+        0 0 20px rgba(56, 189, 248, 0.6),
+        0 0 40px rgba(56, 189, 248, 0.3),
+        0 0 80px rgba(56, 189, 248, 0.15);
+      font-family: sans-serif;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--text-bright);
+      margin-top: 1.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    p {
+      color: var(--text-dim);
+      font-size: 1.1rem;
+      margin-top: 0.75rem;
+      line-height: 1.6;
+    }
+
+    .home-link {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.75rem 2rem;
+      border: 1px solid var(--ice);
+      color: var(--ice-bright);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      background: rgba(56, 189, 248, 0.05);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    }
+
+    .home-link:hover {
+      background: rgba(56, 189, 248, 0.12);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .home-link:active {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="rune">ᛉ</div>
+    <h1>Realm Not Found</h1>
+    <p>The path you seek has faded into the mist</p>
+    <a href="/" class="home-link">← Return to the Hall</a>
+  </div>
+</body>
+</html>

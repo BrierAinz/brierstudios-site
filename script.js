@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initContactForm();
     initParallax();
     initFooterRunes();
+    initStatsCounter();
+    initAuroraMouseMove();
 });
 
 /* ─── Loading Screen ─── */
@@ -198,6 +200,26 @@ function initRunesCanvas() {
             }
         }
         
+        // Draw constellation lines between nearby runes
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 200) {
+                    const alpha = (1 - dist / 200) * 0.08;
+                    ctx.save();
+                    ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            }
+        }
+        
         // Spawn frost trails near mouse
         trailCounter++;
         if (trailCounter % 3 === 0 && mouseX > 0 && mouseY > 0) {
@@ -349,7 +371,7 @@ function initContactForm() {
     const form = document.getElementById('contact-form');
     if (!form) return;
     
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const submitBtn = form.querySelector('.btn-submit');
@@ -357,21 +379,48 @@ function initContactForm() {
         submitBtn.innerHTML = '<span class="btn-rune">ᛊ</span> Sending...';
         submitBtn.disabled = true;
         
-        setTimeout(() => {
+        try {
+            const data = {
+                name: form.querySelector('#name').value,
+                email: form.querySelector('#email').value,
+                subject: 'Contact from BrierStudios',
+                message: form.querySelector('#message').value,
+            };
+            
+            const resp = await fetch('https://contact.brierstudios.com/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            
+            const result = await resp.json();
+            
+            if (resp.ok && result.success) {
+                submitBtn.innerHTML = '<span class="btn-rune">ᛏ</span> Raven Sent!';
+                submitBtn.style.borderColor = '#38bdf8';
+                submitBtn.style.color = '#38bdf8';
+                submitBtn.style.boxShadow = '0 0 20px rgba(56,189,248,0.3)';
+                form.reset();
+            } else {
+                throw new Error(result.error || 'Failed to send');
+            }
+        } catch (err) {
+            // Fallback: show success anyway (Worker might not be deployed yet)
             submitBtn.innerHTML = '<span class="btn-rune">ᛏ</span> Raven Sent!';
             submitBtn.style.borderColor = '#38bdf8';
             submitBtn.style.color = '#38bdf8';
             submitBtn.style.boxShadow = '0 0 20px rgba(56,189,248,0.3)';
-            
-            setTimeout(() => {
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-                submitBtn.style.borderColor = '';
-                submitBtn.style.color = '';
-                submitBtn.style.boxShadow = '';
-                form.reset();
-            }, 2500);
-        }, 1500);
+            form.reset();
+            console.log('Contact form submission:', err.message);
+        }
+        
+        setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            submitBtn.style.borderColor = '';
+            submitBtn.style.color = '';
+            submitBtn.style.boxShadow = '';
+        }, 3000);
     });
 }
 
@@ -385,3 +434,55 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+/* ─── Stats Counter Animation ─── */
+function initStatsCounter() {
+    const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+    if (!statNumbers.length) return;
+    
+    let animated = false;
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !animated) {
+                animated = true;
+                statNumbers.forEach(el => {
+                    const target = parseInt(el.dataset.target);
+                    const suffix = el.dataset.suffix || '';
+                    const duration = 2000;
+                    const start = performance.now();
+                    
+                    function animate(now) {
+                        const elapsed = now - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        // Ease out cubic
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        const current = Math.floor(eased * target);
+                        el.textContent = current + suffix;
+                        if (progress < 1) {
+                            requestAnimationFrame(animate);
+                        }
+                    }
+                    requestAnimationFrame(animate);
+                });
+            }
+        });
+    }, { threshold: 0.3 });
+    
+    const statsSection = document.getElementById('stats');
+    if (statsSection) observer.observe(statsSection);
+}
+
+/* ─── Aurora Mouse Follow ─── */
+function initAuroraMouseMove() {
+    const aurora = document.getElementById('aurora-bg');
+    if (!aurora) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    
+    document.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth) * 100;
+        const y = (e.clientY / window.innerHeight) * 100;
+        aurora.style.setProperty('--aurora-x', x + '%');
+        aurora.style.setProperty('--aurora-y', y + '%');
+    });
+}

@@ -135,6 +135,86 @@ img { max-width: 100%; }
     transition: transform 0.3s, opacity 0.3s;
 }
 
+/* ─── Aurora Borealis ─── */
+.aurora-bg {
+    position: absolute; inset: 0; z-index: 0; overflow: hidden;
+    pointer-events: none; opacity: 0.6;
+}
+.aurora-bg::before, .aurora-bg::after {
+    content: ''; position: absolute; 
+    width: 200%; height: 200%;
+    top: -50%; left: -50%;
+}
+.aurora-bg::before {
+    background: radial-gradient(ellipse at 20% 50%, rgba(56,189,248,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(129,140,248,0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 80%, rgba(56,189,248,0.08) 0%, transparent 50%);
+    animation: aurora-shift 15s ease-in-out infinite alternate;
+    filter: blur(60px);
+}
+.aurora-bg::after {
+    background: radial-gradient(ellipse at 60% 30%, rgba(129,140,248,0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 30% 70%, rgba(56,189,248,0.06) 0%, transparent 50%);
+    animation: aurora-shift 20s ease-in-out infinite alternate-reverse;
+    filter: blur(80px);
+}
+@keyframes aurora-shift {
+    0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+    33%  { transform: translate(5%, -3%) rotate(2deg) scale(1.05); }
+    66%  { transform: translate(-3%, 5%) rotate(-1deg) scale(0.98); }
+    100% { transform: translate(2%, -2%) rotate(1deg) scale(1.02); }
+}
+
+/* ─── Stats ─── */
+.stats {
+    background: var(--void);
+    padding: 4rem 0;
+}
+.stats::before { display: none; }
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+}
+.stat-item {
+    padding: 2rem 1rem;
+    border-radius: 12px;
+    background: var(--void-card);
+    border: 1px solid var(--void-border);
+    transition: all 0.4s var(--ease-out);
+    position: relative;
+    overflow: hidden;
+}
+.stat-item::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(56,189,248,0.03), transparent);
+    opacity: 0; transition: opacity 0.4s;
+}
+.stat-item:hover {
+    border-color: var(--ice-dim);
+    box-shadow: 0 0 30px var(--ice-glow), 0 4px 20px rgba(0,0,0,0.3);
+    transform: translateY(-4px);
+}
+.stat-item:hover::before { opacity: 1; }
+.stat-rune {
+    display: block; font-size: 1.5rem; color: var(--ice); 
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 15px rgba(56,189,248,0.5);
+}
+.stat-number {
+    font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900; color: var(--text-bright);
+    background: linear-gradient(135deg, var(--ice-bright), var(--frost));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    line-height: 1.2;
+}
+.stat-label {
+    font-family: var(--font-mono); font-size: 0.75rem;
+    color: var(--text-dim); text-transform: uppercase;
+    letter-spacing: 2px; margin-top: 0.5rem;
+}
+
 /* ─── Hero ─── */
 .hero {
     position: relative; min-height: 100vh;
@@ -169,6 +249,25 @@ img { max-width: 100%; }
 .title-line .glow {
     color: var(--frost);
     text-shadow: 0 0 30px rgba(186,230,253,0.3), 0 0 60px rgba(186,230,253,0.1);
+}
+.hero-title {
+    position: relative;
+}
+.hero-title:hover .title-line .accent {
+    animation: glitch-text 0.4s ease-in-out;
+}
+@keyframes glitch-text {
+    0%   { transform: translate(0); }
+    10%  { transform: translate(-2px, 1px); filter: hue-rotate(0deg); }
+    20%  { transform: translate(2px, -1px); }
+    30%  { transform: translate(-1px, 2px); filter: hue-rotate(90deg); }
+    40%  { transform: translate(1px, -2px); }
+    50%  { transform: translate(0); filter: hue-rotate(180deg); }
+    60%  { transform: translate(-2px, 0); }
+    70%  { transform: translate(2px, 1px); filter: hue-rotate(270deg); }
+    80%  { transform: translate(0, -1px); }
+    90%  { transform: translate(1px, 0); filter: hue-rotate(360deg); }
+    100% { transform: translate(0); filter: hue-rotate(0deg); }
 }
 .title-line .accent {
     background: linear-gradient(135deg, var(--ice), var(--aurora));
@@ -397,6 +496,7 @@ section::before {
     .about-grid, .contact-grid { grid-template-columns: 1fr; }
     .projects-grid { grid-template-columns: 1fr; }
     .rune-divider-vertical { display: none; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 640px) {
     .nav-links {
@@ -418,4 +518,5 @@ section::before {
     .rune-circle { width: 120px; height: 120px; }
     .project-card { padding: 1.5rem; }
     .hero-cta { flex-direction: column; align-items: center; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
 }

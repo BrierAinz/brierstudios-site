@@ -6,9 +6,50 @@
     <title>BrierStudios — Where Ancient Meets Digital</title>
     <meta name="description" content="BrierStudios: Creative technology studio. Dark fantasy, Nordic aesthetics, and cutting-edge development.">
     <meta name="theme-color" content="#060810">
+    <meta name="color-scheme" content="dark">
+    <link rel="canonical" href="https://brierstudios.com/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/logo.png">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://brierstudios.com/">
+    <meta property="og:title" content="BrierStudios — Where Ancient Meets Digital">
+    <meta property="og:description" content="Creative technology studio. Dark fantasy, Nordic aesthetics, and cutting-edge development.">
+    <meta property="og:image" content="https://brierstudios.com/logo-bg.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="BrierStudios">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BrierStudios — Where Ancient Meets Digital">
+    <meta name="twitter:description" content="Creative technology studio. Dark fantasy, Nordic aesthetics, and cutting-edge development.">
+    <meta name="twitter:image" content="https://brierstudios.com/logo-bg.png">
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "BrierStudios",
+        "url": "https://brierstudios.com",
+        "logo": "https://brierstudios.com/logo.svg",
+        "description": "Creative technology studio. Dark fantasy, Nordic aesthetics, and cutting-edge development.",
+        "sameAs": ["https://github.com/BrierAinz"]
+    }
+    </script>
+    
+    <!-- Performance: preload critical assets -->
+    <link rel="preload" href="/styles.css" as="style">
+    <link rel="preload" href="/script.js" as="script">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -44,6 +85,7 @@
 
     <!-- Hero Section -->
     <section id="hero" class="hero">
+        <div class="aurora-bg" id="aurora-bg"></div>
         <div class="hero-particles" id="hero-particles"></div>
         <div class="hero-content">
             <div class="rune-circle">
@@ -125,6 +167,34 @@
                         <h3>Manna</h3>
                         <p>Human-first tech. Tools that empower, never exploit.</p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="stats">
+        <div class="section-container">
+            <div class="stats-grid">
+                <div class="stat-item fade-in">
+                    <span class="stat-rune">ᛇ</span>
+                    <div class="stat-number" data-target="9">0</div>
+                    <div class="stat-label">Realms</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <span class="stat-rune">ᛊ</span>
+                    <div class="stat-number" data-target="50" data-suffix="K+">0</div>
+                    <div class="stat-label">Lines of Code</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <span class="stat-rune">ᛏ</span>
+                    <div class="stat-number" data-target="4">0</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <span class="stat-rune">ᚦ</span>
+                    <div class="stat-number" data-target="100" data-suffix="%">0</div>
+                    <div class="stat-label">Open Source</div>
                 </div>
             </div>
         </div>
@@ -287,6 +357,6 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
