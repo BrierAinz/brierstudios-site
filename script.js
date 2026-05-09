@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initAuroraMouseMove();
     initProjectCardTilt();
     initTypingEffect();
+    initSkillReveal();
     registerServiceWorker();
 });
 
@@ -301,7 +302,7 @@ function initMobileMenu() {
 /* ─── Scroll Animations ─── */
 function initScrollAnimations() {
     const elements = document.querySelectorAll(
-        '.value-card, .project-card, .contact-item, .about-text, .about-values, .stat-item, .skill-rune-card, .fade-in, .fade-in-left, .fade-in-right'
+        '.value-card, .project-card, .contact-item, .about-text, .about-values, .stat-item, .fade-in, .fade-in-left, .fade-in-right'
     );
     
     const observer = new IntersectionObserver((entries) => {
@@ -551,6 +552,23 @@ function initTypingEffect() {
         };
         type();
     }, startDelay);
+}
+
+/* ─── Skill Cards Staggered Reveal ─── */
+function initSkillReveal() {
+    const cards = document.querySelectorAll('.skill-rune-card');
+    if (!cards.length) return;
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+    
+    cards.forEach(card => observer.observe(card));
 }
 
 /* ─── Service Worker Registration ─── */
