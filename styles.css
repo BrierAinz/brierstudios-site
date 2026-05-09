@@ -399,9 +399,19 @@ section::before {
 .project-card:hover::after { opacity: 1; }
 .project-card:hover {
     border-color: var(--ice-dim);
-    box-shadow: 0 0 40px var(--ice-glow), 0 8px 30px rgba(0,0,0,0.4);
+    box-shadow: 0 0 40px var(--ice-glow), 0 0 80px rgba(56,189,248,0.1), 0 8px 30px rgba(0,0,0,0.4);
     transform: translateY(-4px);
 }
+/* 3D tilt effect */
+.project-card.tilt-active {
+    transition: transform 0.1s ease-out, box-shadow 0.3s var(--ease-out), border-color 0.4s;
+}
+.project-card .tilt-glare {
+    position: absolute; inset: 0; border-radius: 12px;
+    background: radial-gradient(circle at var(--glare-x,50%) var(--glare-y,50%), rgba(255,255,255,0.08) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 2;
+}
+.project-card:hover .tilt-glare { opacity: 1; }
 .project-featured {
     grid-column: 1 / -1;
     background: linear-gradient(135deg, var(--void-card) 0%, rgba(56,189,248,0.05) 100%);
@@ -491,6 +501,72 @@ section::before {
     transform: translateY(0) translateX(0) !important;
 }
 
+/* ─── Navbar Shrink ─── */
+.navbar.shrunk { height: 48px; }
+.navbar.shrunk .nav-logo { font-size: 1.05rem; }
+.navbar.shrunk .nav-logo-img { width: 28px; height: 28px; }
+.navbar.shrunk .nav-links a { font-size: 0.75rem; }
+.navbar { transition: height 0.35s var(--ease-out), background 0.4s, backdrop-filter 0.4s, box-shadow 0.4s; }
+.navbar .nav-logo, .navbar .nav-logo-img, .navbar .nav-links a {
+    transition: font-size 0.35s var(--ease-out), width 0.35s var(--ease-out), height 0.35s var(--ease-out);
+}
+
+/* ─── Typing Effect ─── */
+.typing-cursor {
+    display: inline-block; width: 2px; height: 1.1em;
+    background: var(--ice); margin-left: 2px; vertical-align: text-bottom;
+    animation: blink-cursor 0.8s step-end infinite;
+}
+@keyframes blink-cursor { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* ─── Skills Section ─── */
+.skills { background: var(--void-lighter); }
+.skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1.25rem; margin-top: 2rem;
+}
+.skill-rune-card {
+    background: var(--void-card); border: 1px solid var(--void-border);
+    border-radius: 12px; padding: 1.5rem 1rem; text-align: center;
+    transition: all 0.4s var(--ease-out); position: relative; overflow: hidden;
+    cursor: default;
+}
+.skill-rune-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(56,189,248,0.08) 0%, transparent 70%);
+    opacity: 0; transition: opacity 0.4s;
+}
+.skill-rune-card:hover {
+    border-color: var(--ice-dim); transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 0 30px var(--ice-glow), 0 8px 24px rgba(0,0,0,0.3);
+}
+.skill-rune-card:hover::before { opacity: 1; }
+.skill-rune {
+    font-size: 2rem; display: block; margin-bottom: 0.5rem;
+    color: var(--ice); text-shadow: 0 0 15px rgba(56,189,248,0.5);
+    transition: transform 0.4s var(--ease-spring), text-shadow 0.4s;
+}
+.skill-rune-card:hover .skill-rune {
+    transform: scale(1.2) rotate(5deg);
+    text-shadow: 0 0 25px rgba(56,189,248,0.8), 0 0 50px rgba(56,189,248,0.3);
+}
+.skill-name {
+    font-family: var(--font-mono); font-size: 0.75rem;
+    color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;
+    transition: color 0.3s;
+}
+.skill-rune-card:hover .skill-name { color: var(--ice-bright); }
+.skill-level {
+    width: 100%; height: 2px; background: var(--void-border);
+    border-radius: 2px; margin-top: 0.75rem; overflow: hidden;
+}
+.skill-level-bar {
+    height: 100%; border-radius: 2px; width: 0;
+    background: linear-gradient(90deg, var(--ice-deep), var(--ice), var(--aurora));
+    transition: width 1.5s var(--ease-out);
+}
+.skill-rune-card.visible .skill-level-bar { width: var(--skill-pct); }
+
 /* ─── Responsive ─── */
 @media (max-width: 900px) {
     .about-grid, .contact-grid { grid-template-columns: 1fr; }
@@ -519,4 +595,5 @@ section::before {
     .project-card { padding: 1.5rem; }
     .hero-cta { flex-direction: column; align-items: center; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
 }

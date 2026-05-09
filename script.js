@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initFooterRunes();
     initStatsCounter();
     initAuroraMouseMove();
+    initProjectCardTilt();
+    initTypingEffect();
+    registerServiceWorker();
 });
 
 /* ─── Loading Screen ─── */
@@ -252,17 +255,15 @@ function initRunesCanvas() {
     }
 }
 
-/* ─── Navbar Scroll ─── */
+/* ─── Navbar Scroll (shrink + background) ─── */
 function initNavbar() {
     const navbar = document.getElementById('navbar');
     if (!navbar) return;
     
     window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
+        const scrolled = window.pageYOffset > 50;
+        navbar.classList.toggle('scrolled', scrolled);
+        navbar.classList.toggle('shrunk', window.pageYOffset > 200);
     }, { passive: true });
 }
 
@@ -300,7 +301,7 @@ function initMobileMenu() {
 /* ─── Scroll Animations ─── */
 function initScrollAnimations() {
     const elements = document.querySelectorAll(
-        '.value-card, .project-card, .contact-item, .about-text, .about-values, .stat-item, .fade-in, .fade-in-left, .fade-in-right'
+        '.value-card, .project-card, .contact-item, .about-text, .about-values, .stat-item, .skill-rune-card, .fade-in, .fade-in-left, .fade-in-right'
     );
     
     const observer = new IntersectionObserver((entries) => {
@@ -482,4 +483,79 @@ function initAuroraMouseMove() {
         aurora.style.setProperty('--aurora-x', x + '%');
         aurora.style.setProperty('--aurora-y', y + '%');
     });
+}
+
+/* ─── Project Card 3D Tilt ─── */
+function initProjectCardTilt() {
+    const cards = document.querySelectorAll('.project-card');
+    cards.forEach(card => {
+        // Add tilt glare overlay
+        const glare = document.createElement('div');
+        glare.className = 'tilt-glare';
+        card.appendChild(glare);
+        
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -6;
+            const rotateY = ((x - centerX) / centerX) * 6;
+            
+            card.classList.add('tilt-active');
+            card.style.transform = `translateY(-4px) perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            card.style.setProperty('--mouse-x', x + 'px');
+            card.style.setProperty('--mouse-y', y + 'px');
+            glare.style.setProperty('--glare-x', ((x / rect.width) * 100) + '%');
+            glare.style.setProperty('--glare-y', ((y / rect.height) * 100) + '%');
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.classList.remove('tilt-active');
+            card.style.transform = '';
+        });
+    });
+}
+
+/* ─── Typing Effect ─── */
+function initTypingEffect() {
+    const subtitle = document.querySelector('.hero-subtitle');
+    if (!subtitle) return;
+    
+    const originalText = subtitle.textContent;
+    subtitle.textContent = '';
+    subtitle.style.minHeight = '1.7em';
+    
+    const cursor = document.createElement('span');
+    cursor.className = 'typing-cursor';
+    
+    let charIndex = 0;
+    const typingSpeed = 40;
+    const startDelay = 1200;
+    
+    setTimeout(() => {
+        subtitle.appendChild(cursor);
+        const type = () => {
+            if (charIndex < originalText.length) {
+                cursor.before(document.createTextNode(originalText[charIndex]));
+                charIndex++;
+                const nextDelay = originalText[charIndex - 1] === '—' || originalText[charIndex - 1] === ',' ? 120 : 
+                                   originalText[charIndex - 1] === '.' ? 200 : typingSpeed;
+                setTimeout(type, nextDelay);
+            } else {
+                // Keep cursor blinking for a moment, then hide
+                setTimeout(() => { cursor.style.opacity = '0'; }, 2500);
+                setTimeout(() => { cursor.style.transition = 'opacity 0.3s'; }, 0);
+            }
+        };
+        type();
+    }, startDelay);
+}
+
+/* ─── Service Worker Registration ─── */
+function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
 }

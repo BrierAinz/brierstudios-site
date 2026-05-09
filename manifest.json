@@ -1,0 +1,29 @@
+{
+  "name": "BrierStudios",
+  "short_name": "BrierStudios",
+  "description": "Creative technology studio. Dark fantasy, Nordic aesthetics, and cutting-edge development.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#060810",
+  "theme_color": "#38bdf8",
+  "icons": [
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["development", "design"],
+  "lang": "en"
+}
