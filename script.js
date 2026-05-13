@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initProjectCardTilt();
     initTypingEffect();
     initSkillReveal();
+    initLilithSection();
+    initCLIDemo();
+    initCopyButtons();
     registerServiceWorker();
 });
 
@@ -254,6 +257,20 @@ function initRunesCanvas() {
     } else {
         particles.forEach(drawParticle);
     }
+
+    /* Pause canvas when tab hidden for performance */
+    const runesCanvas = document.getElementById('runes-canvas');
+    if (runesCanvas) {
+        let rafId = null;
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && rafId) {
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            } else if (!document.hidden && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                rafId = requestAnimationFrame(animate);
+            }
+        });
+    }
 }
 
 /* ─── Navbar Scroll (shrink + background) ─── */
@@ -276,8 +293,10 @@ function initMobileMenu() {
     
     toggle.addEventListener('click', () => {
         links.classList.toggle('open');
+        const isOpen = links.classList.contains('open');
+        toggle.setAttribute('aria-expanded', isOpen);
         const spans = toggle.querySelectorAll('span');
-        if (links.classList.contains('open')) {
+        if (isOpen) {
             spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
             spans[1].style.opacity = '0';
             spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
@@ -576,4 +595,313 @@ function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
+}
+
+/* ─── Lilith Section ─── */
+function initLilithSection() {
+    // Staggered reveal for realm cards
+    const realmCards = document.querySelectorAll('.realm-card');
+    if (realmCards.length) {
+        const realmObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Stagger each card by index
+                    const idx = Array.from(realmCards).indexOf(entry.target);
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, idx * 100);
+                    realmObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+        
+        realmCards.forEach(card => realmObserver.observe(card));
+    }
+
+    // Realm card hover: change SVG eye color on hover
+    const realmSection = document.querySelector('.lilith-realms');
+    const eyes = document.querySelectorAll('.lilith-eye');
+    realmCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            const color = getComputedStyle(card).getPropertyValue('--realm-color').trim() || '#38bdf8';
+            eyes.forEach(eye => {
+                eye.style.transition = 'fill 0.4s ease, filter 0.4s ease';
+                eye.setAttribute('fill', color);
+            });
+        });
+        card.addEventListener('mouseleave', () => {
+            eyes.forEach(eye => {
+                eye.setAttribute('fill', '#38bdf8');
+            });
+        });
+    });
+
+    // Parallax glow on Lilith section
+    const lilithSection = document.getElementById('lilith');
+    const glowEl = document.querySelector('.lilith-silhouette-glow');
+    if (lilithSection && glowEl) {
+        lilithSection.addEventListener('mousemove', (e) => {
+            const rect = lilithSection.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            glowEl.style.background = `
+                radial-gradient(ellipse at ${x}% ${y}%, rgba(56,189,248,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 40%, rgba(217,70,239,0.05) 0%, transparent 60%)
+            `;
+        });
+    }
+
+    // Variant gallery: click to swap hero image
+    const heroImg = document.querySelector('.lilith-hero-img');
+    const variants = document.querySelectorAll('.lilith-variant');
+    if (heroImg && variants.length) {
+        const heroSources = {
+            anime: 'assets/lilith/lilith_anime-hero.jpg',
+            portrait_cyber: 'assets/lilith/lilith_portrait_cyber-hero.jpg',
+            closeup_ethereal: 'assets/lilith/lilith_closeup_ethereal-hero.jpg',
+            queen_throne: 'assets/lilith/lilith_queen_throne-hero.jpg',
+            action_dynamic: 'assets/lilith/lilith_action_dynamic-hero.jpg',
+            warrior_full: 'assets/lilith/lilith_warrior_full-hero.jpg'
+        };
+
+        variants.forEach(variant => {
+            variant.addEventListener('click', () => {
+                const key = variant.dataset.variant;
+                if (heroSources[key]) {
+                    // Fade out, swap, fade in
+                    heroImg.style.opacity = '0';
+                    heroImg.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        heroImg.src = heroSources[key];
+                        heroImg.onload = () => {
+                            heroImg.style.opacity = '1';
+                            heroImg.style.transform = '';
+                        };
+                    }, 300);
+                }
+                // Highlight active variant
+                variants.forEach(v => v.classList.remove('active'));
+                variant.classList.add('active');
+            });
+        });
+    }
+}
+
+/* ═══════════════════════════════════════════
+   CLI Terminal Demo Animation — f1-2
+   ═══════════════════════════════════════════ */
+function initCLIDemo() {
+    const output = document.getElementById('terminal-output');
+    const inputLine = document.getElementById('terminal-input-line');
+    const typedEl = document.getElementById('terminal-typed');
+    const termBody = document.getElementById('terminal-body');
+
+    if (!output || !inputLine) return;
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const scenes = [
+        {
+            command: 'ygg init --realm asgard',
+            delay: 1200,
+            output: [
+                { type: 'info',  text: '  ⚡ Initializing realm...' },
+                { type: 'dim',   text: '' },
+                { type: 'success', text: '  ✓ Realm forged: Asgard' },
+                { type: 'success', text: '  ✓ Architecture: core-engine' },
+                { type: 'success', text: '  ✓ Template: tech-frost' },
+                { type: 'dim',   text: '' },
+                { type: 'ice-bright', text: '  ᛭ Yggdrasil Asgard initialized' },
+                { type: 'dim',   text: '  → cd asgard && ygg dev' },
+            ]
+        },
+        {
+            command: 'ygg lilith --variant cyberpunk',
+            delay: 900,
+            output: [
+                { type: 'info',  text: '  ᛒ Summoning Lilith v2.0...' },
+                { type: 'dim',   text: '' },
+                { type: 'success', text: '  ✓ Palette: cyan #38bdf8 → magenta #d946ef' },
+                { type: 'success', text: '  ✓ Armor: neon circuit runes activated' },
+                { type: 'success', text: '  ✓ Hair: aurora borealis flowing' },
+                { type: 'dim',   text: '' },
+                { type: 'magenta', text: '  ᛒ Lilith manifested in cyberpunk form' },
+            ]
+        },
+        {
+            command: 'ygg build --target midgard',
+            delay: 800,
+            output: [
+                { type: 'info',  text: '  🔨 Building Midgard...' },
+                { type: 'dim',   text: '  [████████████████████████] 100%' },
+                { type: 'dim',   text: '' },
+                { type: 'success', text: '  ✓ Bundle: 142KB gzipped' },
+                { type: 'success', text: '  ✓ Assets: 23 files cached' },
+                { type: 'success', text: '  ✓ Lighthouse: 98/100' },
+                { type: 'dim',   text: '' },
+                { type: 'ice-bright', text: '  ᛭ Build complete → ./dist/midgard/' },
+            ]
+        },
+        {
+            command: 'ygg scan --realm all',
+            delay: 700,
+            output: [
+                { type: 'info',  text: '  ᛇ Scanning 9 realms...' },
+                { type: 'dim',   text: '' },
+                { type: 'success', text: '  ✓ Asgard     ██████████ 100%' },
+                { type: 'success', text: '  ✓ Vanaheim   ██████████ 100%' },
+                { type: 'warning', text: '  ⚠ Alfheim    ████████░░  80%' },
+                { type: 'success', text: '  ✓ Midgard    ██████████ 100%' },
+                { type: 'success', text: '  ✓ Jötunheim  ██████████ 100%' },
+                { type: 'success', text: '  ✓ Svartálph  ██████████ 100%' },
+                { type: 'success', text: '  ✓ Niflheim   ██████████ 100%' },
+                { type: 'success', text: '  ✓ Múspelheim ██████████ 100%' },
+                { type: 'success', text: '  ✓ Helheim    ██████████ 100%' },
+                { type: 'dim',   text: '' },
+                { type: 'ice-bright', text: '  ᛭ 8/9 realms healthy · 1 warning' },
+            ]
+        },
+        {
+            command: 'ygg deploy --realm all --prod',
+            delay: 600,
+            output: [
+                { type: 'info',  text: '  🚀 Deploying all 9 realms...' },
+                { type: 'dim',   text: '' },
+                { type: 'success', text: '  ✓ Asgard     → https://asgard.dev' },
+                { type: 'success', text: '  ✓ Vanaheim   → https://vanaheim.dev' },
+                { type: 'success', text: '  ✓ Alfheim    → https://alfheim.dev' },
+                { type: 'success', text: '  ✓ Midgard    → https://midgard.dev' },
+                { type: 'success', text: '  ✓ Jötunheim  → https://jotunheim.dev' },
+                { type: 'success', text: '  ✓ Svartálph  → https://svartalfheim.dev' },
+                { type: 'success', text: '  ✓ Niflheim   → https://niflheim.dev' },
+                { type: 'success', text: '  ✓ Múspelheim → https://muspelheim.dev' },
+                { type: 'magenta', text: '  ✓ Helheim    → https://helheim.dev' },
+                { type: 'dim',   text: '' },
+                { type: 'ice-bright', text: '  ᛭ All realms deployed ✓' },
+            ]
+        },
+    ];
+
+    let sceneIndex = 0;
+    let running = false;
+
+    function typeCommand(text, cb) {
+        let i = 0;
+        typedEl.textContent = '';
+        const speed = prefersReducedMotion ? 0 : 45;
+        function tick() {
+            if (i < text.length) {
+                typedEl.textContent += text[i];
+                i++;
+                setTimeout(tick, speed);
+            } else {
+                setTimeout(cb, 300);
+            }
+        }
+        tick();
+    }
+
+    function typeOutputLines(lines, cb) {
+        let lineIdx = 0;
+        const speed = prefersReducedMotion ? 0 : 60;
+
+        function nextLine() {
+            if (lineIdx >= lines.length) {
+                setTimeout(cb, 1200);
+                return;
+            }
+            const line = lines[lineIdx];
+            const div = document.createElement('div');
+            div.className = 'line t-' + line.type;
+            div.textContent = line.text || '\u00A0';
+            output.appendChild(div);
+            lineIdx++;
+            termBody.scrollTop = termBody.scrollHeight;
+            setTimeout(nextLine, line.text ? speed : 30);
+        }
+        nextLine();
+    }
+
+    function runScene() {
+        if (sceneIndex >= scenes.length) sceneIndex = 0;
+        const scene = scenes[sceneIndex];
+
+        inputLine.style.display = 'none';
+        typedEl.textContent = '';
+
+        // Show prompt + type command
+        inputLine.style.display = 'flex';
+        typeCommand(scene.command, () => {
+            // Add typed command to output as static line
+            const cmdDiv = document.createElement('div');
+            cmdDiv.className = 'line';
+            cmdDiv.innerHTML = `<span class="tp-user">tú</span><span class="tp-at">@</span><span class="tp-host">yggdrasil</span><span class="tp-colon">:</span><span class="tp-path">~</span><span class="tp-dollar">$ </span><span style="color:var(--text-bright)">${scene.command}</span>`;
+            output.appendChild(cmdDiv);
+            inputLine.style.display = 'none';
+
+            // Type output
+            typeOutputLines(scene.output, () => {
+                sceneIndex++;
+                if (sceneIndex < scenes.length) {
+                    // Clear for next scene
+                    setTimeout(() => {
+                        output.innerHTML = '';
+                        runScene();
+                    }, 1500);
+                } else {
+                    // Loop back after pause
+                    setTimeout(() => {
+                        output.innerHTML = '';
+                        sceneIndex = 0;
+                        runScene();
+                    }, 3000);
+                }
+            });
+        });
+    }
+
+    // Start when terminal section is visible
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !running) {
+                running = true;
+                runScene();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    observer.observe(termBody);
+}
+
+/* ═══════════════════════════════════════════
+   Copy to Clipboard — f1-3
+   ═══════════════════════════════════════════ */
+function initCopyButtons() {
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const text = btn.dataset.copy;
+            if (!text) return;
+            try {
+                await navigator.clipboard.writeText(text);
+            } catch (e) {
+                // Fallback for older browsers
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+            btn.classList.add('copied');
+            btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>';
+            }, 2000);
+        });
+    });
 }

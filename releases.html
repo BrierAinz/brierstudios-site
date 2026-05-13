@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Releases — BrierStudios</title>
+    <meta name="description" content="BrierStudios release timeline — from Genesis v1.0 through anime/neon v2.3 and CLI Demo v2.5. Track every version, feature, and milestone.">
+    <meta name="keywords" content="BrierStudios releases, changelog, version history, Yggdrasil CLI, Lilith v2.0, anime neon">
+    <meta name="author" content="Ainz (BrierAinz)">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#060810">
+    <meta name="color-scheme" content="dark">
+    <link rel="canonical" href="https://brierstudios.com/releases">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="/favicon.ico">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://brierstudios.com/releases">
+    <meta property="og:title" content="Releases — BrierStudios">
+    <meta property="og:description" content="BrierStudios release timeline — from Genesis v1.0 through Lilith Page v2.6.">
+    <meta property="og:image" content="https://brierstudios.com/og-image.png">
+    <meta property="og:site_name" content="BrierStudios">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css?v=2.8">
+    <style>
+        .releases-hero{padding:10rem 0 4rem;text-align:center;background:radial-gradient(ellipse at 50% 0%,rgba(56,189,248,.06)0%,transparent 60%)}
+        .releases-hero h1{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,3.5rem);font-weight:700;color:var(--text-bright);margin-bottom:1rem}
+        .releases-hero h1 .accent{background:linear-gradient(135deg,var(--ice),var(--aurora));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .releases-hero p{color:var(--text-dim);font-size:1.1rem;max-width:600px;margin:0 auto}
+        .filter-bar{max-width:800px;margin:0 auto 2rem;padding:0 2rem;display:flex;flex-direction:column;gap:1rem}
+        .filter-search{position:relative}
+        .filter-search input{width:100%;background:rgba(15,23,42,.6);border:1px solid rgba(56,189,248,.15);border-radius:8px;padding:.7rem 1rem .7rem 2.5rem;color:var(--fg);font-family:var(--font-mono);font-size:.85rem;outline:none;transition:border-color .3s,box-shadow .3s}
+        .filter-search input::placeholder{color:var(--muted);opacity:.6}
+        .filter-search input:focus{border-color:var(--ice);box-shadow:0 0 12px rgba(56,189,248,.15)}
+        .filter-search-icon{position:absolute;left:.8rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.9rem;pointer-events:none}
+        .filter-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+        .filter-tag{font-family:var(--font-mono);font-size:.72rem;padding:.3rem .75rem;border-radius:999px;background:rgba(15,23,42,.6);border:1px solid rgba(56,189,248,.12);color:var(--muted);cursor:pointer;transition:all .25s ease;text-transform:uppercase;letter-spacing:.06em;user-select:none}
+        .filter-tag:hover{border-color:rgba(56,189,248,.3);color:var(--ice)}
+        .filter-tag.active{background:rgba(56,189,248,.12);border-color:var(--ice);color:var(--ice);box-shadow:0 0 10px rgba(56,189,248,.15)}
+        .filter-tag[data-realm="lilith"].active{background:rgba(217,70,239,.12);border-color:#d946ef;color:#d946ef;box-shadow:0 0 10px rgba(217,70,239,.15)}
+        .filter-tag[data-realm="yggdrasil"].active{background:rgba(56,189,248,.12);border-color:#38bdf8;color:#38bdf8}
+        .filter-tag[data-realm="studio"].active{background:rgba(251,191,36,.12);border-color:#fbbf24;color:#fbbf24;box-shadow:0 0 10px rgba(251,191,36,.15)}
+        .filter-tag[data-realm="infra"].active{background:rgba(34,197,94,.12);border-color:#22c55e;color:#22c55e;box-shadow:0 0 10px rgba(34,197,94,.15)}
+        .filter-count{font-family:var(--font-mono);font-size:.75rem;color:var(--muted);text-align:right;opacity:.6}
+        .timeline{max-width:800px;margin:0 auto 6rem;padding:0 2rem;position:relative}
+        .timeline::before{content:'';position:absolute;left:28px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--ice),rgba(56,189,248,.15),transparent)}
+        .release-card{position:relative;padding-left:70px;margin-bottom:3rem;opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+        .release-card.visible{opacity:1;transform:translateY(0)}
+        .release-card.hidden{display:none}
+        .release-dot{position:absolute;left:16px;top:6px;width:26px;height:26px;border-radius:50%;background:var(--void);border:2px solid var(--ice-dim);display:flex;align-items:center;justify-content:center;z-index:2;transition:border-color .3s,box-shadow .3s}
+        .release-card:hover .release-dot{border-color:var(--ice);box-shadow:0 0 16px rgba(56,189,248,.4)}
+        .release-card.latest .release-dot{border-color:var(--ice-bright);background:rgba(56,189,248,.15);box-shadow:0 0 20px rgba(56,189,248,.3)}
+        .release-dot .rune{font-size:.8rem;color:var(--ice)}
+        .release-body{background:rgba(15,23,42,.6);border:1px solid rgba(56,189,248,.1);border-radius:12px;padding:1.5rem 1.75rem;transition:border-color .3s,box-shadow .3s}
+        .release-card:hover .release-body{border-color:rgba(56,189,248,.25);box-shadow:0 4px 24px rgba(0,0,0,.3)}
+        .release-card.latest .release-body{border-color:rgba(56,189,248,.2);background:rgba(56,189,248,.03)}
+        .release-card[data-realm~="lilith"]:hover .release-body{border-color:rgba(217,70,239,.3)}
+        .release-card[data-realm~="yggdrasil"]:hover .release-body{border-color:rgba(56,189,248,.3)}
+        .release-card[data-realm~="studio"]:hover .release-body{border-color:rgba(251,191,36,.3)}
+        .release-card[data-realm~="infra"]:hover .release-body{border-color:rgba(34,197,94,.3)}
+        .release-header{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem;flex-wrap:wrap}
+        .release-version{font-family:var(--font-mono);font-size:1.15rem;font-weight:600;color:var(--ice-bright)}
+        .release-tag{font-family:var(--font-mono);font-size:.7rem;padding:.15rem .5rem;border-radius:999px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+        .tag-latest{background:rgba(56,189,248,.12);color:var(--ice);border:1px solid rgba(56,189,248,.25)}
+        .tag-lilith{background:rgba(217,70,239,.1);color:#d946ef;border:1px solid rgba(217,70,239,.2)}
+        .tag-yggdrasil{background:rgba(56,189,248,.1);color:#38bdf8;border:1px solid rgba(56,189,248,.2)}
+        .tag-studio{background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.2)}
+        .tag-infra{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.2)}
+        .release-date{font-size:.8rem;color:var(--text-dim);opacity:.7;margin-left:auto}
+        .release-title{font-family:var(--font-display);font-size:1.1rem;color:var(--text-bright);margin-bottom:.5rem}
+        .release-changes{list-style:none;padding:0;margin:.75rem 0 0}
+        .release-changes li{font-size:.88rem;color:var(--text-dim);padding:.2rem 0 .2rem 1.2rem;position:relative;line-height:1.55}
+        .release-changes li::before{content:'᛭';position:absolute;left:0;color:var(--ice-dim);font-size:.75rem}
+        .release-changes li strong{color:var(--ice);font-weight:500}
+        .release-changes li code{font-family:var(--font-mono);font-size:.82rem;background:rgba(56,189,248,.08);padding:.1rem .35rem;border-radius:4px;color:var(--aurora)}
+        .back-link{display:inline-flex;align-items:center;gap:.5rem;color:var(--ice-dim);text-decoration:none;font-size:.9rem;padding:.5rem 0;transition:color .3s}
+        .back-link:hover{color:var(--ice)}
+        .no-results{text-align:center;padding:3rem 1rem;color:var(--muted);font-family:var(--font-mono);font-size:.9rem;display:none}
+        .no-results .no-results-rune{font-size:2rem;display:block;margin-bottom:.5rem;color:var(--ice-dim)}
+        @media(max-width:640px){
+            .releases-hero{padding:7rem 1rem 3rem}
+            .timeline{padding:0 1rem}
+            .release-card{padding-left:54px}
+            .timeline::before{left:21px}
+            .release-dot{left:9px;width:26px;height:26px}
+            .release-body{padding:1.25rem}
+            .release-header{flex-direction:column;align-items:flex-start;gap:.4rem}
+            .release-date{margin-left:0}
+            .filter-bar{padding:0 1rem}
+        }
+    </style>
+</head>
+<body>
+    <!-- Nav -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">᛭ Brier<span>Studios</span></a>
+            <div class="nav-links" id="nav-links">
+                <a href="/">Home</a>
+                <a href="/lilith">Lilith</a>
+                <a href="/#skills">Skills</a>
+                <a href="/#cli-demo">CLI</a>
+                <a href="/#projects">Projects</a>
+                <a href="/releases" class="active">Releases</a>
+                <a href="/#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="releases-hero">
+        <div class="section-container">
+            <span class="section-rune" style="font-size:2.5rem;">ᚱ</span>
+            <h1>Release <span class="accent">Timeline</span></h1>
+            <p>Every version, feature, and milestone — carved into the World Tree.</p>
+        </div>
+    </section>
+
+    <!-- Filter Bar -->
+    <section style="padding-top:0;padding-bottom:0;">
+        <div class="filter-bar">
+            <div class="filter-search">
+                <span class="filter-search-icon">᛭</span>
+                <input type="text" id="release-search" placeholder="Search releases..." autocomplete="off">
+            </div>
+            <div class="filter-tags">
+                <button class="filter-tag active" data-filter="all">All</button>
+                <button class="filter-tag" data-filter="lilith" data-realm="lilith">ᛒ Lilith</button>
+                <button class="filter-tag" data-filter="yggdrasil" data-realm="yggdrasil">ᛇ Yggdrasil</button>
+                <button class="filter-tag" data-filter="studio" data-realm="studio">ᚺ Studio</button>
+                <button class="filter-tag" data-filter="infra" data-realm="infra">ᚦ Infra</button>
+            </div>
+            <div class="filter-count" id="filter-count">Showing 7 of 7 releases</div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section style="padding-bottom:8rem;">
+        <div class="timeline" id="timeline">
+
+            <!-- v2.6 -->
+            <div class="release-card latest" data-version="2.6" data-realm="lilith studio" data-tags="lilith page gallery lightbox realms identity palette">
+                <div class="release-dot"><span class="rune">ᛒ</span></div>
+                <div class="release-body">
+                    <div class="release-header">
+                        <span class="release-version">v2.6</span>
+                        <span class="release-tag tag-latest">Latest</span>
+                        <span class="release-tag tag-lilith">Lilith</span>
+                        <span class="release-tag tag-studio">Studio</span>
+                        <span class="release-date">May 2026</span>
+                    </div>
+                    <div class="release-title">Lilith Dedicated Page & Enhanced Releases</div>
+                    <ul class="release-changes">
+                        <li><strong>Lilith Page</strong> — New <code>/lilith</code> page with hero, gallery, 9 realms, identity stats</li>
+                        <li><strong>Gallery Lightbox</strong> — Click any variant for full-screen high-res view</li>
+                        <li><strong>Color Palette</strong> — Interactive 7-color palette bar (Cyan, Magenta, Aurora, Abyss, Gold, Pale, Void)</li>
+                        <li><strong>Realm Cards</strong> — 9 realm cards with custom glow colors and Elder Futhark icons</li>
+                        <li><strong>Release Filters</strong> — Search releases by keyword; filter by realm (Lilith, Yggdrasil, Studio, Infra)</li>
+                        <li><strong>Nav Update</strong> — Lilith link now points to dedicated <code>/lilith</code> page</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- v2.5 -->
+            <div class="release-card" data-version="2.5" data-realm="yggdrasil studio" data-tags="cli terminal demo copy buttons releases">
+                <div class="release-dot"><span class="rune">ᚺ</span></div>
+                <div class="release-body">
+                    <div class="release-header">
+                        <span class="release-version">v2.5</span>
+                        <span class="release-tag tag-yggdrasil">Yggdrasil</span>
+                        <span class="release-tag tag-studio">Studio</span>
+                        <span class="release-date">May 2026</span>
+                    </div>
+                    <div class="release-title">Terminal Demo & Copy Buttons</div>
+                    <ul class="release-changes">
+                        <li><strong>Terminal Demo</strong> — Animated CLI with typing effect: <code>ygg init</code>, <code>ygg build</code>, <code>ygg deploy</code></li>
+                        <li><strong>Copy Buttons</strong> — One-click copy on install commands</li>
+                        <li><strong>Releases Page</strong> — New <code>/releases</code> timeline with version history</li>
+                        <li><strong>Spacing</strong> — Better section rhythm</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- v2.4 -->
+            <div class="release-card" data-version="2.4" data-realm="lilith studio" data-tags="lilith gallery images variants hero">
+                <div class="release-dot"><span class="rune">ᛏ</span></div>
+                <div class="release-body">
+                    <div class="release-header">
+                        <span class="release-version">v2.4</span>
+                        <span class="release-tag tag-lilith">Lilith</span>
+                        <span class="release-date">May 2026</span>
+                    </div>
+                    <div class="release-title">Lilith Gallery & Real Images</div>
+                    <ul class="release-changes">
+                        <li><strong>Lilith Gallery</strong> — Interactive 6-variant gallery with hero swap</li>
+                        <li><strong>Real Art</strong> — Placeholder gradients replaced with Lilith character images</li>
+                        <li><strong>Variant Switching</strong> — Click any realm variant to update the hero portrait</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- v2.3 -->
+            <div class="release-card" data-version="2.3" data-realm="lilith studio" data-tags="lilith anime neon cyberpunk identity palette fonts">
+                <div class="release-dot"><span class="rune">ᛉ</span></div>
+                <div class="release-body">
+                    <div class="release-header">
+                        <span class="release-version">v2.3</span>
+                        <span class="release-tag tag-lilith">Lilith</span>
+                        <span class="release-date">May 2026</span>
+                    </div>
+                    <div class="release-title">Lilith v2.0 — Anime/Cyberpunk Neon</div>
+                    <ul class="release-changes">
+                        <li><strong>Lilith Identity</strong> — Evolved from dark-fantasy to anime/cyberpunk neon</li>
+                        <li><strong>9 Realm Variants</strong> — Each realm with distinct visual identity</li>
+                        <li><strong>Neon Palette</strong> — Cyan <code>#38bdf8</code>, Magenta <code>#d946ef</code>, Aurora <code>#7dd3fc</code></li>
+                        <li><strong>Brand Fonts</strong> — Cinzel (display) + JetBrains Mono (code) + Inter (body)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- v2.2 -->
+            <div class="release-card" data-version="2.2" data-realm="studio" data-tags="skills grid projects contact form">
+                <div class="release-dot"><span class="rune">ᛁ</span></div>
+                <div class="release-body">
+                    <div class="release-header">
+                        <span class="release-version">v2.2</span>
+                        <span class="release-tag tag-studio">Studio</span>
+                        <span class="release-date">Apr 2026</span>
+                    </div>
+                    <div class="release-title">Skills Grid & Projects</div>
+                    <ul class="release-changes">
+                        <li><strong>Skills Grid</strong> — 8 rune-styled skill cards with staggered reveal</li>
+                        <li><strong>Projects Section</strong> — Yggdrasil featured + 3 project cards with tilt effect</li>
+                        <li><strong>Contact Form</strong> — Nordic-styled contact form with frost theme</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- v2.1 -->
+            <div class="release-card" data-version="2.1" data-realm="infra studio" data-tags="stats counter animations canvas aurora loading">
+                <div class="release-dot"><span class="rune">ᚠ</span></div>
+                <div class="release-body">
+                    <div class="release-header">
+                        <span class="release-version">v2.1</span>
+                        <span class="release-tag tag-infra">Infra</span>
+                        <span class="release-date">Apr 2026</span>
+                    </div>
+                    <div class="release-title">Stats & Animations</div>
+                    <ul class="release-changes">
+                        <li><strong>Stats Counter</strong> — Animated counter for projects, realms, commits</li>
+                        <li><strong>Rune Canvas</strong> — Floating rune particles with mouse interaction</li>
+                        <li><strong>Aurora Glow</strong> — Mouse-following glow effect</li>
+                        <li><strong>Loading Screen</strong> — Frost-themed initial load animation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- v2.0 -->
+            <div class="release-card" data-version="2.0" data-realm="infra studio yggdrasil" data-tags="redesign frost pwa cloudflare responsive cinzel">
+                <div class="release-dot"><span class="rune">ᚦ</span></div>
+                <div class="release-body">
+                    <div class="release-header">
+                        <span class="release-version">v2.0</span>
+                        <span class="release-tag tag-yggdrasil">Yggdrasil</span>
+                        <span class="release-tag tag-infra">Infra</span>
+                        <span class="release-date">Apr 2026</span>
+                    </div>
+                    <div class="release-title">Frost Rebirth — Full Redesign</div>
+                    <ul class="release-changes">
+                        <li><strong>Full Redesign</strong> — Complete site redesign with Nordic frost aesthetic</li>
+                        <li><strong>Cinzel Display</strong> — Rune-inspired typography system</li>
+                        <li><strong>Dark Theme</strong> — Abyss <code>#0f172a</code> base with ice accents</li>
+                        <li><strong>Responsive</strong> — Mobile-first layout with hamburger nav</li>
+                        <li><strong>PWA</strong> — Service worker + manifest for offline support</li>
+                        <li><strong>Cloudflare Pages</strong> — Deployed to <code>brierstudios.com</code></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- v1.0 -->
+            <div class="release-card" data-version="1.0" data-realm="infra" data-tags="genesis initial domain brand">
+                <div class="release-dot"><span class="rune">ᛇ</span></div>
+                <div class="release-body">
+                    <div class="release-header">
+                        <span class="release-version">v1.0</span>
+                        <span class="release-tag tag-infra">Infra</span>
+                        <span class="release-date">Mar 2026</span>
+                    </div>
+                    <div class="release-title">Genesis — The Seed Planted</div>
+                    <ul class="release-changes">
+                        <li><strong>Initial Site</strong> — First BrierStudios landing page</li>
+                        <li><strong>Domain</strong> — Registered <code>brierstudios.com</code></li>
+                        <li><strong>Identity</strong> — Established brand direction and color system</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- No Results Message -->
+            <div class="no-results" id="no-results">
+                <span class="no-results-rune">ᚱ</span>
+                No releases match your search.
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-runes" id="footer-runes"></div>
+        <div class="section-container">
+            <p class="footer-copy">&copy; 2026 BrierStudios — Where Ancient Meets Digital</p>
+            <p class="footer-rune-text">᛭ ᚦᚱᛟᚢᚷᚺ ᚢᛁᛏᚺ ᛁᛏᛉ ᛟᚠ ᚱᚢᚾᛖᛉ ᛭</p>
+        </div>
+    </footer>
+
+    <script src="/script.js?v=2.8" defer></script>
+    <script>
+        // Animate release cards on scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.release-card');
+            const noResults = document.getElementById('no-results');
+            const filterCount = document.getElementById('filter-count');
+            const searchInput = document.getElementById('release-search');
+            const filterTags = document.querySelectorAll('.filter-tag');
+            let activeFilter = 'all';
+
+            // Scroll-based animation
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        scrollObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            cards.forEach(card => scrollObserver.observe(card));
+
+            // Filter logic
+            function filterCards() {
+                const query = searchInput.value.toLowerCase().trim();
+                let visible = 0;
+                let total = 0;
+
+                cards.forEach(card => {
+                    if (card.id === 'no-results') return;
+                    total++;
+                    const realm = (card.dataset.realm || '').toLowerCase();
+                    const tags = (card.dataset.tags || '').toLowerCase();
+                    const title = card.querySelector('.release-title')?.textContent.toLowerCase() || '';
+                    const version = card.dataset.version || '';
+                    const changes = card.querySelector('.release-changes')?.textContent.toLowerCase() || '';
+                    const searchText = `${realm} ${tags} ${title} ${version} ${changes}`;
+
+                    const matchesFilter = activeFilter === 'all' || realm.includes(activeFilter);
+                    const matchesSearch = !query || searchText.includes(query);
+
+                    if (matchesFilter && matchesSearch) {
+                        card.classList.remove('hidden');
+                        visible++;
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+
+                noResults.style.display = visible === 0 ? 'block' : 'none';
+                filterCount.textContent = `Showing ${visible} of ${total} releases`;
+            }
+
+            // Tag buttons
+            filterTags.forEach(tag => {
+                tag.addEventListener('click', () => {
+                    filterTags.forEach(t => t.classList.remove('active'));
+                    tag.classList.add('active');
+                    activeFilter = tag.dataset.filter;
+                    filterCards();
+                });
+            });
+
+            // Search input
+            searchInput.addEventListener('input', filterCards);
+
+            // Keyboard shortcut: / to focus search
+            document.addEventListener('keydown', e => {
+                if (e.key === '/' && document.activeElement !== searchInput) {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

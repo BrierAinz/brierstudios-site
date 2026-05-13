@@ -1,0 +1,78 @@
+# BrierStudios
+> Creative studio at the intersection of anime aesthetics, cyberpunk neon, and Norse mythology.
+
+## What is BrierStudios?
+BrierStudios is a creative technology studio founded by Ainz (BrierAinz). We build tools, agents, and art inspired by the Yggdrasil framework — a Norse mythology-inspired architecture that organizes projects into Nine Realms.
+
+## Flagship: Lilith v2.0
+Lilith is our AI-powered artistic identity — an anime/cyberpunk neon goddess with big expressive eyes, dynamic flowing hair with magenta streaks, and circuit neon armor. She represents the studio's visual language across all products.
+
+### Core Palette
+- Cyan: #38bdf8 (primary accent)
+- Magenta: #d946ef (secondary accent)
+- Aurora: #7dd3fc (highlights)
+- Abyss: #0f172a (background)
+- Gold: #fbbf24 (tertiary)
+- Pale: #e2e8f0 (text)
+- Void: #060810 (deepest dark)
+- Hel: #c026d3 (danger/error)
+
+### There Are Nine Realms
+| Realm | Domain | Purpose |
+|-------|--------|---------|
+| Asgard 🔱 | Core Technology | Foundation libraries, configs, scaffolding |
+| Vanaheim 🤖 | AI Agents | Discord bots, Telegram agents, personality systems |
+| Alfheim ✨ | UI Prototypes | Visual design systems, frontend experiments |
+| Svartalfheim 📖 | Knowledge & Docs | Documentation, wikis, knowledge bases |
+| Muspelheim 🔥 | Active Dev | Work-in-progress, experimental branches |
+| Niflheim ❄️ | Resources & Assets | Static assets, models, datasets |
+| Helheim 💀 | Archive | Deprecated code, graveyard of failed experiments |
+| Jotunheim 🏔️ | Massive Projects | Large-scale, long-term undertakings |
+| Midgard 🌍 | Personal Apps | End-user applications, utilities |
+
+## Products
+
+### Yggdrasil CLI v6.5
+A command-line interface with 19 slash commands for managing projects across the Nine Realms. Features include project scaffolding, realm switching, agent management, deployment pipelines, and a command palette with icy-themed UI.
+
+Key commands: /init, /status, /build, /test, /lint, /realms, /agent, /deploy, /theme, /runes
+
+### BrierStudios Landing Site
+Live at brierstudios.com — a dark-themed landing page showcasing the studio's identity, Lilith variants, project portfolio, and CLI demo. Built with vanilla HTML/CSS/JS, deployed on Cloudflare Pages.
+
+### docs.brierstudios.com
+Full documentation site built with Docusaurus v3. Covers CLI reference, Lilith v2.0 identity, architecture, AI agents, and LoRA training pipelines.
+
+### LoRA Training Pipeline
+Character model training using Z-Image Base and Kohya_ss. Active LoRA: Ehyra Z-Image (anime character style, 3000 steps).
+
+## Tech Stack
+- Frontend: Vanilla HTML/CSS/JS, Docusaurus v3 (docs)
+- Hosting: Cloudflare Pages
+- Domain: brierstudios.com (Cloudflare registrar)
+- AI: Custom LoRAs on Z-Image Base / PixAI DiT.2
+- CLI: Node.js / Ink (React for CLI)
+- Style: Cinzel (headings) + JetBrains Mono (code) + Inter (body)
+
+## The Yggdrasil Rules (REGLAS_YGGDRASIL.md)
+All projects follow a unified convention system defined in REGLAS_YGGDRASIL.md v3.1. This includes naming conventions, color palette, emoji markers per realm, and architectural patterns.
+
+## Contact & Links
+- Website: https://brierstudios.com
+- Docs: https://docs.brierstudios.com
+- GitHub: https://github.com/BrierAinz
+- Twitter/X: https://x.com/BrierAinz
+- Instagram: https://instagram.com/brier_studios
+- Discord: BrierStudios
+- Releases: https://brierstudios.com/releases
+
+## Merch (Printful — coming soon)
+- Lilith Neon LED sign (flagship product)
+- T-shirts with realm variants
+- Stickers with runic designs
+- Posters of the Nine Realms
+
+## Crawling & Indexing
+- Full sitemap: https://brierstudios.com/sitemap.xml
+- Docs sitemap: https://docs.brierstudios.com/sitemap.xml
+- Robots.txt: https://brierstudios.com/robots.txt

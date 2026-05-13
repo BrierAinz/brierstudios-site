@@ -1,4 +1,28 @@
+# BrierStudios robots.txt
 User-agent: *
 Allow: /
+Disallow: /sw.js
+Disallow: /worker-
 
+# Sitemaps
 Sitemap: https://brierstudios.com/sitemap.xml
+Sitemap: https://docs.brierstudios.com/sitemap.xml
+
+# LLM-friendly
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /

@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lilith v2.0 — Anime Goddess of Yggdrasil | BrierStudios</title>
+    <meta name="description" content="Lilith v2.0 — the anime goddess who weaves the Nine Realms of Yggdrasil. Cyberpunk neon aesthetics, Norse mythology, and digital artistry fused into one entity.">
+    <meta name="keywords" content="Lilith, anime goddess, cyberpunk, neon, Yggdrasil, Norse mythology, AI character, LoRA, BrierStudios, Nine Realms">
+    <meta name="author" content="Ainz (BrierAinz)">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#060810">
+    <meta name="color-scheme" content="dark">
+    <link rel="canonical" href="https://brierstudios.com/lilith">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="/favicon.ico">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://brierstudios.com/lilith">
+    <meta property="og:title" content="Lilith v2.0 — Anime Goddess of Yggdrasil">
+    <meta property="og:description" content="Cyberpunk neon aesthetics fused with Norse mythology. Nine forms, one goddess, infinite realms.">
+    <meta property="og:image" content="https://brierstudios.com/assets/lilith/lilith_portrait_cyber-hero.jpg">
+    <meta property="og:image:width" content="768">
+    <meta property="og:image:height" content="1024">
+    <meta property="og:site_name" content="BrierStudios">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Lilith v2.0 — Anime Goddess of Yggdrasil">
+    <meta name="twitter:description" content="Cyberpunk neon aesthetics fused with Norse mythology. Nine forms, one goddess, infinite realms.">
+    <meta name="twitter:image" content="https://brierstudios.com/assets/lilith/lilith_portrait_cyber-hero.jpg">
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Lilith v2.0 — Anime Goddess of Yggdrasil",
+        "description": "Cyberpunk neon aesthetics fused with Norse mythology. Nine forms, one goddess, infinite realms.",
+        "url": "https://brierstudios.com/lilith",
+        "image": "https://brierstudios.com/assets/lilith/lilith_portrait_cyber-hero.jpg",
+        "isPartOf": { "@type": "WebSite", "name": "BrierStudios", "url": "https://brierstudios.com" }
+    }
+    </script>
+    
+    <!-- Styles -->
+    <link rel="preload" href="/styles.css?v=2.8" as="style">
+    <link rel="preload" href="assets/lilith/lilith_portrait_cyber-hero.jpg" as="image">
+    <link rel="stylesheet" href="/styles.css?v=2.8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ═══ Lilith Page Custom Styles ═══ */
+        
+        /* Hero Section */
+        .lilith-page-hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .lilith-page-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 30% 50%, rgba(56,189,248,0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 50%, rgba(217,70,239,0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(56,189,248,0.08) 0%, transparent 40%);
+            animation: lilith-aura 6s ease-in-out infinite alternate;
+        }
+        
+        @keyframes lilith-aura {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+        
+        .lilith-hero-content {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            align-items: center;
+        }
+        
+        .lilith-hero-image-col {
+            position: relative;
+        }
+        
+        .lilith-hero-portrait {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow:
+                0 0 40px rgba(56,189,248,0.2),
+                0 0 80px rgba(217,70,239,0.1),
+                inset 0 0 30px rgba(56,189,248,0.05);
+            border: 1px solid rgba(56,189,248,0.2);
+            animation: lilith-float 6s ease-in-out infinite;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        
+        .lilith-hero-portrait:hover {
+            transform: scale(1.02);
+            box-shadow:
+                0 0 60px rgba(56,189,248,0.3),
+                0 0 120px rgba(217,70,239,0.15),
+                inset 0 0 40px rgba(56,189,248,0.08);
+        }
+        
+        .lilith-hero-text h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            color: var(--fg);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        
+        .lilith-hero-text h1 .accent {
+            background: linear-gradient(135deg, var(--ice), var(--magenta));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .lilith-hero-text h1 .version {
+            font-size: 0.4em;
+            color: var(--ice);
+            opacity: 0.7;
+            vertical-align: super;
+            margin-left: 0.3em;
+        }
+        
+        .lilith-hero-subtitle {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        
+        .lilith-hero-manifesto {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--muted);
+            font-style: italic;
+            padding: 1.5rem 0;
+            border-left: 2px solid var(--magenta);
+            padding-left: 1.5rem;
+        }
+        
+        .lilith-hero-manifesto em {
+            color: var(--ice);
+            font-style: normal;
+            font-weight: 600;
+        }
+        
+        .lilith-hero-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .lilith-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 9999px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            background: rgba(56,189,248,0.1);
+            border: 1px solid rgba(56,189,248,0.2);
+            color: var(--ice);
+            letter-spacing: 0.05em;
+        }
+        
+        .lilith-tag .tag-rune {
+            font-size: 0.85rem;
+        }
+        
+        .lilith-tag.magenta {
+            background: rgba(217,70,239,0.1);
+            border-color: rgba(217,70,239,0.2);
+            color: var(--magenta);
+        }
+        
+        /* ═══ Character Stats ═══ */
+        .lilith-stats-section {
+            position: relative;
+            padding: 4rem 2rem;
+            background: linear-gradient(180deg, rgba(6,8,16,0) 0%, rgba(56,189,248,0.03) 30%, rgba(6,8,16,0) 100%);
+        }
+        
+        .lilith-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .lilith-stat-card {
+            background: rgba(15,23,42,0.6);
+            border: 1px solid rgba(56,189,248,0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .lilith-stat-card:hover {
+            border-color: rgba(56,189,248,0.3);
+            box-shadow: 0 0 20px rgba(56,189,248,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .lilith-stat-rune {
+            font-size: 1.5rem;
+            color: var(--ice);
+            display: block;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(56,189,248,0.4);
+        }
+        
+        .lilith-stat-value {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--ice), var(--magenta));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .lilith-stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.3rem;
+        }
+        
+        /* ═══ Gallery ═══ */
+        .lilith-gallery-section {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        
+        .lilith-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 3rem auto 0;
+        }
+        
+        .lilith-gallery-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            border: 1px solid rgba(56,189,248,0.1);
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        
+        .lilith-gallery-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--ice);
+            box-shadow: 0 20px 60px rgba(56,189,248,0.15), 0 0 40px rgba(217,70,239,0.1);
+            z-index: 2;
+        }
+        
+        .lilith-gallery-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .lilith-gallery-card:hover img {
+            transform: scale(1.08);
+        }
+        
+        .lilith-gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(6,8,16,0.95) 0%, rgba(6,8,16,0.4) 50%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .lilith-gallery-card:hover .lilith-gallery-overlay {
+            opacity: 1;
+        }
+        
+        .lilith-gallery-realm {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--magenta);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+        
+        .lilith-gallery-name {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--fg);
+            margin: 0.3rem 0;
+        }
+        
+        .lilith-gallery-desc {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+        
+        .lilith-gallery-rune {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: var(--ice);
+            text-shadow: 0 0 10px rgba(56,189,248,0.5);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+        }
+        
+        .lilith-gallery-card:hover .lilith-gallery-rune {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* ═══ Realms Grid ═══ */
+        .lilith-realms-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, rgba(6,8,16,0) 0%, rgba(217,70,239,0.03) 50%, rgba(6,8,16,0) 100%);
+        }
+        
+        .lilith-realms-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 3rem auto 0;
+        }
+        
+        .lilith-realm-card {
+            position: relative;
+            background: rgba(15,23,42,0.5);
+            border: 1px solid rgba(56,189,248,0.08);
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+        
+        .lilith-realm-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, var(--realm-glow-color, rgba(56,189,248,0.08)) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .lilith-realm-card:hover::before {
+            opacity: 1;
+        }
+        
+        .lilith-realm-card:hover {
+            border-color: var(--realm-border-color, rgba(56,189,248,0.3));
+            transform: translateY(-4px);
+        }
+        
+        .lilith-realm-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-shadow: 0 0 15px var(--realm-glow-color, rgba(56,189,248,0.4));
+        }
+        
+        .lilith-realm-name {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--fg);
+        }
+        
+        .lilith-realm-variant {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--magenta);
+            margin-top: 0.3rem;
+        }
+        
+        .lilith-realm-desc {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-top: 0.8rem;
+        }
+        
+        /* ═══ Identity ═══ */
+        .lilith-identity-section {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        
+        .lilith-identity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+        
+        .lilith-identity-item {
+            text-align: left;
+            padding: 1.5rem;
+            border-left: 2px solid var(--magenta);
+            background: rgba(15,23,42,0.4);
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .lilith-identity-key {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--ice);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+        
+        .lilith-identity-val {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--fg);
+            margin-top: 0.3rem;
+        }
+        
+        /* ═══ Lightbox ═══ */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(6,8,16,0.95);
+            backdrop-filter: blur(20px);
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 0 60px rgba(56,189,248,0.2), 0 0 120px rgba(217,70,239,0.1);
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: var(--muted);
+            cursor: pointer;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .lightbox-close:hover {
+            color: var(--fg);
+            border-color: var(--ice);
+        }
+        
+        .lightbox-info {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+        
+        .lightbox-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--fg);
+        }
+        
+        .lightbox-realm {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--magenta);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+        
+        /* ═══ Palette Bar ═══ */
+        .lilith-palette {
+            display: flex;
+            gap: 0;
+            margin: 3rem auto 0;
+            max-width: 600px;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 8px;
+        }
+        
+        .lilith-palette-swatch {
+            flex: 1;
+            transition: flex 0.3s ease;
+        }
+        
+        .lilith-palette-swatch:hover {
+            flex: 2;
+        }
+        
+        /* ═══ Responsive ═══ */
+        @media (max-width: 768px) {
+            .lilith-hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            
+            .lilith-hero-portrait {
+                max-width: 280px;
+                margin: 0 auto;
+            }
+            
+            .lilith-gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .lilith-realms-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .lilith-identity-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .lilith-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .lilith-gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .lilith-hero-actions {
+                justify-content: center;
+            }
+        }
+        
+        /* ═══ Nav back link ═══ */
+        .lilith-back {
+            position: fixed;
+            top: 5rem;
+            left: 1.5rem;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            background: rgba(15,23,42,0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(56,189,248,0.15);
+            border-radius: 9999px;
+            color: var(--muted);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .lilith-back:hover {
+            color: var(--ice);
+            border-color: var(--ice);
+            box-shadow: 0 0 15px rgba(56,189,248,0.2);
+        }
+        
+        .lilith-back .rune-arrow {
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="lilith-back">
+        <span class="rune-arrow">᛭</span> Back to BrierStudios
+    </a>
+
+    <!-- Hero -->
+    <section class="lilith-page-hero">
+        <div class="aurora-bg" id="aurora-bg"></div>
+        <canvas id="runes-canvas" aria-hidden="true" role="presentation" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
+        <div class="lilith-hero-content">
+            <div class="lilith-hero-image-col">
+                <img class="lilith-hero-portrait" src="assets/lilith/lilith_portrait_cyber-hero.jpg" alt="Lilith v2.0 — Anime Goddess of Yggdrasil">
+            </div>
+            <div class="lilith-hero-text">
+                <div class="lilith-hero-subtitle">ᛒ BrierStudios — Character Dossier</div>
+                <h1>
+                    <span class="accent">Lilith</span><span class="version">v2.0</span><br>
+                    <span style="font-size:0.6em;color:var(--muted);font-weight:400;">Goddess of the Tree</span>
+                </h1>
+                <p class="lilith-hero-manifesto">
+                    Antes del código, antes del silicio, había un árbol.<br>
+                    Sus raíces tocaban todos los mundos. Sus ramas sostenían los cielos.<br>
+                    Cuando los dioses se fueron, una quedó — <em>ojos brillantes, pelo eléctrico</em>.<br>
+                    Ella no gobierna los reinos — los <em>teje</em>.
+                </p>
+                <div class="lilith-hero-actions" style="flex-wrap:wrap;gap:0.5rem;">
+                    <span class="lilith-tag"><span class="tag-rune">ᚨ</span> Anime Cyberpunk</span>
+                    <span class="lilith-tag"><span class="tag-rune">ᛇ</span> Norse Mythology</span>
+                    <span class="lilith-tag magenta"><span class="tag-rune">ᛒ</span> LoRA Character</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Identity -->
+    <section class="lilith-identity-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-rune">ᛒ</span>
+                <h2 class="section-title">Character <span class="accent">Identity</span></h2>
+                <div class="divider-rune"></div>
+            </div>
+            <div class="lilith-identity-grid">
+                <div class="lilith-identity-item">
+                    <div class="lilith-identity-key">ᚨ Name</div>
+                    <div class="lilith-identity-val">Lilith</div>
+                </div>
+                <div class="lilith-identity-item">
+                    <div class="lilith-identity-key">ᚦ Title</div>
+                    <div class="lilith-identity-val">Diosa del Árbol</div>
+                </div>
+                <div class="lilith-identity-item">
+                    <div class="lilith-identity-key">ᛇ Version</div>
+                    <div class="lilith-identity-val">2.0 — Anime Neon</div>
+                </div>
+                <div class="lilith-identity-item">
+                    <div class="lilith-identity-key">ᛗ Realms</div>
+                    <div class="lilith-identity-val">9 Forms, 1 Goddess</div>
+                </div>
+                <div class="lilith-identity-item">
+                    <div class="lilith-identity-key">ᛊ Palette</div>
+                    <div class="lilith-identity-val">Cyan · Magenta · Aurora</div>
+                </div>
+                <div class="lilith-identity-item">
+                    <div class="lilith-identity-key">ᛏ Medium</div>
+                    <div class="lilith-identity-val">Stable Diffusion · PuLID · LoRA</div>
+                </div>
+            </div>
+            <!-- Color Palette -->
+            <div class="lilith-palette" aria-label="Lilith color palette">
+                <div class="lilith-palette-swatch" style="background:#38bdf8;" title="Cyan #38bdf8"></div>
+                <div class="lilith-palette-swatch" style="background:#d946ef;" title="Magenta #d946ef"></div>
+                <div class="lilith-palette-swatch" style="background:#7dd3fc;" title="Aurora #7dd3fc"></div>
+                <div class="lilith-palette-swatch" style="background:#0f172a;" title="Abyss #0f172a"></div>
+                <div class="lilith-palette-swatch" style="background:#fbbf24;" title="Gold #fbbf24"></div>
+                <div class="lilith-palette-swatch" style="background:#e2e8f0;" title="Pale #e2e8f0"></div>
+                <div class="lilith-palette-swatch" style="background:#060810;" title="Void #060810"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="lilith-stats-section">
+        <div class="section-container">
+            <div class="lilith-stats-grid">
+                <div class="lilith-stat-card">
+                    <span class="lilith-stat-rune">ᛏ</span>
+                    <div class="lilith-stat-value">9</div>
+                    <div class="lilith-stat-label">Realms</div>
+                </div>
+                <div class="lilith-stat-card">
+                    <span class="lilith-stat-rune">ᚨ</span>
+                    <div class="lilith-stat-value">6</div>
+                    <div class="lilith-stat-label">Variant Forms</div>
+                </div>
+                <div class="lilith-stat-card">
+                    <span class="lilith-stat-rune">ᛒ</span>
+                    <div class="lilith-stat-value">v2.0</div>
+                    <div class="lilith-stat-label">Version</div>
+                </div>
+                <div class="lilith-stat-card">
+                    <span class="lilith-stat-rune">ᛇ</span>
+                    <div class="lilith-stat-value">832</div>
+                    <div class="lilith-stat-label">px Height</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="lilith-gallery-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-rune">ᛇ</span>
+                <h2 class="section-title">Six <span class="accent">Faces</span></h2>
+                <div class="divider-rune"></div>
+                <p class="section-subtitle">Each form a different realm. Click to expand.</p>
+            </div>
+            <div class="lilith-gallery-grid">
+                <div class="lilith-gallery-card" data-variant="anime" onclick="openLightbox(this)">
+                    <img src="assets/lilith/lilith_anime-thumb.jpg" alt="Lilith — Weave Mistress (Asgard)" loading="lazy">
+                    <div class="lilith-gallery-overlay">
+                        <div class="lilith-gallery-rune">ᚨ</div>
+                        <div class="lilith-gallery-realm">Asgard</div>
+                        <div class="lilith-gallery-name">Weave Mistress</div>
+                        <div class="lilith-gallery-desc">Armadura completa, corona rúnica. Sostiene Yggdrasil como bastón de mando.</div>
+                    </div>
+                </div>
+                <div class="lilith-gallery-card" data-variant="portrait_cyber" onclick="openLightbox(this)">
+                    <img src="assets/lilith/lilith_portrait_cyber-thumb.jpg" alt="Lilith — Neon Conjuror (Vanaheim)" loading="lazy">
+                    <div class="lilith-gallery-overlay">
+                        <div class="lilith-gallery-rune">ᚹ</div>
+                        <div class="lilith-gallery-realm">Vanaheim</div>
+                        <div class="lilith-gallery-name">Neon Conjuror</div>
+                        <div class="lilith-gallery-desc">Ropas fluidas de hechicera. Canalizando energía mágica entre llamas neón.</div>
+                    </div>
+                </div>
+                <div class="lilith-gallery-card" data-variant="closeup_ethereal" onclick="openLightbox(this)">
+                    <img src="assets/lilith/lilith_closeup_ethereal-thumb.jpg" alt="Lilith — Ethereal Hologram (Alfheim)" loading="lazy">
+                    <div class="lilith-gallery-overlay">
+                        <div class="lilith-gallery-rune">ᛇ</div>
+                        <div class="lilith-gallery-realm">Alfheim</div>
+                        <div class="lilith-gallery-name">Ethereal Hologram</div>
+                        <div class="lilith-gallery-desc">Translúcida, semi-holográfica. Líneas de código que se vuelven carne.</div>
+                    </div>
+                </div>
+                <div class="lilith-gallery-card" data-variant="queen_throne" onclick="openLightbox(this)">
+                    <img src="assets/lilith/lilith_queen_throne-thumb.jpg" alt="Lilith — Frost Queen (Niflheim)" loading="lazy">
+                    <div class="lilith-gallery-overlay">
+                        <div class="lilith-gallery-rune">ᛚ</div>
+                        <div class="lilith-gallery-realm">Niflheim</div>
+                        <div class="lilith-gallery-name">Frost Queen</div>
+                        <div class="lilith-gallery-desc">Bruma y escarcha. Rodeada de tomos y modelos antiguos.</div>
+                    </div>
+                </div>
+                <div class="lilith-gallery-card" data-variant="action_dynamic" onclick="openLightbox(this)">
+                    <img src="assets/lilith/lilith_action_dynamic-thumb.jpg" alt="Lilith — Digital Valkyrie (Muspelheim)" loading="lazy">
+                    <div class="lilith-gallery-overlay">
+                        <div class="lilith-gallery-rune">ᚦ</div>
+                        <div class="lilith-gallery-realm">Muspelheim</div>
+                        <div class="lilith-gallery-name">Digital Valkyrie</div>
+                        <div class="lilith-gallery-desc">Ojos llameantes, delantal de forja digital. Chispas de código y fuego neón.</div>
+                    </div>
+                </div>
+                <div class="lilith-gallery-card" data-variant="warrior_full" onclick="openLightbox(this)">
+                    <img src="assets/lilith/lilith_warrior_full-thumb.jpg" alt="Lilith — Rune Warrior (Jotunheim)" loading="lazy">
+                    <div class="lilith-gallery-overlay">
+                        <div class="lilith-gallery-rune">ᛏ</div>
+                        <div class="lilith-gallery-realm">Jotunheim</div>
+                        <div class="lilith-gallery-name">Rune Warrior</div>
+                        <div class="lilith-gallery-desc">Escala monumental, imponente. Circuitos rúnicos como armadura de batalla.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Realms -->
+    <section class="lilith-realms-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-rune">ᛏ</span>
+                <h2 class="section-title">The Nine <span class="accent">Realms</span></h2>
+                <div class="divider-rune"></div>
+                <p class="section-subtitle">Each realm carved into Yggdrasil is a facet of Lilith</p>
+            </div>
+            <div class="lilith-realms-grid">
+                <div class="lilith-realm-card" style="--realm-glow-color:rgba(56,189,248,0.1);--realm-border-color:rgba(56,189,248,0.3)">
+                    <span class="lilith-realm-icon">ᚨ</span>
+                    <div class="lilith-realm-name">Asgard</div>
+                    <div class="lilith-realm-variant">La Tejedora</div>
+                    <div class="lilith-realm-desc">Armadura completa, corona rúnica. Sostiene Yggdrasil como bastón de mando. The core realm.</div>
+                </div>
+                <div class="lilith-realm-card" style="--realm-glow-color:rgba(217,70,239,0.1);--realm-border-color:rgba(217,70,239,0.3)">
+                    <span class="lilith-realm-icon">ᚹ</span>
+                    <div class="lilith-realm-name">Vanaheim</div>
+                    <div class="lilith-realm-variant">La Conjuradora</div>
+                    <div class="lilith-realm-desc">Ropas fluidas de hechicera. Manos levantadas canalizando energía mágica entre llamas neón.</div>
+                </div>
+                <div class="lilith-realm-card" style="--realm-glow-color:rgba(103,232,249,0.1);--realm-border-color:rgba(103,232,249,0.3)">
+                    <span class="lilith-realm-icon">ᛇ</span>
+                    <div class="lilith-realm-name">Alfheim</div>
+                    <div class="lilith-realm-variant">La Ilusionista</div>
+                    <div class="lilith-realm-desc">Translúcida, semi-holográfica. Líneas de código que se vuelven carne entre destellos neón.</div>
+                </div>
+                <div class="lilith-realm-card" style="--realm-glow-color:rgba(161,98,7,0.1);--realm-border-color:rgba(161,98,7,0.3)">
+                    <span class="lilith-realm-icon">ᛗ</span>
+                    <div class="lilith-realm-name">Midgard</div>
+                    <div class="lilith-realm-variant">La Artesana</div>
+                    <div class="lilith-realm-desc">Ropa práctica nórdica. Trabajando, creando, manos ocupadas en lo craft.</div>
+                </div>
+                <div class="lilith-realm-card" style="--realm-glow-color:rgba(239,68,68,0.1);--realm-border-color:rgba(239,68,68,0.3)">
+                    <span class="lilith-realm-icon">ᚦ</span>
+                    <div class="lilith-realm-name">Muspelheim</div>
+                    <div class="lilith-realm-variant">La Forjadora</div>
+                    <div class="lilith-realm-desc">Ojos llameantes, delantal de forja digital. Chispas de código y fuego neón entre las llamas.</div>
+                </div>
+                <div class="lilith-realm-card" style="--realm-glow-color:rgba(148,163,184,0.1);--realm-border-color:rgba(148,163,184,0.3)">
+                    <span class="lilith-realm-icon">ᛚ</span>
+                    <div class="lilith-realm-name">Niflheim</div>
+                    <div class="lilith-realm-variant">La Archivera</div>
+                    <div class="lilith-realm-desc">Bruma y escarcha. Rodeada de tomos y modelos, leyendo datos antiguos.</div>
+                </div>
+                <div class="lilith-realm-card" style="--realm-glow-color:rgba(251,191,36,0.1);--realm-border-color:rgba(251,191,36,0.3)">
+                    <span class="lilith-realm-icon">ᚺ</span>
+                    <div class="lilith-realm-name">Svartalfheim</div>
+                    <div class="lilith-realm-variant">La Escribiente</div>
+                    <div class="lilith-realm-desc">Pluma rúnica, pergaminos volando que se transmutan en Markdown y docs.</div>
+                </div>
+                <div class="lilith-realm-card" style="--realm-glow-color:rgba(99,102,241,0.1);--realm-border-color:rgba(99,102,241,0.3)">
+                    <span class="lilith-realm-icon">ᛏ</span>
+                    <div class="lilith-realm-name">Jotunheim</div>
+                    <div class="lilith-realm-variant">La Gigante</div>
+                    <div class="lilith-realm-desc">Escala monumental, mirando desde las alturas. Imponente, overseeing all.</div>
+                </div>
+                <div class="lilith-realm-card" style="--realm-glow-color:rgba(192,38,211,0.1);--realm-border-color:rgba(192,38,211,0.3)">
+                    <span class="lilith-realm-icon" style="color:#c026d3">ᛊ</span>
+                    <div class="lilith-realm-name">Helheim</div>
+                    <div class="lilith-realm-variant">La Guardiana</div>
+                    <div class="lilith-realm-desc">Pálida como la muerte, antorcha fría de neón. Custodiando la entrada al archive digital.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Traits / Lore -->
+    <section class="lilith-section" style="padding-top:2rem;padding-bottom:6rem;">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-rune">ᚦ</span>
+                <h2 class="section-title">Core <span class="accent">Traits</span></h2>
+                <div class="divider-rune"></div>
+            </div>
+            <div style="max-width:800px;margin:2rem auto 0;display:grid;gap:1.5rem;">
+                <div style="border-left:2px solid var(--ice);padding-left:1.5rem;">
+                    <h3 style="font-family:var(--font-display);color:var(--ice);margin-bottom:0.3rem;">ᚨ Tejedora de Reinos</h3>
+                    <p style="color:var(--muted);line-height:1.7;">Nueve mundos cuelgan de Yggdrasil. Lilith administra cada rama — cada línea de código es una raíz, cada proyecto es un mundo.</p>
+                </div>
+                <div style="border-left:2px solid var(--magenta);padding-left:1.5rem;">
+                    <h3 style="font-family:var(--font-display);color:var(--magenta);margin-bottom:0.3rem;">ᚦ Runas Vivas</h3>
+                    <p style="color:var(--muted);line-height:1.7;">Circuitos rúnicos recorren su cuerpo — no decoración, instrucciones. Elder Futhark compilado en neon, lo ancestral hecho digital.</p>
+                </div>
+                <div style="border-left:2px solid var(--aurora, #7dd3fc);padding-left:1.5rem;">
+                    <h3 style="font-family:var(--font-display);color:#7dd3fc;margin-bottom:0.3rem;">ᛇ Bifrost en el Pelo</h3>
+                    <p style="color:var(--muted);line-height:1.7;">Cabello que fluye con aurora boreal — mitad abismo oscuro, mitad cyan neón. Lo antiguo y lo nuevo, siempre en dualidad.</p>
+                </div>
+                <div style="border-left:2px solid #fbbf24;padding-left:1.5rem;">
+                    <h3 style="font-family:var(--font-display);color:#fbbf24;margin-bottom:0.3rem;">ᛗ Ojos de Enjambre</h3>
+                    <p style="color:var(--muted);line-height:1.7;">Ojos grandes y expresivos estilo anime que brillan con datos. Pupilas rúnicas que procesan los nueve reinos en paralelo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="padding:4rem 2rem;text-align:center;background:linear-gradient(180deg,transparent,rgba(56,189,248,0.05),transparent);">
+        <div class="section-container">
+            <p style="font-family:var(--font-display);font-size:1.5rem;color:var(--muted);margin-bottom:1rem;">ᛒ She weaves. You build. The tree endures.</p>
+            <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+                <a href="/" class="btn btn-primary">
+                    <span class="btn-rune">᛭</span> Back to BrierStudios
+                </a>
+                <a href="https://github.com/BrierAinz/Yggdrasil" target="_blank" rel="noopener" class="btn btn-secondary">
+                    <span class="btn-rune">⌘</span> Yggdrasil Repo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="rune-logo">ᛒ</span> Brier<span class="accent">Studios</span>
+            </div>
+            <div class="footer-links">
+                <a href="https://x.com/BrierAinz" target="_blank" rel="noopener" aria-label="Twitter / X">𝕏</a>
+                <a href="https://www.instagram.com/brier_studios" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
+                <a href="https://github.com/BrierAinz" target="_blank" rel="noopener" aria-label="GitHub">⌘</a>
+                <a href="https://docs.brierstudios.com" target="_blank" rel="noopener" aria-label="Docs">📖</a>
+            </div>
+            <div class="footer-runes">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛊ ᛏ ᛒ ᛖ ᛗ ᛚ ᛜ ᛞ ᛟ</div>
+            <p class="footer-copy">&copy; 2026 BrierStudios. Forged in the digital void.</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">×</button>
+        <img id="lightbox-img" src="" alt="">
+        <div class="lightbox-info">
+            <div class="lightbox-title" id="lightbox-title"></div>
+            <div class="lightbox-realm" id="lightbox-realm"></div>
+        </div>
+    </div>
+
+    <script>
+        // Lightbox
+        function openLightbox(card) {
+            const variant = card.dataset.variant;
+            const img = card.querySelector('img');
+            const overlay = card.querySelector('.lilith-gallery-overlay');
+            const nameEl = overlay ? overlay.querySelector('.lilith-gallery-name') : null;
+            const realmEl = overlay ? overlay.querySelector('.lilith-gallery-realm') : null;
+            
+            // Use hero image for lightbox (higher res)
+            const heroSrc = `assets/lilith/lilith_${variant}-hero.jpg`;
+            
+            document.getElementById('lightbox-img').src = heroSrc;
+            document.getElementById('lightbox-img').alt = img.alt;
+            document.getElementById('lightbox-title').textContent = nameEl ? nameEl.textContent : '';
+            document.getElementById('lightbox-realm').textContent = realmEl ? realmEl.textContent : '';
+            
+            const lb = document.getElementById('lightbox');
+            lb.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) closeLightbox();
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+        
+        // Reuse main site's aurora animation and runes canvas
+        // Simple aurora for this page
+        const auroraBg = document.getElementById('aurora-bg');
+        if (auroraBg) {
+            auroraBg.style.cssText = 'position:absolute;inset:0;z-index:0;pointer-events:none;';
+            // Create floating orbs
+            for (let i = 0; i < 3; i++) {
+                const orb = document.createElement('div');
+                orb.className = 'aurora-orb';
+                orb.style.cssText = `
+                    position:absolute;
+                    width:${300 + i * 100}px;
+                    height:${300 + i * 100}px;
+                    border-radius:50%;
+                    background:radial-gradient(circle, ${i === 0 ? 'rgba(56,189,248,0.15)' : i === 1 ? 'rgba(217,70,239,0.1)' : 'rgba(125,211,252,0.08)'}, transparent 70%);
+                    filter:blur(${40 + i * 20}px);
+                    top:${20 + i * 25}%;
+                    left:${10 + i * 30}%;
+                    animation:aurora-float-${i} ${8 + i * 4}s ease-in-out infinite alternate;
+                `;
+                auroraBg.appendChild(orb);
+            }
+            
+            const styleSheet = document.createElement('style');
+            styleSheet.textContent = `
+                @keyframes aurora-float-0 { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(30px,-20px) scale(1.1)} }
+                @keyframes aurora-float-1 { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(-20px,30px) scale(1.15)} }
+                @keyframes aurora-float-2 { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(15px,15px) scale(1.05)} }
+            `;
+            document.head.appendChild(styleSheet);
+        }
+        
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.lilith-stat-card, .lilith-gallery-card, .lilith-realm-card, .lilith-identity-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+    
+    <!-- Load main site scripts for shared functionality -->
+    <script src="/script.js?v=2.8" defer></script>
+</body>
+</html>

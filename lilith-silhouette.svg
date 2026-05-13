@@ -1,0 +1,342 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 520" width="240" height="520">
+  <defs>
+    <!-- Hair gradient: abyss black to aurora cyan -->
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="20%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="45%" stop-color="#0f172a"/>
+      <stop offset="55%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#7dd3fc"/>
+    </linearGradient>
+    <!-- Hair left side solid -->
+    <linearGradient id="hairLeftGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <!-- Hair right side cyan -->
+    <linearGradient id="hairRightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#7dd3fc"/>
+    </linearGradient>
+    <!-- Armor gradient -->
+    <linearGradient id="armorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <!-- Circuit glow gradient -->
+    <linearGradient id="circuitGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="50%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0ea5e9"/>
+    </linearGradient>
+    <!-- Tree gradient -->
+    <linearGradient id="treeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#0ea5e9" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.1"/>
+    </linearGradient>
+    <!-- Body skin gradient -->
+    <linearGradient id="skinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <!-- Eye gradient -->
+    <radialGradient id="eyeGrad" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="40%" stop-color="#38bdf8"/>
+      <stop offset="80%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </radialGradient>
+    <!-- Eye glow gradient -->
+    <radialGradient id="eyeGlowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Rune gradient -->
+    <linearGradient id="runeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <!-- Glow filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <!-- Strong glow filter -->
+    <filter id="glowStrong" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur2"/>
+      <feMerge>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="blur2"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Yggdrasil tree roots/circuits -->
+  <g id="yggdrasil" class="yggdrasil-circuits">
+    <!-- Central trunk behind figure -->
+    <path d="M120,520 L120,480 C118,440 115,400 118,360 C120,320 122,280 120,240 C118,200 116,160 118,120 C120,90 120,60 120,40"
+          stroke="url(#treeGrad)" stroke-width="3" fill="none" filter="url(#glow)" opacity="0.5"/>
+    <!-- Left root branches -->
+    <path d="M120,480 C110,460 90,450 60,460 C40,465 20,470 10,520"
+          stroke="url(#treeGrad)" stroke-width="2" fill="none" filter="url(#glow)" opacity="0.4"/>
+    <path d="M120,440 C108,430 85,425 50,440 C30,450 15,475 0,520"
+          stroke="url(#treeGrad)" stroke-width="1.5" fill="none" filter="url(#glow)" opacity="0.35"/>
+    <path d="M118,360 C105,355 80,360 55,380 C40,392 25,430 5,520"
+          stroke="url(#treeGrad)" stroke-width="1.5" fill="none" filter="url(#glow)" opacity="0.3"/>
+    <!-- Right root branches -->
+    <path d="M120,480 C130,460 150,450 180,460 C200,465 220,470 230,520"
+          stroke="url(#treeGrad)" stroke-width="2" fill="none" filter="url(#glow)" opacity="0.4"/>
+    <path d="M120,440 C132,430 155,425 190,440 C210,450 225,475 240,520"
+          stroke="url(#treeGrad)" stroke-width="1.5" fill="none" filter="url(#glow)" opacity="0.35"/>
+    <path d="118,360 C135,355 160,360 185,380 C200,392 215,430 235,520"
+          stroke="url(#treeGrad)" stroke-width="1.5" fill="none" filter="url(#glow)" opacity="0.3"/>
+    <!-- Upper trunk branches / circuit lines -->
+    <path d="M118,200 C100,190 75,185 50,180 C30,176 10,178 0,180"
+          stroke="url(#treeGrad)" stroke-width="1" fill="none" filter="url(#glow)" opacity="0.25"/>
+    <path d="M122,200 C140,190 165,185 190,180 C210,176 230,178 240,180"
+          stroke="url(#treeGrad)" stroke-width="1" fill="none" filter="url(#glow)" opacity="0.25"/>
+    <!-- Small circuit nodes on roots -->
+    <circle cx="60" cy="460" r="2" fill="#38bdf8" filter="url(#glow)" opacity="0.5"/>
+    <circle cx="180" cy="460" r="2" fill="#38bdf8" filter="url(#glow)" opacity="0.5"/>
+    <circle cx="50" cy="380" r="1.5" fill="#38bdf8" filter="url(#glow)" opacity="0.4"/>
+    <circle cx="185" cy="380" r="1.5" fill="#38bdf8" filter="url(#glow)" opacity="0.4"/>
+    <circle cx="30" cy="440" r="1.5" fill="#7dd3fc" filter="url(#glow)" opacity="0.35"/>
+    <circle cx="210" cy="440" r="1.5" fill="#7dd3fc" filter="url(#glow)" opacity="0.35"/>
+  </g>
+
+  <!-- Hair flowing behind (back layer) -->
+  <g id="hair-back" class="lilith-hair-back">
+    <!-- Left hair strand (abyss black) flowing behind -->
+    <path d="M100,60 C95,80 85,120 78,160 C70,210 65,270 68,330 C70,370 72,410 70,450 C68,475 66,500 65,520"
+          stroke="url(#hairLeftGrad)" stroke-width="12" fill="none" opacity="0.7"/>
+    <path d="M95,65 C90,100 80,150 75,200 C70,260 67,320 70,380 C72,420 70,460 68,500"
+          stroke="#0f172a" stroke-width="8" fill="none" opacity="0.5"/>
+    <!-- Right hair strand (aurora cyan) flowing behind -->
+    <path d="M140,60 C145,80 155,120 162,160 C170,210 175,270 172,330 C170,370 168,410 170,450 C172,475 174,500 175,520"
+          stroke="url(#hairRightGrad)" stroke-width="12" fill="none" filter="url(#glow)" opacity="0.6"/>
+    <path d="M145,65 C150,100 160,150 165,200 C170,260 173,320 170,380 C168,420 170,460 172,500"
+          stroke="#7dd3fc" stroke-width="8" fill="none" filter="url(#glow)" opacity="0.4"/>
+  </g>
+
+  <!-- Body silhouette -->
+  <g id="body" class="lilith-body">
+    <!-- Neck -->
+    <path d="M112,118 C112,125 110,133 110,140 L130,140 C130,133 128,125 128,118"
+          fill="url(#skinGrad)"/>
+    <!-- Torso / bodysuit -->
+    <path d="M110,140 C105,155 100,170 98,195 C96,215 96,235 100,255 
+             L98,280 C96,300 95,315 96,330 
+             C100,350 105,360 108,370 
+             L100,400 C98,430 95,460 93,490 C92,505 92,515 93,520 
+             L108,520 C108,500 110,480 112,460 C114,440 118,420 120,400 
+             C122,420 126,440 128,460 C130,480 132,500 132,520 
+             L147,520 C148,515 148,505 147,490 
+             C145,460 142,430 140,400 
+             L132,370 C135,360 140,350 144,330 
+             C145,315 144,300 142,280 
+             L140,255 C144,235 144,215 142,195 
+             C140,170 135,155 130,140 Z"
+          fill="url(#armorGrad)"/>
+    <!-- Left arm -->
+    <path d="M98,155 C88,160 78,165 70,172 C63,178 58,186 55,195 
+             C53,202 52,210 54,218 C56,225 60,230 66,232 
+             C72,234 78,232 82,228 C86,224 88,218 88,210 
+             L96,195"
+          fill="url(#armorGrad)"/>
+    <!-- Right arm -->
+    <path d="M142,155 C152,160 162,165 170,172 C177,178 182,186 185,195 
+             C187,202 188,210 186,218 C184,225 180,230 174,232 
+             C168,234 162,232 158,228 C154,224 152,218 152,210 
+             L144,195"
+          fill="url(#armorGrad)"/>
+  </g>
+
+  <!-- Circuit patterns on bodysuit -->
+  <g id="circuits" class="lilith-circuits">
+    <!-- Central circuit line torso -->
+    <line x1="120" y1="145" x2="120" y2="395" stroke="#38bdf8" stroke-width="1" filter="url(#glow)" opacity="0.7"/>
+    <!-- Circuit branches from center -->
+    <path d="M120,170 L105,175 L98,195" stroke="#38bdf8" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
+    <path d="M120,170 L135,175 L142,195" stroke="#38bdf8" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
+    <path d="M120,220 L110,225 L100,255" stroke="#38bdf8" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
+    <path d="M120,220 L130,225 L140,255" stroke="#38bdf8" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
+    <path d="M120,260 L112,265" stroke="#38bdf8" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
+    <path d="M120,260 L128,265" stroke="#38bdf8" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
+    <!-- Circuit nodes -->
+    <circle cx="120" cy="170" r="2" fill="#7dd3fc" filter="url(#glow)" opacity="0.8"/>
+    <circle cx="120" cy="220" r="2" fill="#7dd3fc" filter="url(#glow)" opacity="0.8"/>
+    <circle cx="120" cy="260" r="1.5" fill="#38bdf8" filter="url(#glow)" opacity="0.7"/>
+    <circle cx="120" cy="320" r="1.5" fill="#38bdf8" filter="url(#glow)" opacity="0.6"/>
+    <!-- Arm circuits -->
+    <path d="M98,170 L80,175 L65,180" stroke="#38bdf8" stroke-width="0.6" fill="none" filter="url(#glow)" opacity="0.4"/>
+    <path d="M142,170 L160,175 L175,180" stroke="#38bdf8" stroke-width="0.6" fill="none" filter="url(#glow)" opacity="0.4"/>
+    <circle cx="65" cy="180" r="1.5" fill="#7dd3fc" filter="url(#glow)" opacity="0.5"/>
+    <circle cx="175" cy="180" r="1.5" fill="#7dd3fc" filter="url(#glow)" opacity="0.5"/>
+  </g>
+
+  <!-- Elder Futhark Rune ᛒ (Berkano) on chest -->
+  <g id="rune" class="lilith-rune" transform="translate(120,200)" filter="url(#glowStrong)">
+    <path d="M0,-12 L0,12 M0,-12 L8,0 M0,0 L8,12" 
+          stroke="url(#runeGrad)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Head -->
+  <g id="head" class="lilith-head">
+    <!-- Face shape (anime - slightly larger, heart-shaped) -->
+    <path d="M120,45 C138,45 148,55 150,72 C152,85 148,100 140,110 
+             C135,115 128,118 120,118 C112,118 105,115 100,110 
+             C92,100 88,85 90,72 C92,55 102,45 120,45 Z"
+          fill="url(#skinGrad)"/>
+    <!-- Chin refinement -->
+    <path d="M110,110 C115,116 120,118 120,118 C120,118 125,116 130,110"
+          fill="#0f172a" opacity="0.3"/>
+  </g>
+
+  <!-- Eyes (anime style - big, expressive) -->
+  <g id="eyes" class="lilith-eyes">
+    <!-- Left eye -->
+    <g class="lilith-eye" id="left-eye">
+      <!-- Eye outer glow -->
+      <ellipse cx="105" cy="78" rx="14" ry="16" fill="url(#eyeGlowGrad)" opacity="0.3" filter="url(#glowStrong)"/>
+      <!-- Eye white -->
+      <path d="M92,78 C92,68 100,65 105,65 C110,65 118,68 118,78 C118,86 112,90 105,90 C98,90 92,86 92,78 Z"
+            fill="#0c1524" stroke="#38bdf8" stroke-width="0.5"/>
+      <!-- Iris -->
+      <ellipse cx="105" cy="77" rx="8" ry="9" fill="url(#eyeGrad)"/>
+      <!-- Pupil -->
+      <ellipse cx="105" cy="78" rx="3" ry="4" fill="#0c1524"/>
+      <!-- Eye highlight (large) -->
+      <ellipse cx="108" cy="73" rx="3" ry="2.5" fill="#ffffff" opacity="0.9"/>
+      <!-- Eye highlight (small) -->
+      <ellipse cx="101" cy="81" rx="1.5" ry="1" fill="#ffffff" opacity="0.7"/>
+      <!-- Top eyelash line (thick anime) -->
+      <path d="M90,72 C94,68 100,65 105,64 C110,65 116,68 120,72"
+            stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- Bottom lash accent -->
+      <path d="M94,88 C98,90 102,91 105,91 C108,91 112,90 116,88"
+            stroke="#38bdf8" stroke-width="0.8" fill="none" opacity="0.6"/>
+    </g>
+    <!-- Right eye -->
+    <g class="lilith-eye" id="right-eye">
+      <!-- Eye outer glow -->
+      <ellipse cx="135" cy="78" rx="14" ry="16" fill="url(#eyeGlowGrad)" opacity="0.3" filter="url(#glowStrong)"/>
+      <!-- Eye white -->
+      <path d="M122,78 C122,68 130,65 135,65 C140,65 148,68 148,78 C148,86 142,90 135,90 C128,90 122,86 122,78 Z"
+            fill="#0c1524" stroke="#38bdf8" stroke-width="0.5"/>
+      <!-- Iris -->
+      <ellipse cx="135" cy="77" rx="8" ry="9" fill="url(#eyeGrad)"/>
+      <!-- Pupil -->
+      <ellipse cx="135" cy="78" rx="3" ry="4" fill="#0c1524"/>
+      <!-- Eye highlight (large) -->
+      <ellipse cx="138" cy="73" rx="3" ry="2.5" fill="#ffffff" opacity="0.9"/>
+      <!-- Eye highlight (small) -->
+      <ellipse cx="131" cy="81" rx="1.5" ry="1" fill="#ffffff" opacity="0.7"/>
+      <!-- Top eyelash line -->
+      <path d="M120,72 C124,68 130,65 135,64 C140,65 146,68 150,72"
+            stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- Bottom lash accent -->
+      <path d="M124,88 C128,90 132,91 135,91 C138,91 142,90 146,88"
+            stroke="#38bdf8" stroke-width="0.8" fill="none" opacity="0.6"/>
+    </g>
+  </g>
+
+  <!-- Small nose hint -->
+  <path d="M118,95 L120,100 L122,95" stroke="#1e293b" stroke-width="0.8" fill="none" opacity="0.5"/>
+
+  <!-- Mouth (subtle anime) -->
+  <path d="M114,108 C117,110 120,110 123,108" stroke="#1e293b" stroke-width="1" fill="none" opacity="0.4"/>
+  <path d="M116,109 C118,111 120,111 122,109" stroke="#38bdf8" stroke-width="0.5" fill="none" opacity="0.2"/>
+
+  <!-- Hair front layer (over face) -->
+  <g id="hair-front" class="lilith-hair-front">
+    <!-- Left side bangs (abyss black) -->
+    <path d="M120,42 C110,42 100,45 92,52 C86,58 82,65 80,80 
+             C78,95 80,108 82,115 L78,155 C76,175 74,200 76,230 
+             C78,260 75,290 72,310
+             L72,310 C74,285 78,255 80,230 C82,200 84,175 86,155
+             L92,115 C95,105 98,90 100,78 C102,65 105,55 110,48 
+             L110,48 C108,55 105,70 104,85 C102,105 100,130 98,155
+             C96,185 93,210 90,235 C88,260 86,285 85,310
+             L85,310 C87,288 90,260 94,235 C98,210 102,185 104,155
+             C106,130 108,105 108,85 C109,70 110,55 110,48
+             C115,44 118,42 120,42 Z"
+          fill="#0f172a"/>
+    <!-- Right side bangs (aurora cyan) -->
+    <path d="M120,42 C130,42 140,45 148,52 C154,58 158,65 160,80 
+             C162,95 160,108 158,115 L162,155 C164,175 166,200 164,230 
+             C162,260 165,290 168,310
+             L168,310 C166,285 162,255 160,230 C158,200 156,175 154,155
+             L148,115 C145,105 142,90 140,78 C138,65 135,55 130,48 
+             L130,48 C132,55 135,70 136,85 C138,105 140,130 142,155
+             C144,185 149,210 152,235 C154,260 156,285 155,310
+             L155,310 C153,288 150,260 146,235 C142,210 138,185 136,155
+             C134,130 132,105 132,85 C131,70 130,55 130,48
+             C125,44 122,42 120,42 Z"
+          fill="url(#hairRightGrad)" filter="url(#glow)" opacity="0.9"/>
+    <!-- Center bangs (mix) -->
+    <path d="M115,42 C118,42 120,40 122,42 C125,43 128,46 128,48
+             L125,65 C124,72 122,80 120,85 C118,80 116,72 115,65 L112,48 
+             C112,46 113,43 115,42 Z"
+          fill="#0f172a" opacity="0.8"/>
+    <path d="M118,42 C120,40 122,42 122,42 L122,60 C121,68 120,75 120,78
+             C120,75 119,68 118,60 L118,42 Z"
+          fill="#1e3a5f" opacity="0.6"/>
+    <!-- Hair strand accents (left) -->
+    <path d="M85,100 C82,120 80,150 82,180 C84,210 80,240 78,270"
+          stroke="#1e293b" stroke-width="2" fill="none" opacity="0.6"/>
+    <path d="M78,130 C76,160 75,190 77,220 C79,250 76,280 74,310"
+          stroke="#0f172a" stroke-width="3" fill="none" opacity="0.5"/>
+    <!-- Hair strand accents (right - glowing) -->
+    <path d="M155,100 C158,120 160,150 158,180 C156,210 160,240 162,270"
+          stroke="#7dd3fc" stroke-width="2" fill="none" filter="url(#glow)" opacity="0.6"/>
+    <path d="M162,130 C164,160 165,190 163,220 C161,250 164,280 166,310"
+          stroke="#38bdf8" stroke-width="3" fill="none" filter="url(#glow)" opacity="0.5"/>
+  </g>
+
+  <!-- Hair clip / ornament with secondary rune -->
+  <g id="hair-ornament" class="lilith-ornament" transform="translate(150,100)">
+    <circle cx="0" cy="0" r="4" fill="none" stroke="#7dd3fc" stroke-width="1.5" filter="url(#glow)"/>
+    <circle cx="0" cy="0" r="1.5" fill="#38bdf8" filter="url(#glow)"/>
+  </g>
+
+  <!-- Armor accent lines on shoulders -->
+  <g id="armor-accents" class="lilith-armor-accents">
+    <path d="M100,145 C105,142 112,140 116,142" stroke="#38bdf8" stroke-width="0.8" fill="none" filter="url(#glow)" opacity="0.7"/>
+    <path d="M140,145 C135,142 128,140 124,142" stroke="#38bdf8" stroke-width="0.8" fill="none" filter="url(#glow)" opacity="0.7"/>
+    <!-- Collar line -->
+    <path d="M108,142 L120,148 L132,142" stroke="#38bdf8" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.6"/>
+    <!-- Waist circuit belt -->
+    <path d="M100,255 L108,253 L120,260 L132,253 L140,255" stroke="#38bdf8" stroke-width="1.2" fill="none" filter="url(#glow)" opacity="0.7"/>
+    <circle cx="120" cy="258" r="2.5" fill="#7dd3fc" filter="url(#glow)" opacity="0.8"/>
+  </g>
+
+  <!-- Leg circuit lines -->
+  <g id="leg-circuits" class="lilith-leg-circuits">
+    <!-- Left leg -->
+    <path d="M105,330 L103,360 L100,400 L98,440 L96,480" stroke="#38bdf8" stroke-width="0.6" fill="none" filter="url(#glow)" opacity="0.4"/>
+    <path d="M105,360 L96,365" stroke="#38bdf8" stroke-width="0.4" fill="none" filter="url(#glow)" opacity="0.3"/>
+    <path d="M103,400 L94,405" stroke="#38bdf8" stroke-width="0.4" fill="none" filter="url(#glow)" opacity="0.3"/>
+    <!-- Right leg -->
+    <path d="M135,330 L137,360 L140,400 L142,440 L144,480" stroke="#38bdf8" stroke-width="0.6" fill="none" filter="url(#glow)" opacity="0.4"/>
+    <path d="M135,360 L144,365" stroke="#38bdf8" stroke-width="0.4" fill="none" filter="url(#glow)" opacity="0.3"/>
+    <path d="M137,400 L146,405" stroke="#38bdf8" stroke-width="0.4" fill="none" filter="url(#glow)" opacity="0.3"/>
+  </g>
+
+  <!-- Ambient particles / floating runes -->
+  <g id="particles" class="lilith-particles" filter="url(#glow)">
+    <circle cx="45" cy="300" r="1" fill="#7dd3fc" opacity="0.5"/>
+    <circle cx="195" cy="320" r="1" fill="#7dd3fc" opacity="0.5"/>
+    <circle cx="35" cy="250" r="0.8" fill="#38bdf8" opacity="0.4"/>
+    <circle cx="205" cy="270" r="0.8" fill="#38bdf8" opacity="0.4"/>
+    <circle cx="50" cy="180" r="0.8" fill="#7dd3fc" opacity="0.3"/>
+    <circle cx="190" cy="190" r="0.8" fill="#7dd3fc" opacity="0.3"/>
+    <circle cx="30" cy="380" r="1" fill="#38bdf8" opacity="0.35"/>
+    <circle cx="210" cy="400" r="1" fill="#38bdf8" opacity="0.35"/>
+    <!-- Small floating rune fragments -->
+    <path d="M42,340 L44,334 M42,340 L46,338" stroke="#38bdf8" stroke-width="0.6" fill="none" opacity="0.4"/>
+    <path d="M198,280 L200,274 M198,280 L202,278" stroke="#7dd3fc" stroke-width="0.6" fill="none" opacity="0.4"/>
+  </g>
+</svg>
