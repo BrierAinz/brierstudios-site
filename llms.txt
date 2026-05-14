@@ -1,61 +1,76 @@
 # BrierStudios
-> Creative studio at the intersection of anime aesthetics, cyberpunk neon, and Norse mythology.
+> Dark fantasy creative studio — dark fantasy aesthetics forged in Norse mythology and iron.
 
 ## What is BrierStudios?
-BrierStudios is a creative technology studio founded by Ainz (BrierAinz). We build tools, agents, and art inspired by the Yggdrasil framework — a Norse mythology-inspired architecture that organizes projects into Nine Realms.
+BrierStudios is a creative technology studio founded by Ainz (BrierAinz). We build tools, agents, and art inspired by the Yggdrasil framework — a Norse mythology-inspired architecture that organizes projects into Nine Realms. Our visual language: dark fantasy, medieval aesthetics, Elder Futhark runes, and forge-iron textures.
 
-## Flagship: Lilith v2.0
-Lilith is our AI-powered artistic identity — an anime/cyberpunk neon goddess with big expressive eyes, dynamic flowing hair with magenta streaks, and circuit neon armor. She represents the studio's visual language across all products.
+## Flagship: Lilith v2.0 — Dark Fantasy Nordic
+Lilith is our dark fantasy goddess — horns of ancient bronze and eyes of honey-gold (#c8a23e), with a forge-iron crown inscribed with Elder Futhark runes. She represents the studio's visual language across all products. Version 2.0 pivoted from cyberpunk neon to dark fantasy nordic.
 
-### Core Palette
-- Cyan: #38bdf8 (primary accent)
-- Magenta: #d946ef (secondary accent)
-- Aurora: #7dd3fc (highlights)
-- Abyss: #0f172a (background)
-- Gold: #fbbf24 (tertiary)
+### Core Palette (Dark Fantasy Nordic)
+- Gold: #c8a23e (primary accent — Lilith's eyes)
+- Bronze: #d19a66 (secondary accent — forge iron)
+- Deep Dark: #1a1b26 (base background)
 - Pale: #e2e8f0 (text)
 - Void: #060810 (deepest dark)
 - Hel: #c026d3 (danger/error)
+- Asgard Gold, Vanaheim Rose, Alfheim Sky, Helheim Crimson (realm-specific accents)
 
-### There Are Nine Realms
-| Realm | Domain | Purpose |
-|-------|--------|---------|
-| Asgard 🔱 | Core Technology | Foundation libraries, configs, scaffolding |
-| Vanaheim 🤖 | AI Agents | Discord bots, Telegram agents, personality systems |
-| Alfheim ✨ | UI Prototypes | Visual design systems, frontend experiments |
-| Svartalfheim 📖 | Knowledge & Docs | Documentation, wikis, knowledge bases |
-| Muspelheim 🔥 | Active Dev | Work-in-progress, experimental branches |
-| Niflheim ❄️ | Resources & Assets | Static assets, models, datasets |
-| Helheim 💀 | Archive | Deprecated code, graveyard of failed experiments |
-| Jotunheim 🏔️ | Massive Projects | Large-scale, long-term undertakings |
-| Midgard 🌍 | Personal Apps | End-user applications, utilities |
+### Fonts
+- Cinzel (serif headings — medieval character)
+- Inter (body text — clean readability)
+- JetBrains Mono (code — forge lattice)
+
+### The Nine Realms
+|| Realm | Rune | Domain | Purpose ||
+||-------|------|--------|------------||
+|| Asgard | ᚦ | Core Technology | Foundation libraries, configs, scaffolding ||
+|| Vanaheim | ᛒ | AI Agents | Discord bots, Telegram agents, personality systems ||
+|| Alfheim | ᛇ | UI Prototypes | Visual design systems, frontend experiments ||
+|| Svartalfheim | ᛉ | Knowledge & Docs | Documentation, wikis, knowledge bases ||
+|| Muspelheim | ᛝ | Active Dev | Work-in-progress, experimental branches ||
+|| Niflheim | ᛁ | Resources & Assets | Static assets, models, datasets ||
+|| Helheim | ᚹ | Archive | Deprecated code, graveyard of failed experiments ||
+|| Jotunheim | ᛃ | Massive Projects | Large-scale, long-term undertakings ||
+|| Midgard | ᛗ | Personal Apps | End-user applications, utilities ||
 
 ## Products
 
 ### Yggdrasil CLI v6.5
-A command-line interface with 19 slash commands for managing projects across the Nine Realms. Features include project scaffolding, realm switching, agent management, deployment pipelines, and a command palette with icy-themed UI.
+A command-line interface with 19 slash commands for managing projects across the Nine Realms. Features include project scaffolding, realm switching, agent management, deployment pipelines, and a command palette with dark fantasy themed UI.
 
 Key commands: /init, /status, /build, /test, /lint, /realms, /agent, /deploy, /theme, /runes
 
-### BrierStudios Landing Site
-Live at brierstudios.com — a dark-themed landing page showcasing the studio's identity, Lilith variants, project portfolio, and CLI demo. Built with vanilla HTML/CSS/JS, deployed on Cloudflare Pages.
+### BrierStudios Landing Site v4.0
+Live at brierstudios.com — a dark fantasy nordic themed landing page showcasing the studio's identity, Lilith variants, project portfolio, and animated CLI demo. Built with vanilla HTML/CSS/JS, deployed on Cloudflare Pages. Features runic particles, forge-iron textures, Cinzel typography, and Elder Futhark icon system.
+
+### Lilith Landing Page v4.0
+Live at brierstudios.com/lilith — a dedicated character dossier for Lilith with identity section, gallery, Nine Realms mapping, core traits, and LoRA/art documentation. Dark fantasy nordic retheme with honey-gold accents and runic dividers.
 
 ### docs.brierstudios.com
 Full documentation site built with Docusaurus v3. Covers CLI reference, Lilith v2.0 identity, architecture, AI agents, and LoRA training pipelines.
 
+### Yggdrasil MCP Server
+FastMCP 3.2 server exposing 6 tools (ecosystem_health, list_comfyui_models, list_recent_outputs, generate_image, list_comfyui_nodes, get_lora_info) + 1 resource (yggdrasil://realms). Built with pydantic-ai integration for Lilith orchestrator.
+
+### Lilith Swarm v5
+Multi-agent orchestration system with Coordinator pattern, TaskPlanner, ConflictResolver, OutputValidator, FallbackChain, and ComplexityRouter. Agents: Eva, Adán, Odín, Shalltear, Planner.
+
 ### LoRA Training Pipeline
-Character model training using Z-Image Base and Kohya_ss. Active LoRA: Ehyra Z-Image (anime character style, 3000 steps).
+Character model training using PixAI DiT.2 (Tsubaki.2). Active LoRAs: KNQ_V1, RGTA_V1. Captions use 30+ char natural language visual descriptions (not Danbooru tags).
 
 ## Tech Stack
 - Frontend: Vanilla HTML/CSS/JS, Docusaurus v3 (docs)
 - Hosting: Cloudflare Pages
 - Domain: brierstudios.com (Cloudflare registrar)
-- AI: Custom LoRAs on Z-Image Base / PixAI DiT.2
+- AI: Custom LoRAs on PixAI DiT.2 (Tsubaki.2), ComfyUI workflows
 - CLI: Node.js / Ink (React for CLI)
-- Style: Cinzel (headings) + JetBrains Mono (code) + Inter (body)
+- Backend: Python (pydantic-ai, FastMCP, LangGraph)
+- Agent Framework: Lilith Swarm v5 (coordinator pattern)
+- Style: Cinzel (headings) + Inter (body) + JetBrains Mono (code)
 
 ## The Yggdrasil Rules (REGLAS_YGGDRASIL.md)
-All projects follow a unified convention system defined in REGLAS_YGGDRASIL.md v3.1. This includes naming conventions, color palette, emoji markers per realm, and architectural patterns.
+All projects follow a unified convention system defined in REGLAS_YGGDRASIL.md v3.1. This includes naming conventions, color palette, Elder Futhark rune markers per realm, and architectural patterns.
 
 ## Contact & Links
 - Website: https://brierstudios.com
@@ -68,9 +83,10 @@ All projects follow a unified convention system defined in REGLAS_YGGDRASIL.md v
 
 ## Merch (Printful — coming soon)
 - Lilith Neon LED sign (flagship product)
-- T-shirts with realm variants
-- Stickers with runic designs
+- T-shirts with realm variants and runic designs
+- Stickers with Elder Futhark inscriptions
 - Posters of the Nine Realms
+- Hoodies with forge-iron patterns
 
 ## Crawling & Indexing
 - Full sitemap: https://brierstudios.com/sitemap.xml
