@@ -2,15 +2,15 @@
   <defs>
     <!-- Hair gradient: abyss black to pale gold -->
     <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="20%">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="45%" stop-color="#0f172a"/>
+      <stop offset="0%" stop-color="#060810"/>
+      <stop offset="45%" stop-color="#060810"/>
       <stop offset="55%" stop-color="#3d2a12"/>
       <stop offset="100%" stop-color="#e8d48b"/>
     </linearGradient>
     <!-- Hair left side solid -->
     <linearGradient id="hairLeftGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#0f172a"/>
+      <stop offset="0%" stop-color="#060810"/>
+      <stop offset="100%" stop-color="#060810"/>
     </linearGradient>
     <!-- Hair right side pale gold -->
     <linearGradient id="hairRightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -19,9 +19,9 @@
     </linearGradient>
     <!-- Armor gradient -->
     <linearGradient id="armorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="0%" stop-color="#060810"/>
       <stop offset="50%" stop-color="#1e293b"/>
-      <stop offset="100%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#060810"/>
     </linearGradient>
     <!-- Circuit glow gradient -->
     <linearGradient id="circuitGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -33,12 +33,12 @@
     <linearGradient id="treeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#c8a23e" stop-opacity="0.6"/>
       <stop offset="50%" stop-color="#d19a66" stop-opacity="0.3"/>
-      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#060810" stop-opacity="0.1"/>
     </linearGradient>
     <!-- Body skin gradient -->
     <linearGradient id="skinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#1e293b"/>
-      <stop offset="100%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#060810"/>
     </linearGradient>
     <!-- Eye gradient -->
     <radialGradient id="eyeGrad" cx="50%" cy="40%" r="50%">
@@ -113,7 +113,7 @@
     <path d="M100,60 C95,80 85,120 78,160 C70,210 65,270 68,330 C70,370 72,410 70,450 C68,475 66,500 65,520"
           stroke="url(#hairLeftGrad)" stroke-width="12" fill="none" opacity="0.7"/>
     <path d="M95,65 C90,100 80,150 75,200 C70,260 67,320 70,380 C72,420 70,460 68,500"
-          stroke="#0f172a" stroke-width="8" fill="none" opacity="0.5"/>
+          stroke="#060810" stroke-width="8" fill="none" opacity="0.5"/>
     <!-- Right hair strand (aurora cyan) flowing behind -->
     <path d="M140,60 C145,80 155,120 162,160 C170,210 175,270 172,330 C170,370 168,410 170,450 C172,475 174,500 175,520"
           stroke="url(#hairRightGrad)" stroke-width="12" fill="none" filter="url(#glow)" opacity="0.6"/>
@@ -192,7 +192,7 @@
           fill="url(#skinGrad)"/>
     <!-- Chin refinement -->
     <path d="M110,110 C115,116 120,118 120,118 C120,118 125,116 130,110"
-          fill="#0f172a" opacity="0.3"/>
+          fill="#060810" opacity="0.3"/>
   </g>
 
   <!-- Eyes (anime style - big, expressive) -->
@@ -214,7 +214,7 @@
       <ellipse cx="101" cy="81" rx="1.5" ry="1" fill="#ffffff" opacity="0.7"/>
       <!-- Top eyelash line (thick anime) -->
       <path d="M90,72 C94,68 100,65 105,64 C110,65 116,68 120,72"
-            stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/>
+            stroke="#060810" stroke-width="3" fill="none" stroke-linecap="round"/>
       <!-- Bottom lash accent -->
       <path d="M94,88 C98,90 102,91 105,91 C108,91 112,90 116,88"
             stroke="#c8a23e" stroke-width="0.8" fill="none" opacity="0.6"/>
@@ -236,7 +236,7 @@
       <ellipse cx="131" cy="81" rx="1.5" ry="1" fill="#ffffff" opacity="0.7"/>
       <!-- Top eyelash line -->
       <path d="M120,72 C124,68 130,65 135,64 C140,65 146,68 150,72"
-            stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/>
+            stroke="#060810" stroke-width="3" fill="none" stroke-linecap="round"/>
       <!-- Bottom lash accent -->
       <path d="M124,88 C128,90 132,91 135,91 C138,91 142,90 146,88"
             stroke="#c8a23e" stroke-width="0.8" fill="none" opacity="0.6"/>
@@ -263,7 +263,7 @@
              L85,310 C87,288 90,260 94,235 C98,210 102,185 104,155
              C106,130 108,105 108,85 C109,70 110,55 110,48
              C115,44 118,42 120,42 Z"
-          fill="#0f172a"/>
+          fill="#060810"/>
     <!-- Right side bangs (aurora cyan) -->
     <path d="M120,42 C130,42 140,45 148,52 C154,58 158,65 160,80 
              C162,95 160,108 158,115 L162,155 C164,175 166,200 164,230 
@@ -280,7 +280,7 @@
     <path d="M115,42 C118,42 120,40 122,42 C125,43 128,46 128,48
              L125,65 C124,72 122,80 120,85 C118,80 116,72 115,65 L112,48 
              C112,46 113,43 115,42 Z"
-          fill="#0f172a" opacity="0.8"/>
+          fill="#060810" opacity="0.8"/>
     <path d="M118,42 C120,40 122,42 122,42 L122,60 C121,68 120,75 120,78
              C120,75 119,68 118,60 L118,42 Z"
           fill="#3d2a12" opacity="0.6"/>
@@ -288,7 +288,7 @@
     <path d="M85,100 C82,120 80,150 82,180 C84,210 80,240 78,270"
           stroke="#1e293b" stroke-width="2" fill="none" opacity="0.6"/>
     <path d="M78,130 C76,160 75,190 77,220 C79,250 76,280 74,310"
-          stroke="#0f172a" stroke-width="3" fill="none" opacity="0.5"/>
+          stroke="#060810" stroke-width="3" fill="none" opacity="0.5"/>
     <!-- Hair strand accents (right - glowing) -->
     <path d="M155,100 C158,120 160,150 158,180 C156,210 160,240 162,270"
           stroke="#e8d48b" stroke-width="2" fill="none" filter="url(#glow)" opacity="0.6"/>

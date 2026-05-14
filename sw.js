@@ -1,4 +1,4 @@
-const CACHE_NAME = 'brier-v1';
+const CACHE_NAME = 'brier-v4.1';
 const PRECACHE_URLS = [
   '/',
   '/styles.css',

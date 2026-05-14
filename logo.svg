@@ -6,7 +6,7 @@
       <stop offset="100%" style="stop-color:#d19a66"/>
     </linearGradient>
     <linearGradient id="frostGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#bae6fd"/>
+      <stop offset="0%" style="stop-color:#a8c4d4"/>
       <stop offset="100%" style="stop-color:#b07a48"/>
     </linearGradient>
     <filter id="glow">
@@ -79,7 +79,7 @@
   </g>
 
   <!-- Subtle frost particles -->
-  <g fill="#bae6fd" opacity="0.15">
+  <g fill="#a8c4d4" opacity="0.15">
     <circle cx="150" cy="200" r="1.5"/>
     <circle cx="350" cy="180" r="1"/>
     <circle cx="180" cy="350" r="1"/>

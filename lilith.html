@@ -15,6 +15,9 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="icon" type="image/x-icon" sizes="32x32" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon.svg">
     
     <!-- Open Graph -->
     <meta property="og:type" content="profile">
@@ -55,6 +58,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=MedievalSharp&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
+        /* Skip link */
+        .skip-link { position: absolute; top: -40px; left: 0; background: var(--gold, #c8a23e); color: var(--void, #060810); padding: 0.5rem 1rem; z-index: 1000; font-size: 0.9rem; }
+        .skip-link:focus { top: 0; }
+
         /* ═══════════════════════════════════════
            LILITH v2.0 — DARK FANTASY NORDIC MEDIEVAL
            Full landing page — forged in ancient fire
@@ -1613,10 +1620,12 @@
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
     <!-- Navigation -->
     <nav class="lilith-nav" role="navigation" aria-label="Lilith page navigation">
         <span class="lilith-nav-rune">ᛒ</span>
-        <button class="lilith-nav-toggle" onclick="document.querySelector('.lilith-nav-inner').classList.toggle('open')" aria-label="Menu">☰</button>
+        <button class="lilith-nav-toggle" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'); document.querySelector('.lilith-nav-inner').classList.toggle('open')" aria-label="Menu" aria-expanded="false">☰</button>
         <div class="lilith-nav-inner">
             <a href="#hero" class="lilith-nav-link">Lilith</a>
             <div class="lilith-nav-divider"></div>
@@ -1629,6 +1638,7 @@
         </div>
     </nav>
 
+    <main id="main-content">
     <!-- ═══ HERO ═══ -->
     <section id="hero" class="lilith-hero">
         <div class="fog-layer fog-1"></div>
@@ -1973,6 +1983,8 @@
 
     <!-- ═══ RUNIC DIVIDER ═══ -->
     <div class="lilith-section-divider">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛊ ᛏ ᛒ ᛖ ᛗ ᛚ ᛜ ᛞ ᛟ</div>
+
+    </main>
 
     <!-- Footer -->
     <footer class="lilith-footer">

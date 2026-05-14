@@ -151,8 +151,8 @@ function initRunesCanvas() {
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rotation);
         ctx.font = `${p.size}px serif`;
-        ctx.fillStyle = `rgba(56, 189, 248, ${alpha})`;
-        ctx.shadowColor = `rgba(56, 189, 248, ${alpha * 0.5})`;
+        ctx.fillStyle = `rgba(200, 162, 62, ${alpha})`;
+        ctx.shadowColor = `rgba(200, 162, 62, ${alpha * 0.5})`;
         ctx.shadowBlur = p.size * 0.8;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -165,8 +165,8 @@ function initRunesCanvas() {
         let alpha = t.opacity * (1 - lifeRatio);
         
         ctx.save();
-        ctx.fillStyle = `rgba(125, 211, 252, ${alpha})`;
-        ctx.shadowColor = `rgba(56, 189, 248, ${alpha})`;
+        ctx.fillStyle = `rgba(232, 212, 139, ${alpha})`;
+        ctx.shadowColor = `rgba(200, 162, 62, ${alpha})`;
         ctx.shadowBlur = 6;
         ctx.beginPath();
         ctx.arc(t.x, t.y, t.size * (1 - lifeRatio * 0.5), 0, Math.PI * 2);
@@ -216,7 +216,7 @@ function initRunesCanvas() {
                 if (dist < 200) {
                     const alpha = (1 - dist / 200) * 0.08;
                     ctx.save();
-                    ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
+                    ctx.strokeStyle = `rgba(200, 162, 62, ${alpha})`;
                     ctx.lineWidth = 0.5;
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
@@ -422,8 +422,7 @@ function initContactForm() {
             submitBtn.style.color = '#c8a23e';
             submitBtn.style.boxShadow = '0 0 20px rgba(200,162,62,0.3)';
             form.reset();
-            console.log('Contact form submission:', err.message);
-        }
+            }
         
         setTimeout(() => {
             submitBtn.innerHTML = originalText;
@@ -645,8 +644,8 @@ function initLilithSection() {
             const x = ((e.clientX - rect.left) / rect.width) * 100;
             const y = ((e.clientY - rect.top) / rect.height) * 100;
             glowEl.style.background = `
-                radial-gradient(ellipse at ${x}% ${y}%, rgba(56,189,248,0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 40%, rgba(217,70,239,0.05) 0%, transparent 60%)
+                radial-gradient(ellipse at ${x}% ${y}%, rgba(200,162,62,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 40%, rgba(209,154,102,0.05) 0%, transparent 60%)
             `;
         });
     }
