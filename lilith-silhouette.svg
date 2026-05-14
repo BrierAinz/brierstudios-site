@@ -1,21 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 520" width="240" height="520">
   <defs>
-    <!-- Hair gradient: abyss black to aurora cyan -->
+    <!-- Hair gradient: abyss black to pale gold -->
     <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="20%">
       <stop offset="0%" stop-color="#0f172a"/>
       <stop offset="45%" stop-color="#0f172a"/>
-      <stop offset="55%" stop-color="#1e3a5f"/>
-      <stop offset="100%" stop-color="#7dd3fc"/>
+      <stop offset="55%" stop-color="#3d2a12"/>
+      <stop offset="100%" stop-color="#e8d48b"/>
     </linearGradient>
     <!-- Hair left side solid -->
     <linearGradient id="hairLeftGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0f172a"/>
       <stop offset="100%" stop-color="#0f172a"/>
     </linearGradient>
-    <!-- Hair right side cyan -->
+    <!-- Hair right side pale gold -->
     <linearGradient id="hairRightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#38bdf8"/>
-      <stop offset="100%" stop-color="#7dd3fc"/>
+      <stop offset="0%" stop-color="#c8a23e"/>
+      <stop offset="100%" stop-color="#e8d48b"/>
     </linearGradient>
     <!-- Armor gradient -->
     <linearGradient id="armorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -25,14 +25,14 @@
     </linearGradient>
     <!-- Circuit glow gradient -->
     <linearGradient id="circuitGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#7dd3fc"/>
-      <stop offset="50%" stop-color="#38bdf8"/>
-      <stop offset="100%" stop-color="#0ea5e9"/>
+      <stop offset="0%" stop-color="#e8d48b"/>
+      <stop offset="50%" stop-color="#c8a23e"/>
+      <stop offset="100%" stop-color="#d19a66"/>
     </linearGradient>
     <!-- Tree gradient -->
     <linearGradient id="treeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.6"/>
-      <stop offset="50%" stop-color="#0ea5e9" stop-opacity="0.3"/>
+      <stop offset="0%" stop-color="#c8a23e" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#d19a66" stop-opacity="0.3"/>
       <stop offset="100%" stop-color="#0f172a" stop-opacity="0.1"/>
     </linearGradient>
     <!-- Body skin gradient -->
@@ -42,20 +42,20 @@
     </linearGradient>
     <!-- Eye gradient -->
     <radialGradient id="eyeGrad" cx="50%" cy="40%" r="50%">
-      <stop offset="0%" stop-color="#7dd3fc"/>
-      <stop offset="40%" stop-color="#38bdf8"/>
-      <stop offset="80%" stop-color="#0ea5e9"/>
-      <stop offset="100%" stop-color="#0284c7"/>
+      <stop offset="0%" stop-color="#e8d48b"/>
+      <stop offset="40%" stop-color="#c8a23e"/>
+      <stop offset="80%" stop-color="#d19a66"/>
+      <stop offset="100%" stop-color="#b07a48"/>
     </radialGradient>
     <!-- Eye glow gradient -->
     <radialGradient id="eyeGlowGrad" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#c8a23e" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#c8a23e" stop-opacity="0"/>
     </radialGradient>
     <!-- Rune gradient -->
     <linearGradient id="runeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#7dd3fc"/>
-      <stop offset="100%" stop-color="#38bdf8"/>
+      <stop offset="0%" stop-color="#e8d48b"/>
+      <stop offset="100%" stop-color="#c8a23e"/>
     </linearGradient>
     <!-- Glow filter -->
     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
@@ -99,12 +99,12 @@
     <path d="M122,200 C140,190 165,185 190,180 C210,176 230,178 240,180"
           stroke="url(#treeGrad)" stroke-width="1" fill="none" filter="url(#glow)" opacity="0.25"/>
     <!-- Small circuit nodes on roots -->
-    <circle cx="60" cy="460" r="2" fill="#38bdf8" filter="url(#glow)" opacity="0.5"/>
-    <circle cx="180" cy="460" r="2" fill="#38bdf8" filter="url(#glow)" opacity="0.5"/>
-    <circle cx="50" cy="380" r="1.5" fill="#38bdf8" filter="url(#glow)" opacity="0.4"/>
-    <circle cx="185" cy="380" r="1.5" fill="#38bdf8" filter="url(#glow)" opacity="0.4"/>
-    <circle cx="30" cy="440" r="1.5" fill="#7dd3fc" filter="url(#glow)" opacity="0.35"/>
-    <circle cx="210" cy="440" r="1.5" fill="#7dd3fc" filter="url(#glow)" opacity="0.35"/>
+    <circle cx="60" cy="460" r="2" fill="#c8a23e" filter="url(#glow)" opacity="0.5"/>
+    <circle cx="180" cy="460" r="2" fill="#c8a23e" filter="url(#glow)" opacity="0.5"/>
+    <circle cx="50" cy="380" r="1.5" fill="#c8a23e" filter="url(#glow)" opacity="0.4"/>
+    <circle cx="185" cy="380" r="1.5" fill="#c8a23e" filter="url(#glow)" opacity="0.4"/>
+    <circle cx="30" cy="440" r="1.5" fill="#e8d48b" filter="url(#glow)" opacity="0.35"/>
+    <circle cx="210" cy="440" r="1.5" fill="#e8d48b" filter="url(#glow)" opacity="0.35"/>
   </g>
 
   <!-- Hair flowing behind (back layer) -->
@@ -118,7 +118,7 @@
     <path d="M140,60 C145,80 155,120 162,160 C170,210 175,270 172,330 C170,370 168,410 170,450 C172,475 174,500 175,520"
           stroke="url(#hairRightGrad)" stroke-width="12" fill="none" filter="url(#glow)" opacity="0.6"/>
     <path d="M145,65 C150,100 160,150 165,200 C170,260 173,320 170,380 C168,420 170,460 172,500"
-          stroke="#7dd3fc" stroke-width="8" fill="none" filter="url(#glow)" opacity="0.4"/>
+          stroke="#e8d48b" stroke-width="8" fill="none" filter="url(#glow)" opacity="0.4"/>
   </g>
 
   <!-- Body silhouette -->
@@ -157,24 +157,24 @@
   <!-- Circuit patterns on bodysuit -->
   <g id="circuits" class="lilith-circuits">
     <!-- Central circuit line torso -->
-    <line x1="120" y1="145" x2="120" y2="395" stroke="#38bdf8" stroke-width="1" filter="url(#glow)" opacity="0.7"/>
+    <line x1="120" y1="145" x2="120" y2="395" stroke="#c8a23e" stroke-width="1" filter="url(#glow)" opacity="0.7"/>
     <!-- Circuit branches from center -->
-    <path d="M120,170 L105,175 L98,195" stroke="#38bdf8" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
-    <path d="M120,170 L135,175 L142,195" stroke="#38bdf8" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
-    <path d="M120,220 L110,225 L100,255" stroke="#38bdf8" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
-    <path d="M120,220 L130,225 L140,255" stroke="#38bdf8" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
-    <path d="M120,260 L112,265" stroke="#38bdf8" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
-    <path d="M120,260 L128,265" stroke="#38bdf8" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
+    <path d="M120,170 L105,175 L98,195" stroke="#c8a23e" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
+    <path d="M120,170 L135,175 L142,195" stroke="#c8a23e" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
+    <path d="M120,220 L110,225 L100,255" stroke="#c8a23e" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
+    <path d="M120,220 L130,225 L140,255" stroke="#c8a23e" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
+    <path d="M120,260 L112,265" stroke="#c8a23e" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
+    <path d="M120,260 L128,265" stroke="#c8a23e" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.5"/>
     <!-- Circuit nodes -->
-    <circle cx="120" cy="170" r="2" fill="#7dd3fc" filter="url(#glow)" opacity="0.8"/>
-    <circle cx="120" cy="220" r="2" fill="#7dd3fc" filter="url(#glow)" opacity="0.8"/>
-    <circle cx="120" cy="260" r="1.5" fill="#38bdf8" filter="url(#glow)" opacity="0.7"/>
-    <circle cx="120" cy="320" r="1.5" fill="#38bdf8" filter="url(#glow)" opacity="0.6"/>
+    <circle cx="120" cy="170" r="2" fill="#e8d48b" filter="url(#glow)" opacity="0.8"/>
+    <circle cx="120" cy="220" r="2" fill="#e8d48b" filter="url(#glow)" opacity="0.8"/>
+    <circle cx="120" cy="260" r="1.5" fill="#c8a23e" filter="url(#glow)" opacity="0.7"/>
+    <circle cx="120" cy="320" r="1.5" fill="#c8a23e" filter="url(#glow)" opacity="0.6"/>
     <!-- Arm circuits -->
-    <path d="M98,170 L80,175 L65,180" stroke="#38bdf8" stroke-width="0.6" fill="none" filter="url(#glow)" opacity="0.4"/>
-    <path d="M142,170 L160,175 L175,180" stroke="#38bdf8" stroke-width="0.6" fill="none" filter="url(#glow)" opacity="0.4"/>
-    <circle cx="65" cy="180" r="1.5" fill="#7dd3fc" filter="url(#glow)" opacity="0.5"/>
-    <circle cx="175" cy="180" r="1.5" fill="#7dd3fc" filter="url(#glow)" opacity="0.5"/>
+    <path d="M98,170 L80,175 L65,180" stroke="#c8a23e" stroke-width="0.6" fill="none" filter="url(#glow)" opacity="0.4"/>
+    <path d="M142,170 L160,175 L175,180" stroke="#c8a23e" stroke-width="0.6" fill="none" filter="url(#glow)" opacity="0.4"/>
+    <circle cx="65" cy="180" r="1.5" fill="#e8d48b" filter="url(#glow)" opacity="0.5"/>
+    <circle cx="175" cy="180" r="1.5" fill="#e8d48b" filter="url(#glow)" opacity="0.5"/>
   </g>
 
   <!-- Elder Futhark Rune ᛒ (Berkano) on chest -->
@@ -203,7 +203,7 @@
       <ellipse cx="105" cy="78" rx="14" ry="16" fill="url(#eyeGlowGrad)" opacity="0.3" filter="url(#glowStrong)"/>
       <!-- Eye white -->
       <path d="M92,78 C92,68 100,65 105,65 C110,65 118,68 118,78 C118,86 112,90 105,90 C98,90 92,86 92,78 Z"
-            fill="#0c1524" stroke="#38bdf8" stroke-width="0.5"/>
+            fill="#0c1524" stroke="#c8a23e" stroke-width="0.5"/>
       <!-- Iris -->
       <ellipse cx="105" cy="77" rx="8" ry="9" fill="url(#eyeGrad)"/>
       <!-- Pupil -->
@@ -217,7 +217,7 @@
             stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/>
       <!-- Bottom lash accent -->
       <path d="M94,88 C98,90 102,91 105,91 C108,91 112,90 116,88"
-            stroke="#38bdf8" stroke-width="0.8" fill="none" opacity="0.6"/>
+            stroke="#c8a23e" stroke-width="0.8" fill="none" opacity="0.6"/>
     </g>
     <!-- Right eye -->
     <g class="lilith-eye" id="right-eye">
@@ -225,7 +225,7 @@
       <ellipse cx="135" cy="78" rx="14" ry="16" fill="url(#eyeGlowGrad)" opacity="0.3" filter="url(#glowStrong)"/>
       <!-- Eye white -->
       <path d="M122,78 C122,68 130,65 135,65 C140,65 148,68 148,78 C148,86 142,90 135,90 C128,90 122,86 122,78 Z"
-            fill="#0c1524" stroke="#38bdf8" stroke-width="0.5"/>
+            fill="#0c1524" stroke="#c8a23e" stroke-width="0.5"/>
       <!-- Iris -->
       <ellipse cx="135" cy="77" rx="8" ry="9" fill="url(#eyeGrad)"/>
       <!-- Pupil -->
@@ -239,7 +239,7 @@
             stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/>
       <!-- Bottom lash accent -->
       <path d="M124,88 C128,90 132,91 135,91 C138,91 142,90 146,88"
-            stroke="#38bdf8" stroke-width="0.8" fill="none" opacity="0.6"/>
+            stroke="#c8a23e" stroke-width="0.8" fill="none" opacity="0.6"/>
     </g>
   </g>
 
@@ -248,7 +248,7 @@
 
   <!-- Mouth (subtle anime) -->
   <path d="M114,108 C117,110 120,110 123,108" stroke="#1e293b" stroke-width="1" fill="none" opacity="0.4"/>
-  <path d="M116,109 C118,111 120,111 122,109" stroke="#38bdf8" stroke-width="0.5" fill="none" opacity="0.2"/>
+  <path d="M116,109 C118,111 120,111 122,109" stroke="#c8a23e" stroke-width="0.5" fill="none" opacity="0.2"/>
 
   <!-- Hair front layer (over face) -->
   <g id="hair-front" class="lilith-hair-front">
@@ -283,7 +283,7 @@
           fill="#0f172a" opacity="0.8"/>
     <path d="M118,42 C120,40 122,42 122,42 L122,60 C121,68 120,75 120,78
              C120,75 119,68 118,60 L118,42 Z"
-          fill="#1e3a5f" opacity="0.6"/>
+          fill="#3d2a12" opacity="0.6"/>
     <!-- Hair strand accents (left) -->
     <path d="M85,100 C82,120 80,150 82,180 C84,210 80,240 78,270"
           stroke="#1e293b" stroke-width="2" fill="none" opacity="0.6"/>
@@ -291,52 +291,52 @@
           stroke="#0f172a" stroke-width="3" fill="none" opacity="0.5"/>
     <!-- Hair strand accents (right - glowing) -->
     <path d="M155,100 C158,120 160,150 158,180 C156,210 160,240 162,270"
-          stroke="#7dd3fc" stroke-width="2" fill="none" filter="url(#glow)" opacity="0.6"/>
+          stroke="#e8d48b" stroke-width="2" fill="none" filter="url(#glow)" opacity="0.6"/>
     <path d="M162,130 C164,160 165,190 163,220 C161,250 164,280 166,310"
-          stroke="#38bdf8" stroke-width="3" fill="none" filter="url(#glow)" opacity="0.5"/>
+          stroke="#c8a23e" stroke-width="3" fill="none" filter="url(#glow)" opacity="0.5"/>
   </g>
 
   <!-- Hair clip / ornament with secondary rune -->
   <g id="hair-ornament" class="lilith-ornament" transform="translate(150,100)">
-    <circle cx="0" cy="0" r="4" fill="none" stroke="#7dd3fc" stroke-width="1.5" filter="url(#glow)"/>
-    <circle cx="0" cy="0" r="1.5" fill="#38bdf8" filter="url(#glow)"/>
+    <circle cx="0" cy="0" r="4" fill="none" stroke="#e8d48b" stroke-width="1.5" filter="url(#glow)"/>
+    <circle cx="0" cy="0" r="1.5" fill="#c8a23e" filter="url(#glow)"/>
   </g>
 
   <!-- Armor accent lines on shoulders -->
   <g id="armor-accents" class="lilith-armor-accents">
-    <path d="M100,145 C105,142 112,140 116,142" stroke="#38bdf8" stroke-width="0.8" fill="none" filter="url(#glow)" opacity="0.7"/>
-    <path d="M140,145 C135,142 128,140 124,142" stroke="#38bdf8" stroke-width="0.8" fill="none" filter="url(#glow)" opacity="0.7"/>
+    <path d="M100,145 C105,142 112,140 116,142" stroke="#c8a23e" stroke-width="0.8" fill="none" filter="url(#glow)" opacity="0.7"/>
+    <path d="M140,145 C135,142 128,140 124,142" stroke="#c8a23e" stroke-width="0.8" fill="none" filter="url(#glow)" opacity="0.7"/>
     <!-- Collar line -->
-    <path d="M108,142 L120,148 L132,142" stroke="#38bdf8" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.6"/>
+    <path d="M108,142 L120,148 L132,142" stroke="#c8a23e" stroke-width="0.7" fill="none" filter="url(#glow)" opacity="0.6"/>
     <!-- Waist circuit belt -->
-    <path d="M100,255 L108,253 L120,260 L132,253 L140,255" stroke="#38bdf8" stroke-width="1.2" fill="none" filter="url(#glow)" opacity="0.7"/>
-    <circle cx="120" cy="258" r="2.5" fill="#7dd3fc" filter="url(#glow)" opacity="0.8"/>
+    <path d="M100,255 L108,253 L120,260 L132,253 L140,255" stroke="#c8a23e" stroke-width="1.2" fill="none" filter="url(#glow)" opacity="0.7"/>
+    <circle cx="120" cy="258" r="2.5" fill="#e8d48b" filter="url(#glow)" opacity="0.8"/>
   </g>
 
   <!-- Leg circuit lines -->
   <g id="leg-circuits" class="lilith-leg-circuits">
     <!-- Left leg -->
-    <path d="M105,330 L103,360 L100,400 L98,440 L96,480" stroke="#38bdf8" stroke-width="0.6" fill="none" filter="url(#glow)" opacity="0.4"/>
-    <path d="M105,360 L96,365" stroke="#38bdf8" stroke-width="0.4" fill="none" filter="url(#glow)" opacity="0.3"/>
-    <path d="M103,400 L94,405" stroke="#38bdf8" stroke-width="0.4" fill="none" filter="url(#glow)" opacity="0.3"/>
+    <path d="M105,330 L103,360 L100,400 L98,440 L96,480" stroke="#c8a23e" stroke-width="0.6" fill="none" filter="url(#glow)" opacity="0.4"/>
+    <path d="M105,360 L96,365" stroke="#c8a23e" stroke-width="0.4" fill="none" filter="url(#glow)" opacity="0.3"/>
+    <path d="M103,400 L94,405" stroke="#c8a23e" stroke-width="0.4" fill="none" filter="url(#glow)" opacity="0.3"/>
     <!-- Right leg -->
-    <path d="M135,330 L137,360 L140,400 L142,440 L144,480" stroke="#38bdf8" stroke-width="0.6" fill="none" filter="url(#glow)" opacity="0.4"/>
-    <path d="M135,360 L144,365" stroke="#38bdf8" stroke-width="0.4" fill="none" filter="url(#glow)" opacity="0.3"/>
-    <path d="M137,400 L146,405" stroke="#38bdf8" stroke-width="0.4" fill="none" filter="url(#glow)" opacity="0.3"/>
+    <path d="M135,330 L137,360 L140,400 L142,440 L144,480" stroke="#c8a23e" stroke-width="0.6" fill="none" filter="url(#glow)" opacity="0.4"/>
+    <path d="M135,360 L144,365" stroke="#c8a23e" stroke-width="0.4" fill="none" filter="url(#glow)" opacity="0.3"/>
+    <path d="M137,400 L146,405" stroke="#c8a23e" stroke-width="0.4" fill="none" filter="url(#glow)" opacity="0.3"/>
   </g>
 
   <!-- Ambient particles / floating runes -->
   <g id="particles" class="lilith-particles" filter="url(#glow)">
-    <circle cx="45" cy="300" r="1" fill="#7dd3fc" opacity="0.5"/>
-    <circle cx="195" cy="320" r="1" fill="#7dd3fc" opacity="0.5"/>
-    <circle cx="35" cy="250" r="0.8" fill="#38bdf8" opacity="0.4"/>
-    <circle cx="205" cy="270" r="0.8" fill="#38bdf8" opacity="0.4"/>
-    <circle cx="50" cy="180" r="0.8" fill="#7dd3fc" opacity="0.3"/>
-    <circle cx="190" cy="190" r="0.8" fill="#7dd3fc" opacity="0.3"/>
-    <circle cx="30" cy="380" r="1" fill="#38bdf8" opacity="0.35"/>
-    <circle cx="210" cy="400" r="1" fill="#38bdf8" opacity="0.35"/>
+    <circle cx="45" cy="300" r="1" fill="#e8d48b" opacity="0.5"/>
+    <circle cx="195" cy="320" r="1" fill="#e8d48b" opacity="0.5"/>
+    <circle cx="35" cy="250" r="0.8" fill="#c8a23e" opacity="0.4"/>
+    <circle cx="205" cy="270" r="0.8" fill="#c8a23e" opacity="0.4"/>
+    <circle cx="50" cy="180" r="0.8" fill="#e8d48b" opacity="0.3"/>
+    <circle cx="190" cy="190" r="0.8" fill="#e8d48b" opacity="0.3"/>
+    <circle cx="30" cy="380" r="1" fill="#c8a23e" opacity="0.35"/>
+    <circle cx="210" cy="400" r="1" fill="#c8a23e" opacity="0.35"/>
     <!-- Small floating rune fragments -->
-    <path d="M42,340 L44,334 M42,340 L46,338" stroke="#38bdf8" stroke-width="0.6" fill="none" opacity="0.4"/>
-    <path d="M198,280 L200,274 M198,280 L202,278" stroke="#7dd3fc" stroke-width="0.6" fill="none" opacity="0.4"/>
+    <path d="M42,340 L44,334 M42,340 L46,338" stroke="#c8a23e" stroke-width="0.6" fill="none" opacity="0.4"/>
+    <path d="M198,280 L200,274 M198,280 L202,278" stroke="#e8d48b" stroke-width="0.6" fill="none" opacity="0.4"/>
   </g>
 </svg>
