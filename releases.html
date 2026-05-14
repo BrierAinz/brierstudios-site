@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Releases — BrierStudios</title>
-    <meta name="description" content="BrierStudios release timeline — from Genesis v1.0 through anime/neon v2.3 and CLI Demo v2.5. Track every version, feature, and milestone.">
-    <meta name="keywords" content="BrierStudios releases, changelog, version history, Yggdrasil CLI, Lilith v2.0, anime neon">
+    <meta name="description" content="BrierStudios release timeline — from Genesis v1.0 through Dark Fantasy Nordic v4.1 and CLI Demo v2.5. Track every version, feature, and milestone.">
+    <meta name="keywords" content="BrierStudios releases, changelog, version history, Yggdrasil CLI, Lilith v2.0, dark fantasy, nordic">
     <meta name="author" content="Ainz (BrierAinz)">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#060810">
@@ -22,7 +22,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles.css?v=2.8">
+    <link rel="stylesheet" href="/styles.css?v=4.1">
     <style>
         .releases-hero{padding:10rem 0 4rem;text-align:center;background:radial-gradient(ellipse at 50% 0%,rgba(56,189,248,.06)0%,transparent 60%)}
         .releases-hero h1{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,3.5rem);font-weight:700;color:var(--text-bright);margin-bottom:1rem}
@@ -38,8 +38,8 @@
         .filter-tag{font-family:var(--font-mono);font-size:.72rem;padding:.3rem .75rem;border-radius:999px;background:rgba(15,23,42,.6);border:1px solid rgba(56,189,248,.12);color:var(--muted);cursor:pointer;transition:all .25s ease;text-transform:uppercase;letter-spacing:.06em;user-select:none}
         .filter-tag:hover{border-color:rgba(56,189,248,.3);color:var(--ice)}
         .filter-tag.active{background:rgba(56,189,248,.12);border-color:var(--ice);color:var(--ice);box-shadow:0 0 10px rgba(56,189,248,.15)}
-        .filter-tag[data-realm="lilith"].active{background:rgba(217,70,239,.12);border-color:#d946ef;color:#d946ef;box-shadow:0 0 10px rgba(217,70,239,.15)}
-        .filter-tag[data-realm="yggdrasil"].active{background:rgba(56,189,248,.12);border-color:#38bdf8;color:#38bdf8}
+        .filter-tag[data-realm="lilith"].active{background:rgba(217,70,239,.12);border-color:#d19a66;color:#d19a66;box-shadow:0 0 10px rgba(217,70,239,.15)}
+        .filter-tag[data-realm="yggdrasil"].active{background:rgba(56,189,248,.12);border-color:#c8a23e;color:#c8a23e}
         .filter-tag[data-realm="studio"].active{background:rgba(251,191,36,.12);border-color:#fbbf24;color:#fbbf24;box-shadow:0 0 10px rgba(251,191,36,.15)}
         .filter-tag[data-realm="infra"].active{background:rgba(34,197,94,.12);border-color:#22c55e;color:#22c55e;box-shadow:0 0 10px rgba(34,197,94,.15)}
         .filter-count{font-family:var(--font-mono);font-size:.75rem;color:var(--muted);text-align:right;opacity:.6}
@@ -63,8 +63,8 @@
         .release-version{font-family:var(--font-mono);font-size:1.15rem;font-weight:600;color:var(--ice-bright)}
         .release-tag{font-family:var(--font-mono);font-size:.7rem;padding:.15rem .5rem;border-radius:999px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
         .tag-latest{background:rgba(56,189,248,.12);color:var(--ice);border:1px solid rgba(56,189,248,.25)}
-        .tag-lilith{background:rgba(217,70,239,.1);color:#d946ef;border:1px solid rgba(217,70,239,.2)}
-        .tag-yggdrasil{background:rgba(56,189,248,.1);color:#38bdf8;border:1px solid rgba(56,189,248,.2)}
+        .tag-lilith{background:rgba(217,70,239,.1);color:#d19a66;border:1px solid rgba(217,70,239,.2)}
+        .tag-yggdrasil{background:rgba(56,189,248,.1);color:#c8a23e;border:1px solid rgba(56,189,248,.2)}
         .tag-studio{background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.2)}
         .tag-infra{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.2)}
         .release-date{font-size:.8rem;color:var(--text-dim);opacity:.7;margin-left:auto}
@@ -134,7 +134,7 @@
                 <button class="filter-tag" data-filter="studio" data-realm="studio">ᚺ Studio</button>
                 <button class="filter-tag" data-filter="infra" data-realm="infra">ᚦ Infra</button>
             </div>
-            <div class="filter-count" id="filter-count">Showing 7 of 7 releases</div>
+            <div class="filter-count" id="filter-count">Showing 8 of 8 releases</div>
         </div>
     </section>
 
@@ -142,13 +142,36 @@
     <section style="padding-bottom:8rem;">
         <div class="timeline" id="timeline">
 
+            <!-- v4.1 -->
+            <div class="release-card latest" data-version="4.1" data-realm="lilith studio yggdrasil" data-tags="dark fantasy nordic retheme anime removal CLI demo llms docs">
+                <div class="release-dot"><span class="rune">ᛏ</span></div>
+                <div class="release-body">
+                    <div class="release-header">
+                        <span class="release-version">v4.1</span>
+                        <span class="release-tag tag-latest">Latest</span>
+                        <span class="release-tag tag-lilith">Lilith</span>
+                        <span class="release-tag tag-yggdrasil">Yggdrasil</span>
+                        <span class="release-tag tag-studio">Studio</span>
+                        <span class="release-date">May 2026</span>
+                    </div>
+                    <div class="release-title">Dark Fantasy Nordic — The Great Reforging</div>
+                    <ul class="release-changes">
+                        <li><strong>Retheme</strong> — Full pivot from cyberpunk neon to dark fantasy nordic across all pages</li>
+                        <li><strong>Palette Forged</strong> — Gold <code>#c8a23e</code>, Bronze <code>#d19a66</code>, Pale Gold <code>#e8d48b</code> replace cyan/magenta</li>
+                        <li><strong>Identity Clean</strong> — "Lilith, diosa de Yggdrasil" — no más "anime", no más "AI-powered"</li>
+                        <li><strong>CLI Demo</strong> — Animated terminal with runic commands: forge, realm, deploy</li>
+                        <li><strong>llms.txt</strong> — AI-indexable site description for LLM crawlers</li>
+                        <li><strong>Docs Retheme</strong> — docs.brierstudios.com swapped to gold/bronze dark fantasy palette</li>
+                    </ul>
+                </div>
+            </div>
+
             <!-- v2.6 -->
-            <div class="release-card latest" data-version="2.6" data-realm="lilith studio" data-tags="lilith page gallery lightbox realms identity palette">
+            <div class="release-card" data-version="2.6" data-realm="lilith studio" data-tags="lilith page gallery lightbox realms identity palette">
                 <div class="release-dot"><span class="rune">ᛒ</span></div>
                 <div class="release-body">
                     <div class="release-header">
                         <span class="release-version">v2.6</span>
-                        <span class="release-tag tag-latest">Latest</span>
                         <span class="release-tag tag-lilith">Lilith</span>
                         <span class="release-tag tag-studio">Studio</span>
                         <span class="release-date">May 2026</span>
@@ -157,7 +180,7 @@
                     <ul class="release-changes">
                         <li><strong>Lilith Page</strong> — New <code>/lilith</code> page with hero, gallery, 9 realms, identity stats</li>
                         <li><strong>Gallery Lightbox</strong> — Click any variant for full-screen high-res view</li>
-                        <li><strong>Color Palette</strong> — Interactive 7-color palette bar (Cyan, Magenta, Aurora, Abyss, Gold, Pale, Void)</li>
+                        <li><strong>Color Palette</strong> — Interactive 7-color palette bar (Gold, Bronze, Pale Gold, Abyss, Deep, Steel, Void)</li>
                         <li><strong>Realm Cards</strong> — 9 realm cards with custom glow colors and Elder Futhark icons</li>
                         <li><strong>Release Filters</strong> — Search releases by keyword; filter by realm (Lilith, Yggdrasil, Studio, Infra)</li>
                         <li><strong>Nav Update</strong> — Lilith link now points to dedicated <code>/lilith</code> page</li>
@@ -204,7 +227,7 @@
             </div>
 
             <!-- v2.3 -->
-            <div class="release-card" data-version="2.3" data-realm="lilith studio" data-tags="lilith anime neon cyberpunk identity palette fonts">
+<div class="release-card" data-version="2.3" data-realm="lilith studio" data-tags="lilith dark fantasy nordic identity palette fonts">
                 <div class="release-dot"><span class="rune">ᛉ</span></div>
                 <div class="release-body">
                     <div class="release-header">
@@ -212,11 +235,11 @@
                         <span class="release-tag tag-lilith">Lilith</span>
                         <span class="release-date">May 2026</span>
                     </div>
-                    <div class="release-title">Lilith v2.0 — Anime/Cyberpunk Neon</div>
+                    <div class="release-title">Lilith v2.0 — Dark Fantasy Nordic Identity</div>
                     <ul class="release-changes">
-                        <li><strong>Lilith Identity</strong> — Evolved from dark-fantasy to anime/cyberpunk neon</li>
+                        <li><strong>Lilith Identity</strong> — Established dark fantasy goddess with forge-iron aesthetics</li>
                         <li><strong>9 Realm Variants</strong> — Each realm with distinct visual identity</li>
-                        <li><strong>Neon Palette</strong> — Cyan <code>#38bdf8</code>, Magenta <code>#d946ef</code>, Aurora <code>#7dd3fc</code></li>
+                        <li><strong>Nordic Palette</strong> — Gold <code>#c8a23e</code>, Bronze <code>#d19a66</code>, Pale Gold <code>#e8d48b</code></li>
                         <li><strong>Brand Fonts</strong> — Cinzel (display) + JetBrains Mono (code) + Inter (body)</li>
                     </ul>
                 </div>
@@ -253,7 +276,7 @@
                     <ul class="release-changes">
                         <li><strong>Stats Counter</strong> — Animated counter for projects, realms, commits</li>
                         <li><strong>Rune Canvas</strong> — Floating rune particles with mouse interaction</li>
-                        <li><strong>Aurora Glow</strong> — Mouse-following glow effect</li>
+                        <li><strong>Forge Glow</strong> — Mouse-following warmth effect</li>
                         <li><strong>Loading Screen</strong> — Frost-themed initial load animation</li>
                     </ul>
                 </div>
@@ -316,7 +339,7 @@
         </div>
     </footer>
 
-    <script src="/script.js?v=2.8" defer></script>
+    <script src="/script.js?v=4.1" defer></script>
     <script>
         // Animate release cards on scroll
         document.addEventListener('DOMContentLoaded', () => {
