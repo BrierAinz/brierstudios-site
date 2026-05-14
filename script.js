@@ -408,9 +408,9 @@ function initContactForm() {
             
             if (resp.ok && result.success) {
                 submitBtn.innerHTML = '<span class="btn-rune">ᛏ</span> Raven Sent!';
-                submitBtn.style.borderColor = '#38bdf8';
-                submitBtn.style.color = '#38bdf8';
-                submitBtn.style.boxShadow = '0 0 20px rgba(56,189,248,0.3)';
+                submitBtn.style.borderColor = '#c8a23e';
+                submitBtn.style.color = '#c8a23e';
+                submitBtn.style.boxShadow = '0 0 20px rgba(200,162,62,0.3)';
                 form.reset();
             } else {
                 throw new Error(result.error || 'Failed to send');
@@ -418,9 +418,9 @@ function initContactForm() {
         } catch (err) {
             // Fallback: show success anyway (Worker might not be deployed yet)
             submitBtn.innerHTML = '<span class="btn-rune">ᛏ</span> Raven Sent!';
-            submitBtn.style.borderColor = '#38bdf8';
-            submitBtn.style.color = '#38bdf8';
-            submitBtn.style.boxShadow = '0 0 20px rgba(56,189,248,0.3)';
+            submitBtn.style.borderColor = '#c8a23e';
+            submitBtn.style.color = '#c8a23e';
+            submitBtn.style.boxShadow = '0 0 20px rgba(200,162,62,0.3)';
             form.reset();
             console.log('Contact form submission:', err.message);
         }
@@ -623,7 +623,7 @@ function initLilithSection() {
     const eyes = document.querySelectorAll('.lilith-eye');
     realmCards.forEach(card => {
         card.addEventListener('mouseenter', () => {
-            const color = getComputedStyle(card).getPropertyValue('--realm-color').trim() || '#38bdf8';
+            const color = getComputedStyle(card).getPropertyValue('--realm-color').trim() || '#c8a23e';
             eyes.forEach(eye => {
                 eye.style.transition = 'fill 0.4s ease, filter 0.4s ease';
                 eye.setAttribute('fill', color);
@@ -631,7 +631,7 @@ function initLilithSection() {
         });
         card.addEventListener('mouseleave', () => {
             eyes.forEach(eye => {
-                eye.setAttribute('fill', '#38bdf8');
+                eye.setAttribute('fill', '#c8a23e');
             });
         });
     });
