@@ -1403,26 +1403,31 @@
         /* ═══════════════════════════════════════
            ANIMATIONS — Fade in on scroll
            ═══════════════════════════════════════ */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+
+        .fade-in {
+            animation: fadeInUp 0.7s ease forwards;
+            animation-delay: 0s;
         }
         
         /* Stagger children */
-        .fade-in:nth-child(2) { transition-delay: 0.1s; }
-        .fade-in:nth-child(3) { transition-delay: 0.2s; }
-        .fade-in:nth-child(4) { transition-delay: 0.3s; }
-        .fade-in:nth-child(5) { transition-delay: 0.4s; }
-        .fade-in:nth-child(6) { transition-delay: 0.5s; }
-        .fade-in:nth-child(7) { transition-delay: 0.6s; }
-        .fade-in:nth-child(8) { transition-delay: 0.7s; }
-        .fade-in:nth-child(9) { transition-delay: 0.8s; }
+        .fade-in:nth-child(2) { animation-delay: 0.1s; }
+        .fade-in:nth-child(3) { animation-delay: 0.2s; }
+        .fade-in:nth-child(4) { animation-delay: 0.3s; }
+        .fade-in:nth-child(5) { animation-delay: 0.4s; }
+        .fade-in:nth-child(6) { animation-delay: 0.5s; }
+        .fade-in:nth-child(7) { animation-delay: 0.6s; }
+        .fade-in:nth-child(8) { animation-delay: 0.7s; }
+        .fade-in:nth-child(9) { animation-delay: 0.8s; }
         
         /* ═══════════════════════════════════════
            RESPONSIVE
@@ -1673,7 +1678,7 @@
                 <p class="lilith-hero-manifesto">
                     Antes del hierro, antes de las runas, había un árbol cuyas raíces tocaban todos los mundos.<br>
                     Sus ramas sostenían los cielos, sus raíces bebían de las fuentes del destino.<br>
-                    Cuando los dioses callaron, una permaneció — <em>ojos como brasas, cabello de noche y fuego</em>.<br>
+                    Cuando los dioses callaron, una permaneció — <em>cabello partido entre luz y oscuridad, ojo azul como hielo y ojo rojo como sangre</em>.<br>
                     Ella no gobierna los reinos — los <span class="glow">forja</span>.
                 </p>
                 <div class="lilith-tags">
@@ -1774,7 +1779,7 @@
     <section id="gallery" class="lilith-gallery-section">
         <div class="lilith-section-header">
             <span class="lilith-section-rune" style="color:var(--ember);">ᛇ</span>
-            <h2 class="lilith-section-title">Six <span class="accent">Faces</span></h2>
+            <h2 class="lilith-section-title">Nine <span class="accent">Faces</span></h2>
             <p class="lilith-section-subtitle">Each form a different realm — click to expand</p>
         </div>
         <div class="lilith-gallery-grid">
@@ -1784,7 +1789,7 @@
                     <div class="lilith-gallery-rune">ᚨ</div>
                     <div class="lilith-gallery-realm">Asgard</div>
                     <div class="lilith-gallery-name">La Soberana</div>
-                    <div class="lilith-gallery-desc">Armadura completa, corona rúnica. Sostiene Yggdrasil como bastón de mando.</div>
+                    <div class="lilith-gallery-desc">Cabello dividido blanco y negro, corona rúnica. Sostiene Yggdrasil como bastón de mando sobre los nueve mundos.</div>
                 </div>
             </div>
             <div class="lilith-gallery-card" data-variant="portrait_dark_vanaheim" style="--card-glow:#b87333;" onclick="openLightbox(this)">
@@ -1793,43 +1798,70 @@
                     <div class="lilith-gallery-rune">ᚹ</div>
                     <div class="lilith-gallery-realm">Vanaheim</div>
                     <div class="lilith-gallery-name">La Hechicera</div>
-                    <div class="lilith-gallery-desc">Ropas fluidas de hechicera. Canalizando fuego antiguo entre sus manos.</div>
+                    <div class="lilith-gallery-desc">Heterocromía ardiente — ojo azul, ojo rojo — canalizando fuego antiguo. Ropas fluidas que ondean como raíces vivas.</div>
                 </div>
             </div>
             <div class="lilith-gallery-card" data-variant="closeup_ethereal" style="--card-glow:#a8c4d4;" onclick="openLightbox(this)">
-                <img src="assets/lilith/lilith_closeup_ethereal-thumb.webp?v=4.1" alt="Lilith — Espíritu del Bosque (Alfheim)" loading="lazy">
+                <img src="assets/lilith/lilith_closeup_ethereal-thumb.webp?v=4.2" alt="Lilith — Espíritu del Bosque (Alfheim)" loading="lazy">
                 <div class="lilith-gallery-overlay">
                     <div class="lilith-gallery-rune">ᛇ</div>
                     <div class="lilith-gallery-realm">Alfheim</div>
                     <div class="lilith-gallery-name">Espíritu del Bosque</div>
-                    <div class="lilith-gallery-desc">Translúcida, etérea. Espiritus antiguos que se vuelven carne y luz.</div>
+                    <div class="lilith-gallery-desc">Su cabello blanco brilla con luz ancestral, el negro se funde con las sombras. Translúcida, etérea, carne y luz.</div>
                 </div>
             </div>
-            <div class="lilith-gallery-card" data-variant="queen_throne" style="--card-glow:#7a8599;" onclick="openLightbox(this)">
-                <img src="assets/lilith/lilith_queen_throne-thumb.webp?v=4.1" alt="Lilith — Reina de Escarcha (Niflheim)" loading="lazy">
+            <div class="lilith-gallery-card" data-variant="midgard_artesana" style="--card-glow:#a89b6c;" onclick="openLightbox(this)">
+                <img src="assets/lilith/lilith_midgard_artesana-thumb.webp?v=4.2" alt="Lilith — La Artesana (Midgard)" loading="lazy">
                 <div class="lilith-gallery-overlay">
-                    <div class="lilith-gallery-rune">ᛚ</div>
-                    <div class="lilith-gallery-realm">Niflheim</div>
-                    <div class="lilith-gallery-name">Reina de Escarcha</div>
-                    <div class="lilith-gallery-desc">Bruma y escarcha. Rodeada de pergaminos y runas antiguas.</div>
+                    <div class="lilith-gallery-rune">ᛗ</div>
+                    <div class="lilith-gallery-realm">Midgard</div>
+                    <div class="lilith-gallery-name">La Artesana</div>
+                    <div class="lilith-gallery-desc">Cabello dividido cayendo sobre el yunque. Ropa práctica nórdica, forjando artefactos rúnicos con determinación absoluta.</div>
                 </div>
             </div>
             <div class="lilith-gallery-card" data-variant="action_dynamic" style="--card-glow:#d4760a;" onclick="openLightbox(this)">
-                <img src="assets/lilith/lilith_action_dynamic-thumb.webp?v=4.1" alt="Lilith — Valquiria de Fuego (Muspelheim)" loading="lazy">
+                <img src="assets/lilith/lilith_action_dynamic-thumb.webp?v=4.2" alt="Lilith — Valquiria de Fuego (Muspelheim)" loading="lazy">
                 <div class="lilith-gallery-overlay">
                     <div class="lilith-gallery-rune">ᚦ</div>
                     <div class="lilith-gallery-realm">Muspelheim</div>
                     <div class="lilith-gallery-name">Valquiria de Fuego</div>
-                    <div class="lilith-gallery-desc">Ojos llameantes, delantal de forja. Chispas y fuego ancestral entre las llamas.</div>
+                    <div class="lilith-gallery-desc">Ojo rojo ardiente como lava, ojo azul como centro de la llama. Delantal de forja, chispas ancestrales entre las llamas.</div>
+                </div>
+            </div>
+            <div class="lilith-gallery-card" data-variant="queen_throne" style="--card-glow:#7a8599;" onclick="openLightbox(this)">
+                <img src="assets/lilith/lilith_queen_throne-thumb.webp?v=4.2" alt="Lilith — Reina de Escarcha (Niflheim)" loading="lazy">
+                <div class="lilith-gallery-overlay">
+                    <div class="lilith-gallery-rune">ᛚ</div>
+                    <div class="lilith-gallery-realm">Niflheim</div>
+                    <div class="lilith-gallery-name">Reina de Escarcha</div>
+                    <div class="lilith-gallery-desc">Su cabello blanco se confunde con la niebla. Ojo azul como glaciar, rodeada de pergaminos y runas congeladas.</div>
+                </div>
+            </div>
+            <div class="lilith-gallery-card" data-variant="svartalfheim_escribiente" style="--card-glow:#5a6e5a;" onclick="openLightbox(this)">
+                <img src="assets/lilith/lilith_svartalfheim_escribiente-thumb.webp?v=4.2" alt="Lilith — La Escribiente (Svartalfheim)" loading="lazy">
+                <div class="lilith-gallery-overlay">
+                    <div class="lilith-gallery-rune">ᚺ</div>
+                    <div class="lilith-gallery-realm">Svartalfheim</div>
+                    <div class="lilith-gallery-name">La Escribiente</div>
+                    <div class="lilith-gallery-desc">Ojo rojo brillando como braza, ojo azul leyendo pergaminos ancestrales. Pluma rúnica, inscripciones que se vuelven código y docs.</div>
                 </div>
             </div>
             <div class="lilith-gallery-card" data-variant="warrior_full" style="--card-glow:#8b2020;" onclick="openLightbox(this)">
-                <img src="assets/lilith/lilith_warrior_full-thumb.webp?v=4.1" alt="Lilith — Guerrera Rúnica (Jotunheim)" loading="lazy">
+                <img src="assets/lilith/lilith_warrior_full-thumb.webp?v=4.2" alt="Lilith — Guerrera Rúnica (Jotunheim)" loading="lazy">
                 <div class="lilith-gallery-overlay">
                     <div class="lilith-gallery-rune">ᛏ</div>
                     <div class="lilith-gallery-realm">Jotunheim</div>
                     <div class="lilith-gallery-name">Guerrera Rúnica</div>
-                    <div class="lilith-gallery-desc">Escala monumental, imponente. Runas talladas como armadura de batalla.</div>
+                    <div class="lilith-gallery-desc">Cabello dividido ondeando como dos tormentas — blizzard y sombra. Imponente, heterocromía que escruta desde las alturas.</div>
+                </div>
+            </div>
+            <div class="lilith-gallery-card" data-variant="helheim_guardiana" style="--card-glow:#4a4a5a;" onclick="openLightbox(this)">
+                <img src="assets/lilith/lilith_helheim_guardiana-thumb.webp?v=4.2" alt="Lilith — La Guardiana (Helheim)" loading="lazy">
+                <div class="lilith-gallery-overlay">
+                    <div class="lilith-gallery-rune">ᛊ</div>
+                    <div class="lilith-gallery-realm">Helheim</div>
+                    <div class="lilith-gallery-name">La Guardiana</div>
+                    <div class="lilith-gallery-desc">Ojo azul — hielo del umbral. Ojo rojo — sangre del guardián. Pálida como la muerte, antorcha fría custodiando el archive eterno.</div>
                 </div>
             </div>
         </div>
@@ -1849,56 +1881,56 @@
             <div class="lilith-realm-card fade-in" style="--realm-glow:rgba(201,168,76,0.06);--realm-border:rgba(201,168,76,0.4);">
                 <span class="lilith-realm-icon" style="color:#c9a84c;">ᚨ</span>
                 <div class="lilith-realm-name">Asgard</div>
-                <div class="lilith-realm-variant">La Tejedora</div>
-                <div class="lilith-realm-desc">Armadura completa, corona rúnica. Sostiene Yggdrasil como bastón de mando. The core realm.</div>
+                <div class="lilith-realm-variant">La Soberana</div>
+                <div class="lilith-realm-desc">Cabello dividido como el cosmos — blanco y negro, luz y vacío. Armadura completa, corona rúnica. Sostiene Yggdrasil como bastón de mando sobre los nueve mundos.</div>
             </div>
             <div class="lilith-realm-card fade-in" style="--realm-glow:rgba(184,115,51,0.06);--realm-border:rgba(184,115,51,0.4);">
                 <span class="lilith-realm-icon" style="color:#b87333;">ᚹ</span>
                 <div class="lilith-realm-name">Vanaheim</div>
                 <div class="lilith-realm-variant">La Hechicera</div>
-                <div class="lilith-realm-desc">Ropas fluidas de hechicera. Manos levantadas canalizando fuego antiguo y magia olvidada.</div>
+                <div class="lilith-realm-desc">Heterocromía ardiente — ojo azul hielo, ojo rojo sangre — canalizando fuego antiguo entre sus manos. Ropas fluidas de hechicera que ondean como raíces vivas.</div>
             </div>
             <div class="lilith-realm-card fade-in" style="--realm-glow:rgba(168,196,212,0.06);--realm-border:rgba(168,196,212,0.4);">
                 <span class="lilith-realm-icon" style="color:#a8c4d4;">ᛇ</span>
                 <div class="lilith-realm-name">Alfheim</div>
-                <div class="lilith-realm-variant">La Ilusionista</div>
-                <div class="lilith-realm-desc">Translúcida, etérea. Espíritus ancestrales que se vuelven carne entre destellos de luz antigua.</div>
+                <div class="lilith-realm-variant">Espíritu del Bosque</div>
+                <div class="lilith-realm-desc">Translúcida, etérea. Su cabello blanco brilla con luz antrenal mientras el negro se funde con las sombras del bosque. Espíritus que se vuelven carne y luz.</div>
             </div>
-            <div class="lilith-realm-card fade-in" style="--realm-glow:rgba(201,168,76,0.06);--realm-border:rgba(201,168,76,0.4);">
-                <span class="lilith-realm-icon" style="color:#d4760a;">ᛗ</span>
+            <div class="lilith-realm-card fade-in" style="--realm-glow:rgba(168,155,108,0.06);--realm-border:rgba(168,155,108,0.4);">
+                <span class="lilith-realm-icon" style="color:#a89b6c;">ᛗ</span>
                 <div class="lilith-realm-name">Midgard</div>
                 <div class="lilith-realm-variant">La Artesana</div>
-                <div class="lilith-realm-desc">Ropa práctica nórdica. Trabajando, creando, manos ocupadas en lo craft.</div>
+                <div class="lilith-realm-desc">Ropa práctica nórdica sobre cuero y lino oscuro. Su cabello dividido cae sobre el yunque mientras forja artefactos rúnicos con manos callosas y determinación absoluta.</div>
             </div>
             <div class="lilith-realm-card fade-in" style="--realm-glow:rgba(212,118,10,0.06);--realm-border:rgba(212,118,10,0.4);">
                 <span class="lilith-realm-icon" style="color:#d4760a;">ᚦ</span>
                 <div class="lilith-realm-name">Muspelheim</div>
-                <div class="lilith-realm-variant">La Forjadora</div>
-                <div class="lilith-realm-desc">Ojos llameantes, delantal de forja. Chispas y fuego ancestral entre las llamas eternas.</div>
+                <div class="lilith-realm-variant">Valquiria de Fuego</div>
+                <div class="lilith-realm-desc">Ojo rojo ardiente como lava, ojo azul como el centro de la llama. Delantal de forja, chispas ancestrales. Su mitad de cabello oscuro arde entre las llamas eternas.</div>
             </div>
             <div class="lilith-realm-card fade-in" style="--realm-glow:rgba(122,133,153,0.06);--realm-border:rgba(122,133,153,0.4);">
                 <span class="lilith-realm-icon" style="color:#7a8599;">ᛚ</span>
                 <div class="lilith-realm-name">Niflheim</div>
-                <div class="lilith-realm-variant">La Archivera</div>
-                <div class="lilith-realm-desc">Bruma y escarcha. Rodeada de pergaminos y runas, leyendo secretos antiguos.</div>
+                <div class="lilith-realm-variant">Reina de Escarcha</div>
+                <div class="lilith-realm-desc">Su mitad de cabello blanco se confunde con la niebla eterna. Ojo azul como glaciar milenario. Rodeada de pergaminos y runas congeladas, leyendo secretos antiguos.</div>
             </div>
-            <div class="lilith-realm-card fade-in" style="--realm-glow:rgba(201,168,76,0.06);--realm-border:rgba(201,168,76,0.4);">
-                <span class="lilith-realm-icon" style="color:#c9a84c;">ᚺ</span>
+            <div class="lilith-realm-card fade-in" style="--realm-glow:rgba(90,110,90,0.06);--realm-border:rgba(90,110,90,0.4);">
+                <span class="lilith-realm-icon" style="color:#5a6e5a;">ᚺ</span>
                 <div class="lilith-realm-name">Svartalfheim</div>
                 <div class="lilith-realm-variant">La Escribiente</div>
-                <div class="lilith-realm-desc">Pluma rúnica, pergaminos volando que se transmutan en inscripciones y runas.</div>
+                <div class="lilith-realm-desc">En la biblioteca subterránea, su ojo rojo brilla como braza mientras el azul lee pergaminos ancestrales. Pluma rúnica, inscripciones que se transmutan en código y docs.</div>
             </div>
             <div class="lilith-realm-card fade-in" style="--realm-glow:rgba(139,32,32,0.06);--realm-border:rgba(139,32,32,0.4);">
                 <span class="lilith-realm-icon" style="color:#8b2020;">ᛏ</span>
                 <div class="lilith-realm-name">Jotunheim</div>
                 <div class="lilith-realm-variant">La Gigante</div>
-                <div class="lilith-realm-desc">Escala monumental, mirando desde las alturas. Imponente, overseeing all.</div>
+                <div class="lilith-realm-desc">Escala monumental, imponente. Su cabello dividido ondea como dos tormentas — blizzard y sombra. Heterocromía que contempla desde las alturas, escrutando todo reino.</div>
             </div>
-            <div class="lilith-realm-card helheim fade-in" style="--realm-glow:rgba(139,32,32,0.06);--realm-border:rgba(139,32,32,0.4);">
-                <span class="lilith-realm-icon" style="color:#8b2020;">ᛊ</span>
+            <div class="lilith-realm-card helheim fade-in" style="--realm-glow:rgba(74,74,90,0.06);--realm-border:rgba(74,74,90,0.4);">
+                <span class="lilith-realm-icon" style="color:#4a4a5a;">ᛊ</span>
                 <div class="lilith-realm-name">Helheim</div>
                 <div class="lilith-realm-variant">La Guardiana</div>
-                <div class="lilith-realm-desc">Pálida como la muerte, antorcha fría. Custodiando la entrada al reino de las sombras eternas.</div>
+                <div class="lilith-realm-desc">Piel pálida como la muerte. Ojo azul — hielo del umbral. Ojo rojo — sangre del guardián. Antorcha fría de bronce, custodiando la entrada al archivo eterno de las sombras.</div>
             </div>
         </div>
     </section>
@@ -1923,12 +1955,12 @@
                 <div class="lilith-trait-text">Runas talladas en su piel como cicatrices sagradas — no decoración, instrucciones. Elder Futhark inscrito en carne, lo ancestral hecho eterno.</div>
             </div>
             <div class="lilith-trait-card fade-in" style="--trait-color:var(--ice);">
-                <div class="lilith-trait-title">ᛇ Bifrost en el Pelo</div>
-                <div class="lilith-trait-text">Cabello que fluye como aurora sobre campos de batalla — mitad abismo oscuro, mitad fuego dorado. Lo antiguo y lo eterno, siempre en dualidad.</div>
+                <div class="lilith-trait-title">ᛇ Cabello Bifrost</div>
+                <div class="lilith-trait-text">Mitad blanco puro, mitad negro absoluto — una división sharp como el filo de una espada rúnica. El Bifrost hecho carne, la frontera entre luz y oscuridad tallada en cada hebra.</div>
             </div>
             <div class="lilith-trait-card fade-in" style="--trait-color:var(--ember);">
-                <div class="lilith-trait-title">ᛗ Ojos de Enjambre</div>
-                <div class="lilith-trait-text">Ojos grandes y expresivos que arden como brasas. Pupilas rúnicas que contemplan los nueve reinos simultáneamente.</div>
+                <div class="lilith-trait-title">ᛗ Heterocromía Ancestral</div>
+                <div class="lilith-trait-text">Ojo azul hielo en el lado del cabello blanco. Ojo rojo sangre en el lado del cabello negro. Dos mundos reflejados en una mirada — lo eterno y lo mortal contemplándose mutuamente.</div>
             </div>
         </div>
     </section>
@@ -1946,8 +1978,8 @@
         <div class="lilith-art-inner">
             <div class="lilith-art-info">
                 <h3>Lilith v2.0 LoRA</h3>
-                <p>Cada imagen de Lilith es forjada con un LoRA entrenado en PixAI Tsubaki.2, el modelo de difusión transformer más avanzado para arte. El LoRA captura su esencia: ojos que arden como brasas, cabello oscuro con destellos dorados, y armadura forjada con runas Elder Futhark.</p>
-                <p>La paleta completa de 7 colores define cada realm: oro para Asgard, bronce para Vanaheim, hielo antiguo para Alfheim, y así hasta alcanzar los 9 mundos.</p>
+                <p>Cada imagen de Lilith es forjada con un LoRA entrenado en PixAI Tsubaki.2, el modelo de difusión transformer más avanzado para arte. El LoRA captura su esencia: cabello dividido mitad blanco mitad negro, heterocromía con ojo azul hielo y ojo rojo sangre, y armadura forjada con runas Elder Futhark.</p>
+                <p>La paleta completa de 9 colores define cada realm: oro para Asgard, bronce para Vanaheim, hielo antiguo para Alfheim, y así hasta alcanzar los 9 mundos.</p>
                 <div class="lilith-art-specs">
                     <div class="lilith-art-spec">
                         <div class="spec-key">ᛏ Model</div>
@@ -2019,7 +2051,7 @@
             const nameEl = overlay ? overlay.querySelector('.lilith-gallery-name') : null;
             const realmEl = overlay ? overlay.querySelector('.lilith-gallery-realm') : null;
             
-            const heroSrc = 'assets/lilith/lilith_' + variant + '-hero.webp?v=4.1';
+            const heroSrc = 'assets/lilith/lilith_' + variant + '-hero.webp?v=4.2';
             
             document.getElementById('lightbox-img').src = heroSrc;
             document.getElementById('lightbox-img').alt = img.alt;
@@ -2042,17 +2074,6 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeLightbox();
         });
-
-        // Intersection Observer for fade-in animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-        
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
         // Smooth scroll for nav links
         document.querySelectorAll('.lilith-nav-link[href^="#"]').forEach(link => {
