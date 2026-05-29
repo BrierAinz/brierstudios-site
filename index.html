@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>BrierStudios — Where Ancient Meets Mythic</title>
-    <meta name="description" content="BrierStudios: Creative technology studio fusing dark fantasy Nordic medieval aesthetics with Norse mythology. Lilith v2.0, Yggdrasil CLI, and the Nine Realms.">
+    <meta name="description" content="BrierStudios: Creative technology studio fusing dark fantasy Nordic medieval aesthetics with Norse mythology. Lilith v5.1, Yggdrasil CLI, and the Nine Realms.">
     <meta name="keywords" content="creative studio, dark fantasy, Nordic aesthetics, medieval design, Yggdrasil, Norse mythology, AI agents, Lilith, LoRA training, game dev, dark theme">
     <meta name="author" content="Ainz (BrierAinz)">
     <meta name="robots" content="index, follow">
@@ -29,7 +29,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://brierstudios.com/">
     <meta property="og:title" content="BrierStudios — Where Ancient Meets Mythic">
-    <meta property="og:description" content="Creative technology studio fusing dark fantasy Nordic medieval aesthetics with Norse mythology. Lilith v2.0, Yggdrasil CLI, and the Nine Realms.">
+    <meta property="og:description" content="Creative technology studio fusing dark fantasy Nordic medieval aesthetics with Norse mythology. Lilith v5.1, Yggdrasil CLI, and the Nine Realms.">
     <meta property="og:image" content="https://brierstudios.com/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -39,7 +39,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="BrierStudios — Where Ancient Meets Mythic">
-    <meta name="twitter:description" content="Creative technology studio fusing dark fantasy Nordic medieval aesthetics with Norse mythology. Lilith v2.0, Yggdrasil CLI, and the Nine Realms.">
+    <meta name="twitter:description" content="Creative technology studio fusing dark fantasy Nordic medieval aesthetics with Norse mythology. Lilith v5.1, Yggdrasil CLI, and the Nine Realms.">
     <meta name="twitter:image" content="https://brierstudios.com/og-image.png">
     
     <!-- Schema.org JSON-LD -->
@@ -51,7 +51,7 @@
         "name": "BrierStudios",
         "url": "https://brierstudios.com",
         "logo": "https://brierstudios.com/assets/lilith-logo/logo-lilith-512.png",
-        "description": "Creative technology studio fusing dark fantasy Nordic medieval aesthetics with Norse mythology. Lilith v2.0, Yggdrasil CLI, and the Nine Realms.",
+        "description": "Creative technology studio fusing dark fantasy Nordic medieval aesthetics with Norse mythology. Lilith v5.1, Yggdrasil CLI, and the Nine Realms.",
         "sameAs": ["https://github.com/BrierAinz", "https://x.com/BrierAinz", "https://www.instagram.com/brier_studios"]
       },
       {
@@ -222,7 +222,7 @@
                     <div class="lilith-silhouette-glow"></div>
                     <img class="lilith-hero-img" src="assets/lilith-logo/logo-lilith-hero.webp" alt="Lilith — Diosa Oscura de Yggdrasil">
                     <div class="lilith-image-label">
-                        <span class="lilith-label-rune">ᛒ</span> Lilith v2.0
+                        <span class="lilith-label-rune">ᛒ</span> Lilith v5.1
                     </div>
                 </div>
 
@@ -451,14 +451,14 @@
                     </button>
                 </div>
                 <div class="install-block">
-                    <code class="install-code">cd Yggdrasil && npm install</code>
-                    <button class="copy-btn" data-copy="cd Yggdrasil && npm install" title="Copy to clipboard">
+                    <code class="install-code">cd Yggdrasil && python -m venv .venv && pip install -e ".[dev]"</code>
+                    <button class="copy-btn" data-copy="cd Yggdrasil && python -m venv .venv && pip install -e ".[dev]"" title="Copy to clipboard">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
                     </button>
                 </div>
                 <div class="install-block">
-                    <code class="install-code">ygg init --realm asgard</code>
-                    <button class="copy-btn" data-copy="ygg init --realm asgard" title="Copy to clipboard">
+                    <code class="install-code">python ygg.py</code>
+                    <button class="copy-btn" data-copy="python ygg.py" title="Copy to clipboard">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
                     </button>
                 </div>
@@ -477,12 +477,12 @@
                 </div>
                 <div class="stat-item fade-in">
                     <span class="stat-rune">ᛊ</span>
-                    <div class="stat-number" data-target="50" data-suffix="K+">0</div>
+                    <div class="stat-number" data-target="7" data-suffix="K+">0</div>
                     <div class="stat-label">Lines of Runic Code</div>
                 </div>
                 <div class="stat-item fade-in">
                     <span class="stat-rune">ᛏ</span>
-                    <div class="stat-number" data-target="4">0</div>
+                    <div class="stat-number" data-target="6">0</div>
                     <div class="stat-label">Projects</div>
                 </div>
                 <div class="stat-item fade-in">
@@ -618,11 +618,29 @@
                     <div class="project-rune">ᛚ</div>
                     <h3 class="project-name">Lilith</h3>
                     <p class="project-tagline">AI Agent Framework</p>
-                    <p class="project-desc">A conversational AI agent framework with modular architecture, designed for extensibility and dark-themed aesthetics.</p>
+                    <p class="project-desc">v5.1 modular AI agent with 8 lilith-* packages. Memory, skills, multi-provider LLM support. The goddess who dwells in Yggdrasil.</p>
                     <div class="project-tech">
                         <span>Python</span>
                         <span>FastAPI</span>
                         <span>LLM</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/BrierAinz/Yggdrasil" target="_blank" rel="noopener" class="project-link">
+                            <span class="link-icon">᛭</span> Repository
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Horror GameMaster -->
+                <div class="project-card fade-in">
+                    <div class="project-rune">ᚦ</div>
+                    <h3 class="project-name">Horror GameMaster</h3>
+                    <p class="project-tagline">Procedural Horror Engine</p>
+                    <p class="project-desc">AI-driven procedural horror game engine. 2,200+ training entries, 8 modules, LLM integration for dynamic storytelling and adaptive fear.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>AI</span>
+                        <span>GameDev</span>
                     </div>
                     <div class="project-links">
                         <a href="https://github.com/BrierAinz/Yggdrasil" target="_blank" rel="noopener" class="project-link">
