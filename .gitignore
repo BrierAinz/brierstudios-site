@@ -1,2 +1,52 @@
+# Cloudflare
 .wrangler/
+.dev.vars
+.miniflare/
+
+# Build artifacts
 node_modules/
+dist/
+build/
+.cache/
+.parcel-cache/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor configs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Backups
+*.bak
+*.orig
+*.rej
+*.tmp
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Source design files (regenerables desde imagen final)
+*.psd
+*.ai
+*.sketch
+*.fig
+*.xd
+
+# Large media (raw, before optimization)
+*.raw
+*.tiff
+*.bmp
