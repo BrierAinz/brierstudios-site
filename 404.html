@@ -1,110 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>404 — Realm Not Found | Brier Studios</title>
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --void: #060810;
-      --ice: #c8a23e;
-      --ice-bright: #e8d48b;
-      --aurora: #d19a66;
-      --text: #cbd5e1;
-      --text-dim: #64748b;
-      --text-bright: #f1f5f9;
-      --font-display: 'Cinzel', serif;
-      --font-mono: 'JetBrains Mono', monospace;
-    }
-
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      height: 100%;
-      background-color: var(--void);
-      color: var(--text);
-    }
-
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .container {
-      text-align: center;
-      padding: 2rem;
-    }
-
-    .rune {
-      font-size: 6rem;
-      line-height: 1;
-      color: var(--ice);
-      text-shadow:
-        0 0 20px rgba(200, 162, 62, 0.6),
-        0 0 40px rgba(200, 162, 62, 0.3),
-        0 0 80px rgba(200, 162, 62, 0.15);
-      font-family: sans-serif;
-    }
-
-    h1 {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      color: var(--text-bright);
-      margin-top: 1.5rem;
-      letter-spacing: 0.05em;
-    }
-
-    p {
-      color: var(--text-dim);
-      font-size: 1.1rem;
-      margin-top: 0.75rem;
-      line-height: 1.6;
-    }
-
-    .home-link {
-      display: inline-block;
-      margin-top: 2rem;
-      padding: 0.75rem 2rem;
-      min-height: 44px;
-      border: 1px solid var(--ice);
-      color: var(--ice-bright);
-      text-decoration: none;
-      font-family: var(--font-mono);
-      font-size: 0.9rem;
-      letter-spacing: 0.05em;
-      background: rgba(200, 162, 62, 0.05);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-    }
-
-    .home-link:hover {
-      background: rgba(200, 162, 62, 0.12);
-      box-shadow: 0 0 20px rgba(200, 162, 62, 0.2);
-      transform: translateY(-1px);
-    }
-
-    .home-link:active {
-      transform: translateY(0);
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<title>404 — Realm Not Found | BrierStudios</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="canonical" href="https://brierstudios.com/404">
+<link rel="stylesheet" href="/styles.css?v=4.1">
+<style>
+:root { --void:#060810; --void-card:#101620; --gold:#c9a84c; --gold-bright:#e0c878; --text:#cbd5e1; --muted:#64748b; --border:#182030; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { min-height: 100vh; background: var(--void); color: var(--text); font-family: 'Inter', sans-serif; padding: 4rem 1.5rem; }
+.container { max-width: 42rem; margin: 0 auto; text-align: center; }
+.rune { font-size: 6rem; line-height: 1; color: var(--gold); text-shadow: 0 0 30px rgba(200,162,62,0.6); margin-bottom: 1rem; animation: float 3s ease-in-out infinite; }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+h1 { font-family: 'Cinzel', serif; font-size: 2rem; color: #f1f5f9; margin-bottom: 0.5rem; letter-spacing: 0.05em; }
+p { color: var(--muted); font-size: 1.1rem; line-height: 1.6; margin-bottom: 1.5rem; }
+.search-box { max-width: 32rem; margin: 2rem auto; position: relative; }
+.search-box input { width: 100%; padding: 1rem; background: var(--void-card); color: var(--text); border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; font-family: inherit; }
+.search-box input:focus { outline: none; border-color: var(--gold); }
+.search-results { margin-top: 1rem; text-align: left; display: none; }
+.search-results.active { display: block; }
+.search-result { background: var(--void-card); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; margin-bottom: 0.5rem; text-decoration: none; color: var(--text); display: block; transition: border-color 0.2s; }
+.search-result:hover { border-color: var(--gold); }
+.search-result-title { color: var(--gold); font-weight: 600; margin-bottom: 0.25rem; }
+.search-result-section { color: var(--muted); font-size: 0.875rem; }
+.actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
+.btn { display: inline-block; padding: 0.75rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600; transition: background 0.2s, transform 0.2s; }
+.btn-primary { background: var(--gold); color: var(--void); }
+.btn-primary:hover { background: var(--gold-bright); transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+.quick-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+.quick-link { color: var(--text); text-decoration: none; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; transition: border-color 0.2s, color 0.2s; }
+.quick-link:hover { border-color: var(--gold); color: var(--gold); }
+.quick-link-title { font-weight: 600; font-size: 0.9rem; }
+.quick-link-desc { color: var(--muted); font-size: 0.75rem; margin-top: 0.25rem; }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="rune">ᛉ</div>
-    <h1>Realm Not Found</h1>
-    <p>The path you seek has faded into the mist</p>
-    <a href="/" class="home-link">← Return to the Hall</a>
-  </div>
+<div class="container">
+<div class="rune">ᛉ</div>
+<h1>Realm Not Found</h1>
+<p>The path you seek has faded into the mist. Try the search below, or return to familiar ground.</p>
+
+<div class="search-box">
+<input type="search" id="search" placeholder="Search the Nine Realms..." autofocus>
+<div class="search-results" id="results"></div>
+</div>
+
+<div class="actions">
+<a href="/" class="btn btn-primary">← Return to the Hall</a>
+<a href="/status" class="btn btn-ghost">Check System Status</a>
+</div>
+
+<div class="quick-links">
+<a href="/lilith" class="quick-link">
+<div class="quick-link-title">Lilith</div>
+<div class="quick-link-desc">Dark goddess character dossier</div>
+</a>
+<a href="/blog" class="quick-link">
+<div class="quick-link-title">Blog</div>
+<div class="quick-link-desc">Release notes & engineering</div>
+</a>
+<a href="/releases" class="quick-link">
+<div class="quick-link-title">Releases</div>
+<div class="quick-link-desc">Version timeline</div>
+</a>
+<a href="/roadmap" class="quick-link">
+<div class="quick-link-title">Roadmap</div>
+<div class="quick-link-desc">What's coming next</div>
+</a>
+<a href="/faq" class="quick-link">
+<div class="quick-link-title">FAQ</div>
+<div class="quick-link-desc">Common questions</div>
+</a>
+<a href="/newsletter" class="quick-link">
+<div class="quick-link-title">Newsletter</div>
+<div class="quick-link-desc">Subscribe for updates</div>
+</a>
+</div>
+</div>
+
+<script src="search.js"></script>
+<script>
+const input = document.getElementById('search');
+const resultsEl = document.getElementById('results');
+
+input.addEventListener('input', () => {
+  const q = input.value.trim();
+  if (q.length < 2) {
+    resultsEl.classList.remove('active');
+    resultsEl.innerHTML = '';
+    return;
+  }
+  const hits = window.SiteSearch.search(q, 6);
+  if (!hits.length) {
+    resultsEl.innerHTML = '<div style="color:var(--muted);padding:1rem;text-align:center;">No realms found. Try different keywords.</div>';
+    resultsEl.classList.add('active');
+    return;
+  }
+  resultsEl.innerHTML = hits.map(h =>
+    '<a class="search-result" href="' + h.href + '">' +
+    '<div class="search-result-title">' + escapeHtml(h.title) + '</div>' +
+    '<div class="search-result-section">' + escapeHtml(h.section) + '</div>' +
+    '</a>'
+  ).join('');
+  resultsEl.classList.add('active');
+});
+
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') { input.value = ''; input.dispatchEvent(new Event('input')); }
+});
+
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+}
+
+// Check URL for ?q= or ?p=
+const params = new URLSearchParams(location.search);
+if (params.get('q')) {
+  input.value = params.get('q');
+  input.dispatchEvent(new Event('input'));
+}
+</script>
 </body>
 </html>
