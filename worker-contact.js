@@ -32,6 +32,18 @@ export default {
       return handleDelete(request, env);
     }
 
+    if (url.pathname === '/newsletter' && request.method === 'POST') {
+      return handleNewsletter(request, env);
+    }
+
+    if (url.pathname === '/vitals' && request.method === 'POST') {
+      return handleVitals(request, env);
+    }
+
+    if (url.pathname === '/status') {
+      return handleStatus(request, env);
+    }
+
     // Public contact form endpoint
     if (request.method !== 'POST') {
       return new Response('Method not allowed', { status: 405 });
@@ -298,6 +310,124 @@ async function handleDelete(request, env) {
       status: 400, headers: corsHeaders,
     });
   }
+}
+
+async function handleNewsletter(request, env) {
+  const origin = request.headers.get('Origin') || '';
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': origin.endsWith('brierstudios.com') ? origin : 'https://brierstudios.com',
+    'Content-Type': 'application/json',
+  };
+
+  try {
+    const { email } = await request.json();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return new Response(JSON.stringify({ error: 'Invalid email' }), {
+        status: 400, headers: corsHeaders,
+      });
+    }
+
+    // Honeypot-like check: simple rate limit per email
+    if (env.SUBSCRIBERS) {
+      const key = `sub:${email.toLowerCase()}`;
+      const existing = await env.SUBSCRIBERS.get(key);
+      if (existing) {
+        return new Response(JSON.stringify({ success: true, already: true }), {
+          status: 200, headers: corsHeaders,
+        });
+      }
+      await env.SUBSCRIBERS.put(key, JSON.stringify({
+        email: email.toLowerCase(),
+        timestamp: new Date().toISOString(),
+        ip: request.headers.get('CF-Connecting-IP') || 'unknown',
+      }), { expirationTtl: 365 * 24 * 60 * 60 });
+    }
+
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200, headers: corsHeaders,
+    });
+  } catch (err) {
+    return new Response(JSON.stringify({ error: 'Invalid request' }), {
+      status: 400, headers: corsHeaders,
+    });
+  }
+}
+
+async function handleVitals(request, env) {
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json',
+  };
+
+  try {
+    const data = await request.json();
+    // Best-effort store; small KV TTL
+    if (env.VITALS) {
+      const id = `vital:${Date.now()}:${Math.random().toString(36).slice(2, 8)}`;
+      await env.VITALS.put(id, JSON.stringify({
+        ...data,
+        timestamp: new Date().toISOString(),
+        ip: request.headers.get('CF-Connecting-IP') || 'unknown',
+      }), { expirationTtl: 30 * 24 * 60 * 60 }); // 30 days
+    }
+    return new Response(JSON.stringify({ ok: true }), {
+      status: 200, headers: corsHeaders,
+    });
+  } catch (err) {
+    return new Response(JSON.stringify({ error: 'Invalid' }), {
+      status: 400, headers: corsHeaders,
+    });
+  }
+}
+
+async function handleStatus(request, env) {
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+  };
+
+  const checks = {
+    worker: 'up',
+    kv: 'unknown',
+    lastMessage: null,
+    uptime: Math.floor(Date.now() / 1000),
+  };
+
+  try {
+    if (env.CONTACTS) {
+      // List with limit 1 to test KV reachability
+      const list = await env.CONTACTS.list({ prefix: 'contact:', limit: 1 });
+      checks.kv = 'up';
+      checks.messageCount = list.keys.length > 0 ? '(>=1)' : '0';
+      // Try to get last message timestamp via full list (cap at 100)
+      const full = await env.CONTACTS.list({ prefix: 'contact:', limit: 100 });
+      if (full.keys.length > 0) {
+        const newest = await env.CONTACTS.get(full.keys[0].name);
+        if (newest) {
+          try {
+            const parsed = JSON.parse(newest);
+            checks.lastMessage = parsed.timestamp;
+          } catch {}
+        }
+      }
+    } else {
+      checks.kv = 'not-configured';
+    }
+  } catch (err) {
+    checks.kv = 'down';
+    checks.kvError = err && err.message;
+  }
+
+  const status = checks.kv === 'up' && checks.worker === 'up' ? 'operational' : 'degraded';
+  return new Response(JSON.stringify({
+    status,
+    checks,
+    version: '4.1',
+    timestamp: new Date().toISOString(),
+  }, 2), {
+    status: 200, headers: corsHeaders,
+  });
 }
 
 const ADMIN_HTML = `<!DOCTYPE html>
