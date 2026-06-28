@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>BrierStudios Releases</title>
+    <link>https://brierstudios.com/releases</link>
+    <description>Release timeline for BrierStudios: Yggdrasil CLI, Lilith variants, and the Nine Realms.</description>
+    <language>en-us</language>
+    <atom:link href="https://brierstudios.com/releases.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 28 Jun 2026 12:00:00 GMT</lastBuildDate>
+
+    <item>
+      <title>BrierStudios v4.1 — Site Maintenance &amp; Security</title>
+      <link>https://brierstudios.com/releases#v4-1</link>
+      <description>Cloudflare Turnstile on contact form, honeypot spam protection, admin panel for viewing messages.</description>
+      <pubDate>Sun, 28 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="false">brierstudios-v4.1</guid>
+    </item>
+
+    <item>
+      <title>Lilith Page v2.6 — Helheim / Midgard / Svartalfheim Variants</title>
+      <link>https://brierstudios.com/lilith</link>
+      <description>Three new Lilith variants inspired by the dark realms of Norse cosmology.</description>
+      <pubDate>Sun, 25 May 2026 22:30:00 GMT</pubDate>
+      <guid isPermaLink="false">lilith-v2.6</guid>
+    </item>
+
+    <item>
+      <title>Yggdrasil CLI Demo v2.5</title>
+      <link>https://brierstudios.com/#cli-demo</link>
+      <description>Interactive CLI demo with new realm commands and improved output formatting.</description>
+      <pubDate>Wed, 14 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="false">yggdrasil-cli-v2.5</guid>
+    </item>
+
+    <item>
+      <title>Lilith v2.4 — Palette Update</title>
+      <link>https://brierstudios.com/lilith</link>
+      <description>Refined dark fantasy palette: deeper voids, warmer golds, colder steel.</description>
+      <pubDate>Sat, 10 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="false">lilith-v2.4</guid>
+    </item>
+
+    <item>
+      <title>Yggdrasil CLI v2.3 — Realms Module</title>
+      <link>https://brierstudios.com/#cli-demo</link>
+      <description>Full Nine Realms tree implemented: Asgard, Vanaheim, Alfheim, Svartalfheim, Midgard, Jotunheim, Muspelheim, Niflheim, Helheim.</description>
+      <pubDate>Mon, 05 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="false">yggdrasil-cli-v2.3</guid>
+    </item>
+
+    <item>
+      <title>BrierStudios v2.2 — Identity Page</title>
+      <link>https://brierstudios.com/#about</link>
+      <description>New about section with full studio identity and Norse mythology references.</description>
+      <pubDate>Fri, 01 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="false">brierstudios-v2.2</guid>
+    </item>
+
+    <item>
+      <title>Yggdrasil CLI v2.1 — Commands Module</title>
+      <link>https://brierstudios.com/#cli-demo</link>
+      <description>Initial CLI command set: forge, summon, banish, scry.</description>
+      <pubDate>Tue, 28 Apr 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="false">yggdrasil-cli-v2.1</guid>
+    </item>
+
+    <item>
+      <title>Lilith v2.0 — Dark Fantasy Nordic Pivot</title>
+      <link>https://brierstudios.com/lilith</link>
+      <description>Major redesign: from cyberpunk neon to dark fantasy Nordic. Bronze crown with Elder Futhark runes, honey-gold eyes.</description>
+      <pubDate>Sat, 20 Apr 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="false">lilith-v2.0</guid>
+    </item>
+
+    <item>
+      <title>BrierStudios Genesis v1.0</title>
+      <link>https://brierstudios.com/</link>
+      <description>Initial release. Norse mythology-themed creative technology studio.</description>
+      <pubDate>Mon, 01 Apr 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="false">brierstudios-v1.0</guid>
+    </item>
+  </channel>
+</rss>
