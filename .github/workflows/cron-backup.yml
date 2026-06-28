@@ -1,0 +1,17 @@
+name: Cron — daily KV backup
+
+on:
+  schedule:
+    - cron: '0 3 * * *'  # 03:00 UTC daily
+  workflow_dispatch:
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Trigger Worker backup endpoint
+        run: |
+          curl -sS -X POST https://contact.brierstudios.com/__cron/backup
+        env:
+          CF_BACKUP_TOKEN: ${{ secrets.CF_BACKUP_TOKEN }}
