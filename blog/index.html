@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Blog — BrierStudios</title>
+<link rel="canonical" href="https://brierstudios.com/blog">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css?v=4.1">
+<meta name="description" content="BrierStudios blog — release notes, design decisions, security deep dives, and Yggdrasil CLI updates.">
+</head>
+<body>
+<main style="max-width:48rem;margin:0 auto;padding:8rem 1.5rem 4rem;">
+<h1 style="font-family:var(--font-display);color:var(--gold);font-size:2.5rem;margin-bottom:.5rem;">Blog</h1>
+<p style="color:var(--text-dim);margin-bottom:2rem;">Release notes, design decisions, and engineering deep dives.</p>
+
+<div id="posts" style="display:grid;gap:1.5rem;"></div>
+</main>
+
+<script src="posts.js"></script>
+<script>
+const posts = window.BLOG_POSTS.slice().sort((a, b) => b.date.localeCompare(a.date));
+const container = document.getElementById('posts');
+container.innerHTML = posts.map(p => `
+  <article style="background:var(--void-card);border:1px solid var(--void-border);border-radius:8px;padding:1.5rem;">
+    <h2 style="margin:0 0 .5rem;font-size:1.25rem;">
+      <a href="/blog/${p.slug}.html" style="color:var(--gold);text-decoration:none;">${escapeHtml(p.title)}</a>
+    </h2>
+    <div style="color:var(--text-dim);font-size:.875rem;margin-bottom:.75rem;">
+      <time datetime="${p.date}">${formatDate(p.date)}</time> · ${p.tags.map(t => '<span style="color:var(--gold);">' + escapeHtml(t) + '</span>').join(' · ')}
+    </div>
+    <p style="color:var(--text);margin:0;">${escapeHtml(p.excerpt)}</p>
+  </article>
+`).join('');
+
+function formatDate(s) {
+  const d = new Date(s);
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+}
+</script>
+</body>
+</html>
