@@ -18,61 +18,73 @@ export default {
 
     // Admin routes (require ADMIN_TOKEN)
     if (url.pathname === '/admin' || url.pathname === '/admin/') {
-      if (request.method !== 'GET') return new Response('Method not allowed', { status: 405 });
-      return new Response(ADMIN_HTML, {
-        headers: { 'Content-Type': 'text/html; charset=utf-8' },
-      });
+    if (request.method !== 'GET') return new Response('Method not allowed', { status: 405 });
+    return new Response(ADMIN_HTML, {
+    headers: { 'Content-Type': 'text/html; charset=utf-8' },
+    });
     }
 
     if (url.pathname === '/admin/api/messages') {
-      return handleListMessages(request, env);
+    return handleListMessages(request, env);
     }
 
     if (url.pathname === '/admin/api/delete' && request.method === 'POST') {
-      return handleDelete(request, env);
+    return handleDelete(request, env);
+    }
+
+    if (url.pathname === '/admin/vitals') {
+    return handleVitalsDashboard(request, env);
+    }
+
+    if (url.pathname === '/admin/api/export' && request.method === 'GET') {
+    return handleExport(request, env);
     }
 
     if (url.pathname === '/newsletter' && request.method === 'POST') {
-      return handleNewsletter(request, env);
+    return handleNewsletter(request, env);
     }
 
     if (url.pathname === '/vitals' && request.method === 'POST') {
-      return handleVitals(request, env);
+    return handleVitals(request, env);
     }
 
     if (url.pathname === '/status') {
-          return handleStatus(request, env);
+    return handleStatus(request, env);
+    }
+
+    if (url.pathname === '/__cron/backup' && request.method === 'POST') {
+    return handleCronBackup(request, env);
+    }
+
+    if (url.pathname === '/auth/login' && request.method === 'GET') {
+    return handleAuthLogin(request, env);
+    }
+
+    if (url.pathname === '/auth/callback' && request.method === 'GET') {
+    return handleAuthCallback(request, env);
+    }
+
+    if (url.pathname === '/auth/logout' && request.method === 'POST') {
+    return handleAuthLogout(request, env);
+    }
+
+    if (url.pathname === '/pixel.gif' && request.method === 'GET') {
+    return handlePixel(request, env);
+    }
+
+    if (url.pathname === '/alerts/subscribe' && request.method === 'POST') {
+    return handleAlertsSubscribe(request, env);
+    }
+
+    if (url.pathname === '/webhook/github' && request.method === 'POST') {
+          return handleGitHubWebhook(request, env);
         }
 
-        if (url.pathname === '/admin/vitals') {
-          return handleVitalsDashboard(request, env);
+        if (url.pathname.startsWith('/feed/') && url.pathname.endsWith('.xml') && request.method === 'GET') {
+          return handleCategoryFeed(request, env);
         }
 
-        if (url.pathname === '/admin/api/export' && request.method === 'GET') {
-          return handleExport(request, env);
-        }
-
-        if (url.pathname === '/__cron/backup' && request.method === 'POST') {
-              return handleCronBackup(request, env);
-            }
-
-            // GitHub OAuth flow
-                if (url.pathname === '/auth/login' && request.method === 'GET') {
-                  return handleAuthLogin(request, env);
-                }
-                if (url.pathname === '/auth/callback' && request.method === 'GET') {
-                  return handleAuthCallback(request, env);
-                }
-                if (url.pathname === '/auth/logout' && request.method === 'POST') {
-                  return handleAuthLogout(request, env);
-                }
-
-                // Analytics pixel
-                if (url.pathname === '/pixel.gif' && request.method === 'GET') {
-                  return handlePixel(request, env);
-                }
-
-                // Public contact form endpoint
+        // Public contact form endpoint
     if (request.method !== 'POST') {
       return new Response('Method not allowed', { status: 405 });
     }
@@ -703,6 +715,149 @@ async function handleCronBackup(request, env) {
 
   return new Response(JSON.stringify({ ok: true, key, count: messages.length }), {
     status: 200, headers: { 'Content-Type': 'application/json' },
+  });
+}
+
+async function handleAlertsSubscribe(request, env) {
+  const origin = request.headers.get('Origin') || '';
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': origin.endsWith('brierstudios.com') ? origin : 'https://brierstudios.com',
+    'Content-Type': 'application/json',
+  };
+
+  try {
+    const { email } = await request.json();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return new Response(JSON.stringify({ error: 'Invalid email' }), {
+        status: 400, headers: corsHeaders,
+      });
+    }
+
+    if (env.SUBSCRIBERS) {
+      const key = 'alert:' + email.toLowerCase();
+      await env.SUBSCRIBERS.put(key, JSON.stringify({
+        email: email.toLowerCase(),
+        timestamp: new Date().toISOString(),
+        ip: request.headers.get('CF-Connecting-IP') || 'unknown',
+      }), { expirationTtl: 365 * 24 * 60 * 60 });
+    }
+
+    return new Response(JSON.stringify({ success: true, message: 'You will be notified of any outages.' }), {
+      status: 200, headers: corsHeaders,
+    });
+  } catch (err) {
+    return new Response(JSON.stringify({ error: 'Invalid request' }), {
+      status: 400, headers: corsHeaders,
+    });
+  }
+}
+
+async function handleGitHubWebhook(request, env) {
+  const event = request.headers.get('X-GitHub-Event') || 'unknown';
+  const deliveryId = request.headers.get('X-GitHub-Delivery') || '';
+
+  // Verify signature if WEBHOOK_SECRET is configured
+  const sig = request.headers.get('X-Hub-Signature-256') || '';
+  if (env.WEBHOOK_SECRET) {
+    const body = await request.text();
+    const enc = new TextEncoder();
+    const key = await crypto.subtle.importKey(
+      'raw', enc.encode(env.WEBHOOK_SECRET),
+      { name: 'HMAC', hash: 'SHA-256' },
+      false, ['sign']
+    );
+    const sigBytes = await crypto.subtle.sign('HMAC', key, enc.encode(body));
+    const expected = 'sha256=' + Array.from(new Uint8Array(sigBytes)).map(b => b.toString(16).padStart(2, '0')).join('');
+    if (expected !== sig) {
+      return new Response('Invalid signature', { status: 401 });
+    }
+    var payload = JSON.parse(body);
+  } else {
+    var payload = await request.json();
+  }
+
+  // Forward interesting events to Discord
+  if (env.DISCORD_WEBHOOK_URL) {
+    const messages = {
+      'push': '🚀 Push to ' + (payload.ref || 'unknown') + ': ' + (payload.head_commit ? payload.head_commit.message.split('\n')[0] : ''),
+      'release': '📦 Release ' + (payload.release ? payload.release.tag_name + ': ' + payload.release.name : ''),
+      'workflow_run': '⚙️ Workflow ' + (payload.workflow_run ? payload.workflow_run.name + ' — ' + payload.workflow_run.conclusion : ''),
+      'star': '⭐ Starred by ' + (payload.sender ? payload.sender.login : 'someone'),
+      'fork': '🍴 Forked by ' + (payload.sender ? payload.sender.login : 'someone'),
+    };
+    const msg = messages[event];
+    if (msg) {
+      await fetch(env.DISCORD_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: 'BrierStudios GitHub',
+          embeds: [{
+            title: 'GitHub ' + event,
+            description: msg,
+            color: 0xc8a23e,
+            url: payload.html_url || 'https://github.com/BrierAinz/brierstudios-site',
+            footer: { text: 'delivery: ' + deliveryId.slice(0, 8) },
+            timestamp: new Date().toISOString(),
+          }],
+        }),
+      }).catch(() => {});
+    }
+  }
+
+  return new Response(JSON.stringify({ received: true, event }), {
+    status: 200, headers: { 'Content-Type': 'application/json' },
+  });
+}
+
+async function handleCategoryFeed(request, env) {
+  const url = new URL(request.url);
+  const category = url.pathname.match(/\/feed\/(.+)\.xml/)?.[1] || 'all';
+
+  // Hardcoded category feeds based on tags
+  const POSTS_BY_CAT = {
+    'cli': [
+      { title: 'Yggdrasil CLI v2.5 — Realms Module Live', link: 'https://brierstudios.com/blog/yggdrasil-cli-v2-5-release.html', pubDate: 'Wed, 14 May 2026 12:00:00 GMT', desc: 'Full Nine Realms tree implemented.' },
+    ],
+    'lilith': [
+      { title: 'Lilith v2.4 — Deeper Voids, Warmer Golds', link: 'https://brierstudios.com/blog/lilith-palette-v2-4.html', pubDate: 'Sat, 10 May 2026 12:00:00 GMT', desc: 'Refined dark fantasy palette update.' },
+    ],
+    'security': [
+      { title: 'Why We Switched from reCAPTCHA to Cloudflare Turnstile', link: 'https://brierstudios.com/blog/turnstile-vs-recaptcha.html', pubDate: 'Wed, 22 Apr 2026 12:00:00 GMT', desc: 'Privacy-respecting, free, invisible.' },
+    ],
+  };
+
+  const items = category === 'all'
+    ? Object.values(POSTS_BY_CAT).flat()
+    : (POSTS_BY_CAT[category] || []);
+
+  const rss = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+    '<channel>',
+    '<title>BrierStudios — ' + category + '</title>',
+    '<link>https://brierstudios.com/' + (category === 'all' ? '' : 'feed/' + category) + '</link>',
+    '<description>Posts tagged ' + category + ' from BrierStudios</description>',
+    '<language>en-us</language>',
+    '<atom:link href="https://brierstudios.com/feed/' + category + '.xml" rel="self" type="application/rss+xml" />',
+    ...items.flatMap(it => [
+      '<item>',
+      '<title>' + it.title + '</title>',
+      '<link>' + it.link + '</link>',
+      '<description>' + it.desc + '</description>',
+      '<pubDate>' + it.pubDate + '</pubDate>',
+      '<guid>' + it.link + '</guid>',
+      '</item>',
+    ]),
+    '</channel>',
+    '</rss>',
+  ].join('\n');
+
+  return new Response(rss, {
+    headers: {
+      'Content-Type': 'application/rss+xml; charset=utf-8',
+      'Cache-Control': 'public, max-age=3600',
+    },
   });
 }
 
