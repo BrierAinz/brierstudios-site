@@ -1,8 +1,9 @@
-const CACHE_NAME = 'brier-v4.1';
+const CACHE_NAME = 'brier-v4.3';
 const PRECACHE_URLS = [
   '/',
   '/styles.css',
-  '/script.js',
+  '/script.js?v=4.2',
+  '/translations.js?v=4.2',
   '/favicon.svg',
   '/favicon.ico',
   '/favicon-512.png',
