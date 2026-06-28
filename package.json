@@ -7,7 +7,8 @@
   "scripts": {
     "test": "node --test tests/unit.test.mjs",
     "test:unit": "node --test tests/unit.test.mjs",
-    "test:e2e": "node --test tests/e2e.test.mjs"
+    "test:e2e": "node --test tests/e2e.test.mjs",
+    "rss:build": "node scripts/generate-rss.mjs"
   },
   "keywords": ["brierstudios", "norse", "dark-fantasy", "lilith", "yggdrasil", "cloudflare-pages", "cloudflare-workers"],
   "license": "MIT"
