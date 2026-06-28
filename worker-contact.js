@@ -53,10 +53,26 @@ export default {
         }
 
         if (url.pathname === '/__cron/backup' && request.method === 'POST') {
-          return handleCronBackup(request, env);
-        }
+              return handleCronBackup(request, env);
+            }
 
-        // Public contact form endpoint
+            // GitHub OAuth flow
+                if (url.pathname === '/auth/login' && request.method === 'GET') {
+                  return handleAuthLogin(request, env);
+                }
+                if (url.pathname === '/auth/callback' && request.method === 'GET') {
+                  return handleAuthCallback(request, env);
+                }
+                if (url.pathname === '/auth/logout' && request.method === 'POST') {
+                  return handleAuthLogout(request, env);
+                }
+
+                // Analytics pixel
+                if (url.pathname === '/pixel.gif' && request.method === 'GET') {
+                  return handlePixel(request, env);
+                }
+
+                // Public contact form endpoint
     if (request.method !== 'POST') {
       return new Response('Method not allowed', { status: 405 });
     }
@@ -247,9 +263,23 @@ async function notifyDiscord(entry, env) {
 }
 
 async function checkAuth(request, env) {
+  // Bearer token (manual)
   const auth = request.headers.get('Authorization') || '';
-  const token = auth.replace(/^Bearer\s+/i, '').trim();
-  return Boolean(env.ADMIN_TOKEN) && Boolean(token) && token === env.ADMIN_TOKEN;
+  const bearerToken = auth.replace(/^Bearer\s+/i, '').trim();
+  if (env.ADMIN_TOKEN && bearerToken && bearerToken === env.ADMIN_TOKEN) {
+    return true;
+  }
+
+  // Cookie-based session (GitHub OAuth)
+  const cookie = (request.headers.get('Cookie') || '').match(/bs_session=([^;]+)/);
+  if (cookie) {
+    const parts = cookie[1].split('.');
+    if (parts.length === 2 && env.ADMIN_TOKEN && parts[1] === env.ADMIN_TOKEN) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 async function handleListMessages(request, env) {
@@ -545,6 +575,113 @@ async function handleExport(request, env) {
   });
 }
 
+async function handleAuthLogin(request, env) {
+  if (!env.GITHUB_CLIENT_ID) {
+    return new Response('GITHUB_CLIENT_ID not configured', { status: 500 });
+  }
+  const state = crypto.randomUUID();
+  const redirectUri = new URL(request.url).origin + '/auth/callback';
+  const params = new URLSearchParams({
+    client_id: env.GITHUB_CLIENT_ID,
+    redirect_uri: redirectUri,
+    scope: 'read:user',
+    state: state,
+  });
+  return new Response(null, {
+    status: 302,
+    headers: {
+      'Location': 'https://github.com/login/oauth/authorize?' + params.toString(),
+      'Set-Cookie': 'oauth_state=' + state + '; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=600',
+    },
+  });
+}
+
+async function handleAuthCallback(request, env) {
+  const url = new URL(request.url);
+  const code = url.searchParams.get('code');
+  const state = url.searchParams.get('state');
+  const cookie = (request.headers.get('Cookie') || '').match(/oauth_state=([^;]+)/);
+  const cookieState = cookie ? cookie[1] : null;
+
+  if (!code || !state || state !== cookieState) {
+    return new Response('Invalid OAuth state', { status: 400 });
+  }
+
+  // Exchange code for access token
+  const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
+    method: 'POST',
+    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      client_id: env.GITHUB_CLIENT_ID,
+      client_secret: env.GITHUB_CLIENT_SECRET,
+      code: code,
+      redirect_uri: new URL(request.url).origin + '/auth/callback',
+      state: state,
+    }),
+  });
+  const tokenData = await tokenRes.json();
+  if (!tokenData.access_token) {
+    return new Response('OAuth exchange failed: ' + JSON.stringify(tokenData), { status: 400 });
+  }
+
+  // Get user info
+  const userRes = await fetch('https://api.github.com/user', {
+    headers: { 'Authorization': 'Bearer ' + tokenData.access_token, 'User-Agent': 'BrierStudios-Worker' },
+  });
+  const user = await userRes.json();
+
+  // Only allow the configured owner
+  const allowedUser = env.GITHUB_ALLOWED_USER || 'BrierAinz';
+  if (user.login !== allowedUser) {
+    return new Response('Access denied for user: ' + user.login, { status: 403 });
+  }
+
+  // Issue session cookie
+  const sessionToken = crypto.randomUUID() + '.' + (env.ADMIN_TOKEN || 'fallback');
+  return new Response(null, {
+    status: 302,
+    headers: {
+      'Location': '/admin',
+      'Set-Cookie': 'bs_session=' + sessionToken + '; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=86400',
+    },
+  });
+}
+
+async function handlePixel(request, env) {
+  // 1x1 transparent GIF
+  const gif = new Uint8Array([
+    0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 0x01, 0x00, 0x01, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0xff, 0xff, 0xff, 0x21, 0xf9, 0x04, 0x01, 0x00, 0x00, 0x00, 0x00, 0x2c, 0x00, 0x00, 0x00, 0x00,
+    0x01, 0x00, 0x01, 0x00, 0x00, 0x02, 0x02, 0x44, 0x01, 0x00, 0x3b
+  ]);
+  const newResponse = new Response(gif, {
+    headers: {
+      'Content-Type': 'image/gif',
+      'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+      'Access-Control-Allow-Origin': '*',
+    },
+  });
+
+  if (env.ANALYTICS) {
+    const url = new URL(request.url);
+    const today = new Date().toISOString().slice(0, 10);
+    const key = 'pv:' + today + ':' + (url.searchParams.get('p') || '/');
+    const current = parseInt((await env.ANALYTICS.get(key)) || '0', 10);
+    env.ANALYTICS.put(key, String(current + 1), { expirationTtl: 365 * 24 * 60 * 60 });
+  }
+  return newResponse;
+}
+
+async function handleAuthLogout(request) {
+  return new Response(null, {
+    status: 302,
+    headers: {
+      'Location': '/admin',
+      'Set-Cookie': 'bs_session=; Path=/; Max-Age=0; HttpOnly',
+    },
+  });
+}
+
 async function handleCronBackup(request, env) {
   // Backup CONTACTS KV to R2 if bound
   if (!env.R2 || !env.CONTACTS) {
@@ -616,6 +753,8 @@ h1 { color:var(--gold); font-weight:600; letter-spacing:.05em; margin:0; }
   <input type="password" id="tokenInput" placeholder="Admin token" autofocus>
   <button id="loginBtn">Unlock</button>
   <div id="loginErr" class="err hidden"></div>
+  <p style="margin-top:1.5rem;text-align:center;color:var(--muted);">— or —</p>
+  <a href="https://contact.brierstudios.com/auth/login" style="display:block;margin-top:0.5rem;padding:0.75rem;background:#1a1b26;border:1px solid var(--border);color:var(--text);text-align:center;border-radius:4px;text-decoration:none;">Login with GitHub</a>
 </div>
 
 <div id="panel" class="hidden">
@@ -660,8 +799,11 @@ function doLogin() {
 function doLogout() {
   setCurrentToken('');
   sessionStorage.removeItem(sessionKey);
-  document.getElementById('login').classList.remove('hidden');
-  document.getElementById('panel').classList.add('hidden');
+  // Notify server to clear cookie
+  fetch('https://contact.brierstudios.com/auth/logout', { method: 'POST' }).finally(() => {
+    document.getElementById('login').classList.remove('hidden');
+    document.getElementById('panel').classList.add('hidden');
+  });
 }
 
 async function loadMessages() {
