@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Vitals Dashboard — BrierStudios</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css?v=4.1">
+<style>
+:root { --bg:#060810; --card:#101620; --gold:#c9a84c; --gold-bright:#e0c878; --text:#cbd5e1; --muted:#64748b; --border:#182030; --good:#22c55e; --warn:#eab308; --bad:#ef4444; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 2rem; }
+.container { max-width: 64rem; margin: 0 auto; }
+h1 { color: var(--gold); font-family: 'Cinzel', serif; }
+.login, .panel { max-width: 24rem; margin: 4rem auto; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; }
+.panel { max-width: 64rem; }
+.login input { width: 100%; padding: 0.75rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px; font-size: 1rem; margin-bottom: 1rem; }
+.login button { width: 100%; padding: 0.75rem; background: var(--gold); color: var(--bg); border: 0; border-radius: 4px; font-weight: 600; cursor: pointer; }
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.metric { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; }
+.metric-name { color: var(--muted); font-size: 0.875rem; margin-bottom: 0.5rem; }
+.metric-val { font-size: 1.75rem; font-weight: 700; color: var(--gold); }
+.metric-meta { color: var(--muted); font-size: 0.75rem; margin-top: 0.5rem; }
+.good { color: var(--good); }
+.warn { color: var(--warn); }
+.bad { color: var(--bad); }
+.pages-table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 8px; overflow: hidden; }
+.pages-table th, .pages-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+.pages-table th { color: var(--muted); font-weight: 600; font-size: 0.875rem; background: var(--bg); }
+.pages-table td.url { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+.toolbar { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+.toolbar button { padding: 0.5rem 1rem; background: transparent; color: var(--muted); border: 1px solid var(--border); border-radius: 4px; cursor: pointer; }
+.toolbar button:hover { color: var(--gold); border-color: var(--gold); }
+.empty { text-align: center; color: var(--muted); padding: 2rem; }
+.err { color: var(--bad); padding: 1rem; background: rgba(239,68,68,0.1); border: 1px solid var(--bad); border-radius: 4px; margin-bottom: 1rem; }
+</style>
+</head>
+<body>
+<div id="login" class="login">
+<h1>Vitals Dashboard</h1>
+<p style="color:var(--muted);margin-bottom:1rem;">Enter admin token to view Web Vitals.</p>
+<input type="password" id="tokenInput" placeholder="Admin token" autofocus>
+<button id="loginBtn">Unlock</button>
+<div id="loginErr" class="err" style="display:none;margin-top:1rem;"></div>
+</div>
+
+<div id="panel" class="panel" style="display:none;">
+<h1>Web Vitals</h1>
+<div class="toolbar">
+<button id="refreshBtn">Refresh</button>
+<button id="logoutBtn">Logout</button>
+<a href="/admin" style="text-decoration:none;"><button>← Messages</button></a>
+</div>
+<div id="summary" style="color:var(--muted);margin-bottom:1.5rem;"></div>
+<div id="metrics" class="metrics-grid"></div>
+<h2 style="color:var(--gold);font-family:'Cinzel',serif;margin:2rem 0 1rem;">Top Pages</h2>
+<table class="pages-table" id="pagesTable">
+<thead><tr><th>URL</th><th>Views</th><th>LCP avg</th></tr></thead>
+<tbody></tbody>
+</table>
+</div>
+
+<script>
+var sessionKey = 'bs_admin';
+var currentToken = sessionStorage.getItem(sessionKey) || '';
+
+document.getElementById('loginBtn').addEventListener('click', doLogin);
+document.getElementById('refreshBtn').addEventListener('click', loadVitals);
+document.getElementById('logoutBtn').addEventListener('click', doLogout);
+document.getElementById('tokenInput').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') doLogin();
+});
+
+function doLogin() {
+  var v = document.getElementById('tokenInput').value;
+  if (!v) return;
+  currentToken = v;
+  sessionStorage.setItem(sessionKey, v);
+  document.getElementById('tokenInput').value = '';
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('panel').style.display = 'block';
+  loadVitals();
+}
+
+function doLogout() {
+  currentToken = '';
+  sessionStorage.removeItem(sessionKey);
+  document.getElementById('login').style.display = 'block';
+  document.getElementById('panel').style.display = 'none';
+}
+
+function rate(metric, value) {
+  // Web Vitals thresholds (ms for LCP/INP/TTFB, unitless for CLS)
+  var thresholds = {
+    LCP: { good: 2500, bad: 4000 },
+    INP: { good: 200, bad: 500 },
+    CLS: { good: 0.1, bad: 0.25 },
+    TTFB: { good: 800, bad: 1800 },
+    Load: { good: 3000, bad: 6000 },
+  };
+  var t = thresholds[metric];
+  if (!t) return '';
+  if (value <= t.good) return 'good';
+  if (value <= t.bad) return 'warn';
+  return 'bad';
+}
+
+function fmt(metric, value) {
+  if (metric === 'CLS') return value.toFixed(3);
+  return Math.round(value) + ' ms';
+}
+
+async function loadVitals() {
+  if (!currentToken) { doLogout(); return; }
+  try {
+    var res = await fetch('https://contact.brierstudios.com/admin/vitals', {
+      headers: { 'Authorization': 'Bearer ' + currentToken }
+    });
+    if (res.status === 401) { doLogout(); return; }
+    var data = await res.json();
+
+    document.getElementById('summary').textContent = data.samples + ' samples from ' + (data.timeRange ? data.timeRange.from + ' to ' + data.timeRange.to : 'no data');
+
+    var metricsDiv = document.getElementById('metrics');
+    metricsDiv.innerHTML = '';
+    var metrics = ['LCP', 'INP', 'CLS', 'TTFB', 'Load', 'DOMContentLoaded'];
+    metrics.forEach(function(m) {
+      var s = data.stats[m];
+      if (!s) return;
+      var cls = rate(m, s.p75);
+      var div = document.createElement('div');
+      div.className = 'metric';
+      div.innerHTML = '<div class="metric-name">' + m + '</div>' +
+        '<div class="metric-val ' + cls + '">' + fmt(m, s.p75) + '</div>' +
+        '<div class="metric-meta">p75 · ' + s.count + ' samples</div>' +
+        '<div class="metric-meta">avg ' + fmt(m, s.avg) + ' · max ' + fmt(m, s.max) + '</div>';
+      metricsDiv.appendChild(div);
+    });
+
+    var tbody = document.querySelector('#pagesTable tbody');
+    tbody.innerHTML = '';
+    if (!data.pages.length) {
+      tbody.innerHTML = '<tr><td colspan="3" class="empty">No data yet. Visit the site to generate samples.</td></tr>';
+    } else {
+      data.pages.forEach(function(p) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td class="url">' + p.url + '</td><td>' + p.views + '</td><td>' + (p.lcp !== null ? fmt('LCP', p.lcp) : '—') + '</td>';
+        tbody.appendChild(tr);
+      });
+    }
+  } catch (err) {
+    document.getElementById('summary').innerHTML = '<div class="err">Network error: ' + err.message + '</div>';
+  }
+}
+
+if (currentToken) {
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('panel').style.display = 'block';
+  loadVitals();
+}
+</script>
+</body>
+</html>
