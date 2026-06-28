@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Analytics — BrierStudios</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css?v=4.1">
+<style>
+:root { --bg:#060810; --card:#101620; --gold:#c9a84c; --gold-bright:#e0c878; --text:#cbd5e1; --muted:#64748b; --border:#182030; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 2rem; }
+.container { max-width: 64rem; margin: 0 auto; }
+h1 { color: var(--gold); font-family: 'Cinzel', serif; }
+.metrics { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.metric { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; }
+.metric-label { color: var(--muted); font-size: 0.875rem; margin-bottom: 0.5rem; }
+.metric-val { font-size: 2rem; font-weight: 700; color: var(--gold); }
+.metric-sub { color: var(--muted); font-size: 0.75rem; margin-top: 0.5rem; }
+.section { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; }
+.section h2 { color: var(--gold); font-family: 'Cinzel', serif; margin: 0 0 1rem; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); font-size: 0.875rem; font-weight: 600; }
+td.path { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+.empty { color: var(--muted); padding: 2rem; text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Analytics <span style="color:var(--muted);font-size:.5em;">(self-hosted, no cookies)</span></h1>
+<p style="color:var(--text-dim);margin-bottom:2rem;">Last 30 days. Pageviews from the 1x1 pixel counter.</p>
+
+<div class="metrics">
+<div class="metric">
+<div class="metric-label">Total pageviews</div>
+<div class="metric-val" id="totalViews">—</div>
+<div class="metric-sub" id="period"></div>
+</div>
+<div class="metric">
+<div class="metric-label">Unique visitors</div>
+<div class="metric-val" id="uniqueVisitors">—</div>
+<div class="metric-sub">approximation</div>
+</div>
+<div class="metric">
+<div class="metric-label">Top page</div>
+<div class="metric-val" id="topPage" style="font-size:1.25rem;">—</div>
+<div class="metric-sub" id="topPageViews"></div>
+</div>
+</div>
+
+<div class="section">
+<h2>Top Pages</h2>
+<table id="pagesTable">
+<thead><tr><th>Path</th><th>Views</th><th>% of total</th></tr></thead>
+<tbody id="pagesBody"></tbody>
+</table>
+</div>
+
+</div>
+
+<script>
+async function load() {
+  try {
+    const res = await fetch('https://contact.brierstudios.com/analytics/top');
+    const data = await res.json();
+    document.getElementById('totalViews').textContent = data.totalViews;
+    document.getElementById('period').textContent = data.period.from + ' → ' + data.period.to;
+    document.getElementById('uniqueVisitors').textContent = data.uniqueVisitors;
+    if (data.topPages.length) {
+      document.getElementById('topPage').textContent = data.topPages[0].path;
+      document.getElementById('topPageViews').textContent = data.topPages[0].views + ' views';
+    }
+    const body = document.getElementById('pagesBody');
+    if (!data.topPages.length) {
+      body.innerHTML = '<tr><td colspan="3" class="empty">No data yet. Pixel needs pageviews to populate.</td></tr>';
+    } else {
+      body.innerHTML = data.topPages.map(p => {
+        const pct = ((p.views / data.totalViews) * 100).toFixed(1);
+        return '<tr><td class="path">' + p.path + '</td><td>' + p.views + '</td><td>' + pct + '%</td></tr>';
+      }).join('');
+    }
+  } catch (err) {
+    document.getElementById('totalViews').textContent = 'N/A';
+  }
+}
+load();
+setInterval(load, 60000);
+</script>
+</body>
+</html>
