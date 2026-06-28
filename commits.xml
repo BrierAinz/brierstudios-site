@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/releases.xsl"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>BrierStudios — Commits</title>
+    <link>https://brierstudios.com/</link>
+    <description>Auto-generated commit feed from the main branch.</description>
+    <language>en-us</language>
+    <atom:link href="https://brierstudios.com/commits.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 28 Jun 2026 22:26:05 GMT</lastBuildDate>
+    <item>
+      <title>feat(pages): schedule page with Calendly embed placeholder</title>
+      <link>https://github.com/BrierAinz/brierstudios-site/commit/357c6f8</link>
+      <description>New Feature — feat(pages): schedule page with Calendly embed placeholder</description>
+      <pubDate>Sun, 28 Jun 2026 22:04:56 GMT</pubDate>
+      <guid isPermaLink="false">bs-357c6f8</guid>
+      <category>New Feature</category>
+    </item>
+    <item>
+      <title>feat(head): RSS alternate link for auto-discovery</title>
+      <link>https://github.com/BrierAinz/brierstudios-site/commit/8b08642</link>
+      <description>New Feature — feat(head): RSS alternate link for auto-discovery</description>
+      <pubDate>Sun, 28 Jun 2026 22:04:56 GMT</pubDate>
+      <guid isPermaLink="false">bs-8b08642</guid>
+      <category>New Feature</category>
+    </item>
+    <item>
+      <title>test: performance budget enforcement (HTML 50KB / CSS 60KB / JS 50KB / TTFB 800ms)</title>
+      <link>https://github.com/BrierAinz/brierstudios-site/commit/f2798c7</link>
+      <description>Testing — test: performance budget enforcement (HTML 50KB / CSS 60KB / JS 50KB / TTFB 800ms)</description>
+      <pubDate>Sun, 28 Jun 2026 22:04:56 GMT</pubDate>
+      <guid isPermaLink="false">bs-f2798c7</guid>
+      <category>Testing</category>
+    </item>
+    <item>
+      <title>test: e2e smoke tests (13 tests against production)</title>
+      <link>https://github.com/BrierAinz/brierstudios-site/commit/1c5edf2</link>
+      <description>Testing — test: e2e smoke tests (13 tests against production)</description>
+      <pubDate>Sun, 28 Jun 2026 22:04:55 GMT</pubDate>
+      <guid isPermaLink="false">bs-1c5edf2</guid>
+      <category>Testing</category>
+    </item>
+    <item>
+      <title>test: unit tests (10 tests, node:test) + CI workflow on every PR</title>
+      <link>https://github.com/BrierAinz/brierstudios-site/commit/887e6bf</link>
+      <description>Testing — test: unit tests (10 tests, node:test) + CI workflow on every PR</description>
+      <pubDate>Sun, 28 Jun 2026 22:04:55 GMT</pubDate>
+      <guid isPermaLink="false">bs-887e6bf</guid>
+      <category>Testing</category>
+    </item>
+    <item>
+      <title>merge: block 6 (#7)</title>
+      <link>https://github.com/BrierAinz/brierstudios-site/commit/22f745b</link>
+      <description>Update — merge: block 6 (#7)</description>
+      <pubDate>Sun, 28 Jun 2026 21:32:54 GMT</pubDate>
+      <guid isPermaLink="false">bs-22f745b</guid>
+      <category>Update</category>
+    </item>
+    <item>
+      <title>feat(pages): project templates gallery (Othala, Tiwaz, Thurisaz, Fehu, Wunjo, Sowilo)</title>
+      <link>https://github.com/BrierAinz/brierstudios-site/commit/9f35d1f</link>
+      <description>New Feature — feat(pages): project templates gallery (Othala, Tiwaz, Thurisaz, Fehu, Wunjo, Sowilo)</description>
+      <pubDate>Sun, 28 Jun 2026 21:32:08 GMT</pubDate>
+      <guid isPermaLink="false">bs-9f35d1f</guid>
+      <category>New Feature</category>
+    </item>
+    <item>
+      <title>feat(i18n): dropdown switcher (EN/ES/PT) with localStorage persistence</title>
+      <link>https://github.com/BrierAinz/brierstudios-site/commit/799e247</link>
+      <description>New Feature — feat(i18n): dropdown switcher (EN/ES/PT) with localStorage persistence</description>
+      <pubDate>Sun, 28 Jun 2026 21:32:08 GMT</pubDate>
+      <guid isPermaLink="false">bs-799e247</guid>
+      <category>New Feature</category>
+    </item>
+    <item>
+      <title>feat(status): email subscription form for outage alerts</title>
+      <link>https://github.com/BrierAinz/brierstudios-site/commit/ce0b9e1</link>
+      <description>New Feature — feat(status): email subscription form for outage alerts</description>
+      <pubDate>Sun, 28 Jun 2026 21:32:08 GMT</pubDate>
+      <guid isPermaLink="false">bs-ce0b9e1</guid>
+      <category>New Feature</category>
+    </item>
+    <item>
+      <title>feat(404): interactive search + quick links to popular pages</title>
+      <link>https://github.com/BrierAinz/brierstudios-site/commit/74f2cc9</link>
+      <description>New Feature — feat(404): interactive search + quick links to popular pages</description>
+      <pubDate>Sun, 28 Jun 2026 21:32:07 GMT</pubDate>
+      <guid isPermaLink="false">bs-74f2cc9</guid>
+      <category>New Feature</category>
+    </item>
+    <item>
+      <title>feat(worker): outage alerts, GitHub webhook (HMAC+Discord), category RSS feeds</title>
+      <link>https://github.com/BrierAinz/brierstudios-site/commit/b94d16e</link>
+      <description>New Feature — feat(worker): outage alerts, GitHub webhook (HMAC+Discord), category RSS feeds</description>
+      <pubDate>Sun, 28 Jun 2026 21:32:07 GMT</pubDate>
+      <guid isPermaLink="false">bs-b94d16e</guid>
+      <category>New Feature</category>
+    </item>
+    <item>
+      <title>merge: block 5 (#6)</title>
+      <link>https://github.com/BrierAinz/brierstudios-site/commit/fd2722e</link>
+      <description>Update — merge: block 5 (#6)</description>
+      <pubDate>Sun, 28 Jun 2026 21:20:15 GMT</pubDate>
+      <guid isPermaLink="false">bs-fd2722e</guid>
+      <category>Update</category>
+    </item>
+    <item>
+      <title>feat(analytics): privacy-respecting 1x1 pixel counter (no cookies, no IP)</title>
+      <link>https://github.com/BrierAinz/brierstudios-site/commit/809a2c3</link>
+      <description>New Feature — feat(analytics): privacy-respecting 1x1 pixel counter (no cookies, no IP)</description>
+      <pubDate>Sun, 28 Jun 2026 21:19:12 GMT</pubDate>
+      <guid isPermaLink="false">bs-809a2c3</guid>
+      <category>New Feature</category>
+    </item>
+    <item>
+      <title>feat(pages): component library showcase (buttons, cards, tags, forms)</title>
+      <link>https://github.com/BrierAinz/brierstudios-site/commit/4948d34</link>
+      <description>New Feature — feat(pages): component library showcase (buttons, cards, tags, forms)</description>
+      <pubDate>Sun, 28 Jun 2026 21:19:12 GMT</pubDate>
+      <guid isPermaLink="false">bs-4948d34</guid>
+      <category>New Feature</category>
+    </item>
+    <item>
+      <title>feat(pages): FAQ with Schema.org/FAQPage JSON-LD (8 questions)</title>
+      <link>https://github.com/BrierAinz/brierstudios-site/commit/29fd191</link>
+      <description>New Feature — feat(pages): FAQ with Schema.org/FAQPage JSON-LD (8 questions)</description>
+      <pubDate>Sun, 28 Jun 2026 21:19:12 GMT</pubDate>
+      <guid isPermaLink="false">bs-29fd191</guid>
+      <category>New Feature</category>
+    </item>
+  </channel>
+</rss>

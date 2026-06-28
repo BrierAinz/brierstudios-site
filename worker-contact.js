@@ -81,10 +81,18 @@ export default {
         }
 
         if (url.pathname.startsWith('/feed/') && url.pathname.endsWith('.xml') && request.method === 'GET') {
-          return handleCategoryFeed(request, env);
-        }
+              return handleCategoryFeed(request, env);
+            }
 
-        // Public contact form endpoint
+            if (url.pathname === '/errors' && request.method === 'POST') {
+                  return handleErrorReport(request, env);
+                }
+
+                if (url.pathname === '/analytics/top' && request.method === 'GET') {
+                  return handleAnalyticsTop(request, env);
+                }
+
+                // Public contact form endpoint
     if (request.method !== 'POST') {
       return new Response('Method not allowed', { status: 405 });
     }
@@ -716,6 +724,88 @@ async function handleCronBackup(request, env) {
   return new Response(JSON.stringify({ ok: true, key, count: messages.length }), {
     status: 200, headers: { 'Content-Type': 'application/json' },
   });
+}
+
+async function handleAnalyticsTop(request, env) {
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json',
+    'Cache-Control': 'public, max-age=300',
+  };
+
+  if (!env.ANALYTICS) {
+    return new Response(JSON.stringify({ error: 'ANALYTICS KV not configured' }), {
+      status: 500, headers: corsHeaders,
+    });
+  }
+
+  // Aggregate pageviews for the last 30 days
+  const today = new Date();
+  const dates = [];
+  for (let i = 0; i < 30; i++) {
+    const d = new Date(today.getTime() - i * 86400000);
+    dates.push(d.toISOString().slice(0, 10));
+  }
+
+  const totals = {};
+  for (const date of dates) {
+    const list = await env.ANALYTICS.list({ prefix: 'pv:' + date + ':', limit: 200 });
+    for (const k of list.keys) {
+      const path = k.name.replace('pv:' + date + ':', '');
+      const val = parseInt((await env.ANALYTICS.get(k.name)) || '0', 10);
+      totals[path] = (totals[path] || 0) + val;
+    }
+  }
+
+  const sorted = Object.entries(totals)
+    .map(([path, views]) => ({ path, views }))
+    .sort((a, b) => b.views - a.views)
+    .slice(0, 20);
+
+  const totalViews = sorted.reduce((s, p) => s + p.views, 0);
+  const uniqueVisitors = dates.length; // approximation
+
+  return new Response(JSON.stringify({
+    period: { days: 30, from: dates[dates.length - 1], to: dates[0] },
+    totalViews,
+    uniqueVisitors,
+    topPages: sorted,
+  }, 2), { status: 200, headers: corsHeaders });
+}
+
+async function handleErrorReport(request, env) {
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json',
+  };
+
+  try {
+    const data = await request.json();
+    if (env.ERRORS) {
+      const id = 'err:' + Date.now() + ':' + Math.random().toString(36).slice(2, 8);
+      const errorRecord = {
+        ...data,
+        timestamp: new Date().toISOString(),
+        ip: request.headers.get('CF-Connecting-IP') || 'unknown',
+        ua: request.headers.get('User-Agent') || 'unknown',
+        country: request.headers.get('CF-IPCountry') || 'unknown',
+      };
+      // Cap stored size to avoid KV bloat
+      if (errorRecord.message && errorRecord.message.length > 5000) {
+        errorRecord.message = errorRecord.message.slice(0, 5000);
+      }
+      await env.ERRORS.put(id, JSON.stringify(errorRecord), {
+        expirationTtl: 30 * 24 * 60 * 60, // 30 days
+      });
+    }
+    return new Response(JSON.stringify({ ok: true }), {
+      status: 200, headers: corsHeaders,
+    });
+  } catch (err) {
+    return new Response(JSON.stringify({ ok: true }), {
+      status: 200, headers: corsHeaders,
+    });
+  }
 }
 
 async function handleAlertsSubscribe(request, env) {
