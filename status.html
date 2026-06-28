@@ -78,6 +78,16 @@
 <div class="meta-row"><span>Server time</span><span id="serverTime">—</span></div>
 
 <button class="refresh-btn" onclick="loadStatus()">Refresh now</button>
+
+<div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--void-border);">
+<h2 style="font-family:var(--font-display);color:var(--gold);font-size:1.5rem;margin-bottom:.5rem;">Get outage alerts</h2>
+<p style="color:var(--text-dim);margin-bottom:1rem;font-size:.9rem;">Subscribe to email notifications when BrierStudios has an incident.</p>
+<form id="alert-form" style="display:flex;gap:.5rem;max-width:24rem;">
+<input type="email" id="alert-email" required placeholder="your@email.com" style="flex:1;padding:.5rem;background:var(--void-card);color:var(--text);border:1px solid var(--void-border);border-radius:4px;font-size:.9rem;">
+<button type="submit" style="padding:.5rem 1rem;background:var(--gold);color:var(--void);border:0;border-radius:4px;font-weight:600;cursor:pointer;font-size:.9rem;">Subscribe</button>
+</form>
+<div id="alert-status" style="display:none;margin-top:.5rem;padding:.5rem;border-radius:4px;font-size:.875rem;"></div>
+</div>
 </main>
 
 <script>
@@ -105,6 +115,38 @@ async function loadStatus() {
 }
 loadStatus();
 setInterval(loadStatus, 30000);
+
+const alertForm = document.getElementById('alert-form');
+if (alertForm) {
+  alertForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('alert-email').value.trim();
+    const statusEl = document.getElementById('alert-status');
+    try {
+      const res = await fetch('https://contact.brierstudios.com/alerts/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      statusEl.style.display = 'block';
+      if (res.ok) {
+        statusEl.style.background = 'rgba(34,197,94,0.1)';
+        statusEl.style.border = '1px solid #22c55e';
+        statusEl.style.color = '#22c55e';
+        statusEl.textContent = data.message || 'Subscribed!';
+        alertForm.reset();
+      } else {
+        throw new Error(data.error || 'Failed');
+      }
+    } catch (err) {
+      statusEl.style.background = 'rgba(239,68,68,0.1)';
+      statusEl.style.border = '1px solid #ef4444';
+      statusEl.style.color = '#ef4444';
+      statusEl.textContent = 'Error: ' + err.message;
+    }
+  });
+}
 </script>
 </body>
 </html>
