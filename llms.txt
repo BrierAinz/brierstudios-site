@@ -4,8 +4,8 @@
 ## What is BrierStudios?
 BrierStudios is a creative technology studio founded by Ainz (BrierAinz). We build tools, agents, and art inspired by the Yggdrasil framework — a Norse mythology-inspired architecture that organizes projects into Nine Realms. Our visual language: dark fantasy, medieval aesthetics, Elder Futhark runes, and forge-iron textures.
 
-## Flagship: Lilith v2.0 — Dark Fantasy Nordic
-Lilith is our dark fantasy goddess — horns of ancient bronze and eyes of honey-gold (#c8a23e), with a forge-iron crown inscribed with Elder Futhark runes. She represents the studio's visual language across all products. Version 2.0 pivoted from cyberpunk neon to dark fantasy nordic.
+## Flagship: Lilith v5.1 — Dark Fantasy Nordic
+Lilith is our dark fantasy goddess — horns of ancient bronze and eyes of honey-gold (#c8a23e), with a forge-iron crown inscribed with Elder Futhark runes. She represents the studio's visual language across all products. Version 2.0 pivoted from cyberpunk neon to dark fantasy nordic; current 5.x line adds Helheim, Midgard, and Svartalfheim realm variants.
 
 ### Core Palette (Dark Fantasy Nordic)
 - Gold: #c8a23e (primary accent — Lilith's eyes)
@@ -20,38 +20,39 @@ Lilith is our dark fantasy goddess — horns of ancient bronze and eyes of honey
 - Cinzel (serif headings — medieval character)
 - Inter (body text — clean readability)
 - JetBrains Mono (code — forge lattice)
+- MedievalSharp (runic icons — Elder Futhark)
 
 ### The Nine Realms
 || Realm | Rune | Domain | Purpose ||
-||-------|------|--------|------------||
-|| Asgard | ᚦ | Core Technology | Foundation libraries, configs, scaffolding ||
-|| Vanaheim | ᛒ | AI Agents | Discord bots, Telegram agents, personality systems ||
-|| Alfheim | ᛇ | UI Prototypes | Visual design systems, frontend experiments ||
-|| Svartalfheim | ᛉ | Knowledge & Docs | Documentation, wikis, knowledge bases ||
-|| Muspelheim | ᛝ | Active Dev | Work-in-progress, experimental branches ||
-|| Niflheim | ᛁ | Resources & Assets | Static assets, models, datasets ||
-|| Helheim | ᚹ | Archive | Deprecated code, graveyard of failed experiments ||
-|| Jotunheim | ᛃ | Massive Projects | Large-scale, long-term undertakings ||
-|| Midgard | ᛗ | Personal Apps | End-user applications, utilities ||
+|-------|------|--------|------------|
+|| Asgard | ᚦ | Core Technology | Foundation libraries, configs, scaffolding |
+|| Vanaheim | ᛒ | AI Agents | Discord bots, Telegram agents, personality systems |
+|| Alfheim | ᛇ | UI Prototypes | Visual design systems, frontend experiments |
+|| Svartalfheim | ᛉ | Knowledge & Docs | Documentation, wikis, knowledge bases |
+|| Muspelheim | ᛝ | Active Dev | Work-in-progress, experimental branches |
+|| Niflheim | ᛁ | Resources & Assets | Static assets, models, datasets |
+|| Helheim | ᚹ | Archive | Deprecated code, graveyard of failed experiments |
+|| Jotunheim | ᛃ | Massive Projects | Large-scale, long-term undertakings |
+|| Midgard | ᛗ | Personal Apps | End-user applications, utilities |
 
 ## Products
 
-### Yggdrasil CLI v6.5
-A command-line interface with 19 slash commands for managing projects across the Nine Realms. Features include project scaffolding, realm switching, agent management, deployment pipelines, and a command palette with dark fantasy themed UI.
+### Yggdrasil CLI v2.5
+A command-line interface with slash commands for managing projects across the Nine Realms. Features include project scaffolding, realm switching, agent management, deployment pipelines, and a command palette with dark fantasy themed UI.
 
 Key commands: /init, /status, /build, /test, /lint, /realms, /agent, /deploy, /theme, /runes
 
-### BrierStudios Landing Site v4.0
-Live at brierstudios.com — a dark fantasy nordic themed landing page showcasing the studio's identity, Lilith variants, project portfolio, and animated CLI demo. Built with vanilla HTML/CSS/JS, deployed on Cloudflare Pages. Features runic particles, forge-iron textures, Cinzel typography, and Elder Futhark icon system.
+### BrierStudios Landing Site v4.1
+Live at brierstudios.com — a dark fantasy nordic themed landing page showcasing the studio's identity, Lilith variants, project portfolio, and animated CLI demo. Built with vanilla HTML/CSS/JS, deployed on Cloudflare Pages. Features runic particles, forge-iron textures, Cinzel typography, Elder Futhark icon system, and Cloudflare Turnstile-protected contact form.
 
-### Lilith Landing Page v4.0
-Live at brierstudios.com/lilith — a dedicated character dossier for Lilith with identity section, gallery, Nine Realms mapping, core traits, and LoRA/art documentation. Dark fantasy nordic retheme with honey-gold accents and runic dividers.
+### Lilith Landing Page v2.6
+Live at brierstudios.com/lilith — a dedicated character dossier for Lilith with identity section, gallery, Nine Realms mapping, core traits, and LoRA/art documentation. Includes 9 realm variants (Asgard, Vanaheim, Alfheim, Svartalfheim, Muspelheim, Niflheim, Helheim, Jotunheim, Midgard).
 
 ### docs.brierstudios.com
-Full documentation site built with Docusaurus v3. Covers CLI reference, Lilith v2.0 identity, architecture, AI agents, and LoRA training pipelines.
+Full documentation site built with Docusaurus v3. Covers CLI reference, Lilith identity, architecture, AI agents, and LoRA training pipelines.
 
 ### Yggdrasil MCP Server
-FastMCP 3.2 server exposing 6 tools (ecosystem_health, list_comfyui_models, list_recent_outputs, generate_image, list_comfyui_nodes, get_lora_info) + 1 resource (yggdrasil://realms). Built with pydantic-ai integration for Lilith orchestrator.
+FastMCP server exposing tools (ecosystem_health, list_comfyui_models, list_recent_outputs, generate_image, list_comfyui_nodes, get_lora_info) + resources. Built with pydantic-ai integration for Lilith orchestrator.
 
 ### Lilith Swarm v5
 Multi-agent orchestration system with Coordinator pattern, TaskPlanner, ConflictResolver, OutputValidator, FallbackChain, and ComplexityRouter. Agents: Eva, Adán, Odín, Shalltear, Planner.
@@ -61,16 +62,17 @@ Character model training using PixAI DiT.2 (Tsubaki.2). Active LoRAs: KNQ_V1, RG
 
 ## Tech Stack
 - Frontend: Vanilla HTML/CSS/JS, Docusaurus v3 (docs)
-- Hosting: Cloudflare Pages
+- Hosting: Cloudflare Pages + Cloudflare Workers
 - Domain: brierstudios.com (Cloudflare registrar)
 - AI: Custom LoRAs on PixAI DiT.2 (Tsubaki.2), ComfyUI workflows
 - CLI: Node.js / Ink (React for CLI)
-- Backend: Python (pydantic-ai, FastMCP, LangGraph)
+- Backend: Python (pydantic-ai, FastMCP, LangGraph), Cloudflare Workers (JS)
 - Agent Framework: Lilith Swarm v5 (coordinator pattern)
-- Style: Cinzel (headings) + Inter (body) + JetBrains Mono (code)
+- Security: Cloudflare Turnstile, honeypot fields, KV-backed rate limiting
+- Style: Cinzel (headings) + Inter (body) + JetBrains Mono (code) + MedievalSharp (runic)
 
 ## The Yggdrasil Rules (REGLAS_YGGDRASIL.md)
-All projects follow a unified convention system defined in REGLAS_YGGDRASIL.md v3.1. This includes naming conventions, color palette, Elder Futhark rune markers per realm, and architectural patterns.
+All projects follow a unified convention system defined in REGLAS_YGGDRASIL.md. This includes naming conventions, color palette, Elder Futhark rune markers per realm, and architectural patterns.
 
 ## Contact & Links
 - Website: https://brierstudios.com
@@ -80,6 +82,7 @@ All projects follow a unified convention system defined in REGLAS_YGGDRASIL.md v
 - Instagram: https://instagram.com/brier_studios
 - Discord: BrierStudios
 - Releases: https://brierstudios.com/releases
+- RSS: https://brierstudios.com/releases.xml
 
 ## Merch (Printful — coming soon)
 - Lilith Neon LED sign (flagship product)
@@ -91,4 +94,5 @@ All projects follow a unified convention system defined in REGLAS_YGGDRASIL.md v
 ## Crawling & Indexing
 - Full sitemap: https://brierstudios.com/sitemap.xml
 - Docs sitemap: https://docs.brierstudios.com/sitemap.xml
+- RSS releases: https://brierstudios.com/releases.xml
 - Robots.txt: https://brierstudios.com/robots.txt

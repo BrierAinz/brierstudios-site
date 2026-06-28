@@ -1,4 +1,4 @@
-/* BrierStudios Contact Worker — receives form data + serves admin panel */
+/* BrierStudios Contact Worker — receives form data + serves admin panel + email forwarding */
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -92,6 +92,22 @@ async function handleContactPost(request, env) {
       }
     }
 
+    // Rate limit: max 5 messages per IP per hour
+    const clientIp = request.headers.get('CF-Connecting-IP') || 'unknown';
+    if (env.CONTACTS && clientIp !== 'unknown') {
+      const rateKey = `ratelimit:${clientIp}`;
+      const current = await env.CONTACTS.get(rateKey);
+      const count = parseInt(current || '0', 10);
+      if (count >= 5) {
+        return new Response(JSON.stringify({ error: 'Rate limit exceeded. Try again in an hour.' }), {
+          status: 429, headers: corsHeaders,
+        });
+      }
+      await env.CONTACTS.put(rateKey, String(count + 1), {
+        expirationTtl: 3600,
+      });
+    }
+
     const id = crypto.randomUUID();
     const entry = {
       id,
@@ -100,13 +116,31 @@ async function handleContactPost(request, env) {
       subject: String(subject || '').slice(0, 500),
       message: String(message).slice(0, 5000),
       timestamp: new Date().toISOString(),
-      ip: request.headers.get('CF-Connecting-IP') || 'unknown',
+      ip: clientIp,
     };
 
     if (env.CONTACTS) {
       await env.CONTACTS.put(`contact:${id}`, JSON.stringify(entry), {
         expirationTtl: 90 * 24 * 60 * 60,
       });
+    }
+
+    // Forward to email via MailChannels (free for CF Workers on your own domain)
+    if (env.MAIL_TO) {
+      try {
+        await sendEmail(entry, env);
+      } catch (err) {
+        console.error('Email send failed:', err && err.message);
+      }
+    }
+
+    // Notify Discord webhook (optional)
+    if (env.DISCORD_WEBHOOK_URL) {
+      try {
+        await notifyDiscord(entry, env);
+      } catch (err) {
+        console.error('Discord notify failed:', err && err.message);
+      }
     }
 
     return new Response(JSON.stringify({ success: true, id }), {
@@ -116,6 +150,75 @@ async function handleContactPost(request, env) {
     return new Response(JSON.stringify({ error: 'Invalid request.' }), {
       status: 400, headers: corsHeaders,
     });
+  }
+}
+
+async function sendEmail(entry, env) {
+  const fromAddr = env.MAIL_FROM || 'noreply@brierstudios.com';
+  const toAddr = env.MAIL_TO;
+  const subjectText = entry.subject || `Contact from ${entry.name}`;
+  const textBody = [
+    `New contact form submission`,
+    ``,
+    `From: ${entry.name} <${entry.email}>`,
+    `Subject: ${entry.subject || '(none)'}`,
+    `Time: ${entry.timestamp}`,
+    `IP: ${entry.ip}`,
+    ``,
+    `Message:`,
+    entry.message,
+    ``,
+    `---`,
+    `ID: ${entry.id}`,
+  ].join('\n');
+
+  const mcBody = {
+    personalizations: [{ to: [{ email: toAddr }] }],
+    from: { email: fromAddr, name: 'BrierStudios Contact' },
+    subject: subjectText,
+    content: [
+      { type: 'text/plain', value: textBody },
+      { type: 'text/html', value: textBody.replace(/\n/g, '<br>') },
+    ],
+  };
+
+  const res = await fetch('https://api.mailchannels.net/tx/v1/send', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(mcBody),
+  });
+
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`MailChannels ${res.status}: ${errText.slice(0, 200)}`);
+  }
+}
+
+async function notifyDiscord(entry, env) {
+  const discordMsg = {
+    username: 'BrierStudios Bot',
+    embeds: [{
+      title: `New contact from ${entry.name}`,
+      color: 0xc8a23e,
+      fields: [
+        { name: 'Email', value: entry.email, inline: true },
+        { name: 'Subject', value: entry.subject || '(none)', inline: true },
+        { name: 'Message', value: (entry.message || '').slice(0, 1000) || '(empty)', inline: false },
+        { name: 'IP', value: entry.ip || 'unknown', inline: true },
+      ],
+      timestamp: entry.timestamp,
+      footer: { text: `ID: ${entry.id}` },
+    }],
+  };
+
+  const res = await fetch(env.DISCORD_WEBHOOK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(discordMsg),
+  });
+  if (!res.ok) {
+    const t = await res.text();
+    throw new Error(`Discord ${res.status}: ${t.slice(0, 200)}`);
   }
 }
 

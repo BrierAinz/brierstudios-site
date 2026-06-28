@@ -45,29 +45,68 @@
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
     [
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "BrierStudios",
-        "url": "https://brierstudios.com",
-        "logo": "https://brierstudios.com/assets/lilith-logo/logo-lilith-512.png",
-        "description": "Creative technology studio fusing dark fantasy Nordic medieval aesthetics with Norse mythology. Lilith v5.1, Yggdrasil CLI, and the Nine Realms.",
-        "sameAs": ["https://github.com/BrierAinz", "https://x.com/BrierAinz", "https://www.instagram.com/brier_studios"]
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "BrierStudios",
-        "url": "https://brierstudios.com"
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Ainz",
-        "url": "https://github.com/BrierAinz",
-        "worksFor": { "@type": "Organization", "name": "BrierStudios" }
-      }
-    ]
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "BrierStudios",
+            "url": "https://brierstudios.com",
+            "logo": "https://brierstudios.com/assets/lilith-logo/logo-lilith-512.png",
+            "description": "Creative technology studio fusing dark fantasy Nordic medieval aesthetics with Norse mythology. Lilith v5.1, Yggdrasil CLI, and the Nine Realms.",
+            "sameAs": ["https://github.com/BrierAinz", "https://x.com/BrierAinz", "https://www.instagram.com/brier_studios"],
+            "foundingDate": "2026-04-01",
+            "contactPoint": [{
+              "@type": "ContactPoint",
+              "url": "https://brierstudios.com/#contact",
+              "contactType": "customer support",
+              "availableLanguage": ["English", "Spanish"]
+            }]
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "BrierStudios",
+            "url": "https://brierstudios.com",
+            "inLanguage": "en",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://brierstudios.com/?q={search_term}",
+              "query-input": "required name=search_term"
+            }
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Ainz",
+            "alternateName": "BrierAinz",
+            "url": "https://github.com/BrierAinz",
+            "worksFor": { "@type": "Organization", "name": "BrierStudios" }
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Yggdrasil CLI",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Linux, macOS, Windows",
+            "softwareVersion": "2.5",
+            "description": "Norse mythology-inspired CLI for organizing projects into Nine Realms.",
+            "url": "https://brierstudios.com/#cli-demo",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            }
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            "name": "Lilith",
+            "alternateName": "Lilith v5.1",
+            "description": "Dark fantasy Nordic goddess character — visual identity of BrierStudios.",
+            "artist": { "@type": "Person", "name": "Ainz", "alternateName": "BrierAinz" },
+            "url": "https://brierstudios.com/lilith",
+            "image": "https://brierstudios.com/assets/lilith-logo/logo-lilith-hero.webp"
+          }
+        ]
     </script>
     
     <!-- Performance: preload critical assets -->
