@@ -377,6 +377,13 @@ function initFooterRunes() {
     }, 300);
 }
 
+
+/* ─── Turnstile callback ─── */
+window.turnstileToken = null;
+function onTurnstileSuccess(token) {
+    window.turnstileToken = token;
+}
+
 /* ─── Contact Form ─── */
 function initContactForm() {
     const form = document.getElementById('contact-form');
@@ -404,12 +411,21 @@ function initContactForm() {
         submitBtn.innerHTML = '<span class="btn-rune">ᛊ</span> Sending...';
         submitBtn.disabled = true;
 
+        // Turnstile token (managed widget sets this via callback)
+        if (!window.turnstileToken) {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            alert('Please complete the verification.');
+            return;
+        }
+
         try {
             const data = {
                 name: form.querySelector('#name').value,
                 email: form.querySelector('#email').value,
                 subject: 'Contact from BrierStudios',
                 message: form.querySelector('#message').value,
+                'cf-turnstile-response': window.turnstileToken,
             };
 
             const resp = await fetch('https://contact.brierstudios.com/', {
@@ -426,6 +442,8 @@ function initContactForm() {
                 submitBtn.style.color = '#c8a23e';
                 submitBtn.style.boxShadow = '0 0 20px rgba(200,162,62,0.3)';
                 form.reset();
+                window.turnstileToken = null;
+                if (window.turnstile) window.turnstile.reset();
             } else {
                 throw new Error(result.error || 'Failed to send');
             }
