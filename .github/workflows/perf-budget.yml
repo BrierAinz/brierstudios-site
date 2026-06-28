@@ -1,0 +1,24 @@
+name: Performance budget
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * 1'  # weekly Monday 06:00 UTC
+
+jobs:
+  budget:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run perf budget check
+        run: node tests/perf-budget.mjs
+        env:
+          PRODUCTION_URL: https://brierstudios.com
