@@ -20,8 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initLilithSection();
     initCLIDemo();
     initCopyButtons();
-    registerServiceWorker();
-});
+        registerServiceWorker();
+        initThemeToggle();
+    });
 
 /* ─── Loading Screen ─── */
 function initLoadingScreen() {
@@ -936,4 +937,18 @@ function initCopyButtons() {
             }, 2000);
         });
     });
+}
+
+/* ─── Theme Toggle (dark/light) ─── */
+function initThemeToggle() {
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+  const saved = localStorage.getItem('bs-theme');
+  if (saved === 'light') {
+    document.documentElement.classList.add('light');
+  }
+  btn.addEventListener('click', () => {
+    const isLight = document.documentElement.classList.toggle('light');
+    localStorage.setItem('bs-theme', isLight ? 'light' : 'dark');
+  });
 }
