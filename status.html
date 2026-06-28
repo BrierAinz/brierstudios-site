@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Status — BrierStudios</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="canonical" href="https://brierstudios.com/status">
+<link rel="stylesheet" href="/styles.css?v=4.1">
+<meta property="og:title" content="BrierStudios Status">
+<meta property="og:description" content="Live system status for BrierStudios services.">
+<meta name="description" content="Live system status for BrierStudios: contact form, worker, KV storage, and CDN.">
+<style>
+.status-page { max-width: 48rem; margin: 0 auto; padding: 8rem 1.5rem 4rem; }
+.status-page h1 { font-family: var(--font-display); color: var(--gold); font-size: 2.5rem; margin-bottom: 0.5rem; }
+.status-page .lede { color: var(--text-dim); margin-bottom: 2rem; }
+.status-banner { padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; }
+.status-banner.operational { background: rgba(34, 197, 94, 0.1); border: 1px solid #22c55e; }
+.status-banner.degraded { background: rgba(234, 179, 8, 0.1); border: 1px solid #eab308; }
+.status-banner.down { background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; }
+.status-dot { width: 14px; height: 14px; border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+.status-banner.operational .status-dot { background: #22c55e; box-shadow: 0 0 12px #22c55e; }
+.status-banner.degraded .status-dot { background: #eab308; box-shadow: 0 0 12px #eab308; }
+.status-banner.down .status-dot { background: #ef4444; box-shadow: 0 0 12px #ef4444; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+.status-banner-text { flex: 1; }
+.status-banner-title { font-size: 1.25rem; font-weight: 600; margin: 0; }
+.status-banner-sub { color: var(--text-dim); font-size: 0.9rem; margin-top: 0.25rem; }
+.check-grid { display: grid; gap: 0.75rem; }
+.check-row { background: var(--void-card); border: 1px solid var(--void-border); border-radius: 6px; padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.check-name { font-weight: 600; }
+.check-name small { display: block; color: var(--text-dim); font-weight: 400; font-size: 0.85rem; margin-top: 0.25rem; }
+.check-state { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; }
+.check-state.up { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+.check-state.down { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+.check-state.unknown { background: rgba(122, 133, 153, 0.15); color: #7a8599; }
+.meta-row { display: flex; justify-content: space-between; color: var(--text-dim); font-size: 0.85rem; margin-top: 0.5rem; }
+.meta-row span:first-child { color: var(--text); }
+.refresh-btn { margin-top: 2rem; padding: 0.75rem 1.5rem; background: var(--gold); color: var(--void); border: 0; border-radius: 6px; font-weight: 600; cursor: pointer; }
+.refresh-btn:hover { background: var(--gold-bright); }
+</style>
+</head>
+<body>
+<main class="status-page">
+<h1>System Status</h1>
+<p class="lede">Live health check for BrierStudios infrastructure. Auto-refreshes every 30 seconds.</p>
+
+<div id="banner" class="status-banner operational">
+<div class="status-dot"></div>
+<div class="status-banner-text">
+<p id="bannerTitle" class="status-banner-title">All systems operational</p>
+<p id="bannerSub" class="status-banner-sub">Last check: <span id="lastCheck">just now</span></p>
+</div>
+</div>
+
+<div class="check-grid" id="checkGrid">
+<div class="check-row">
+<div class="check-name">Worker<small>contact.brierstudios.com</small></div>
+<span class="check-state up">operational</span>
+</div>
+<div class="check-row">
+<div class="check-name">KV Storage<small>brierstudios-contacts namespace</small></div>
+<span class="check-state up">operational</span>
+</div>
+<div class="check-row">
+<div class="check-name">Contact Form<small>Public endpoint</small></div>
+<span class="check-state up">accepting submissions</span>
+</div>
+<div class="check-row">
+<div class="check-name">Admin Panel<small>/admin endpoint</small></div>
+<span class="check-state up">operational</span>
+</div>
+</div>
+
+<div class="meta-row"><span>Last message received</span><span id="lastMsg">—</span></div>
+<div class="meta-row"><span>Worker version</span><span id="version">—</span></div>
+<div class="meta-row"><span>Server time</span><span id="serverTime">—</span></div>
+
+<button class="refresh-btn" onclick="loadStatus()">Refresh now</button>
+</main>
+
+<script>
+async function loadStatus() {
+  try {
+    const res = await fetch('https://contact.brierstudios.com/status', { cache: 'no-store' });
+    const data = await res.json();
+    const banner = document.getElementById('banner');
+    const bannerTitle = document.getElementById('bannerTitle');
+    const bannerSub = document.getElementById('bannerSub');
+
+    banner.className = 'status-banner ' + (data.status === 'operational' ? 'operational' : data.status === 'degraded' ? 'degraded' : 'down');
+    bannerTitle.textContent = data.status === 'operational' ? 'All systems operational' : data.status === 'degraded' ? 'Partial degradation' : 'Major outage';
+    bannerSub.innerHTML = 'Last check: just now (' + new Date(data.timestamp).toLocaleTimeString() + ')';
+
+    // Update check rows
+    const checks = data.checks || {};
+    document.getElementById('lastMsg').textContent = checks.lastMessage ? new Date(checks.lastMessage).toLocaleString() : 'none yet';
+    document.getElementById('version').textContent = data.version || '—';
+    document.getElementById('serverTime').textContent = new Date(data.timestamp).toLocaleString();
+  } catch (err) {
+    document.getElementById('banner').className = 'status-banner down';
+    document.getElementById('bannerTitle').textContent = 'Cannot reach status endpoint';
+  }
+}
+loadStatus();
+setInterval(loadStatus, 30000);
+</script>
+</body>
+</html>

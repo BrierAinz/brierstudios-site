@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Newsletter — BrierStudios</title>
+<link rel="canonical" href="https://brierstudios.com/newsletter">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css?v=4.1">
+<meta name="description" content="Subscribe to the BrierStudios newsletter for release updates, Lilith variants, and Yggdrasil CLI news.">
+</head>
+<body>
+<main style="max-width:32rem;margin:0 auto;padding:8rem 1.5rem 4rem;">
+<h1 style="font-family:var(--font-display);color:var(--gold);font-size:2.5rem;margin-bottom:.5rem;">Newsletter</h1>
+<p style="color:var(--text-dim);margin-bottom:2rem;">Release updates, Lilith variants, Yggdrasil CLI news. No spam. Unsubscribe anytime.</p>
+
+<form id="newsletter-form" style="display:flex;gap:.5rem;margin-bottom:1rem;">
+<input type="email" id="nl-email" name="email" required placeholder="your@email.com" style="flex:1;padding:.75rem;background:var(--void-card);color:var(--text-border);color:var(--text);border:1px solid var(--void-border);border-radius:6px;font-size:1rem;font-family:inherit;">
+<button type="submit" style="padding:.75rem 1.5rem;background:var(--gold);color:var(--void);border:0;border-radius:6px;font-weight:600;cursor:pointer;font-family:inherit;">Subscribe</button>
+</form>
+
+<div id="nl-status" style="display:none;padding:1rem;border-radius:6px;"></div>
+
+<p style="color:var(--text-dim);font-size:.85rem;margin-top:2rem;">Or use our <a href="/releases.xml" style="color:var(--gold);">RSS feed</a> for machine-readable updates.</p>
+</main>
+
+<script>
+const form=docume...submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('nl-email').value.trim();
+  const statusEl = document.getElementById('nl-status');
+  const btn = form.querySelector('button');
+  btn.disabled = true;
+  btn.textContent = 'Subscribing...';
+
+  try {
+    const res = await fetch('https://contact.brierstudios.com/newsletter', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    const data = await res.json();
+    statusEl.style.display = 'block';
+    if (res.ok) {
+      statusEl.style.background = 'rgba(34, 197, 94, 0.1)';
+      statusEl.style.border = '1px solid #22c55e';
+      statusEl.style.color = '#22c55e';
+      statusEl.textContent = data.already ? 'Already subscribed!' : 'Thanks! Check your inbox.';
+      form.reset();
+    } else {
+      throw new Error(data.error || 'Failed');
+    }
+  } catch (err) {
+    statusEl.style.background = 'rgba(239, 68, 68, 0.1)';
+    statusEl.style.border = '1px solid #ef4444';
+    statusEl.style.color = '#ef4444';
+    statusEl.textContent = 'Error: ' + err.message;
+  }
+  btn.disabled = false;
+  btn.textContent = 'Subscribe';
+});
+</script>
+</body>
+</html>
