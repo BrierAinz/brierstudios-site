@@ -381,15 +381,29 @@ function initFooterRunes() {
 function initContactForm() {
     const form = document.getElementById('contact-form');
     if (!form) return;
-    
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const submitBtn = form.querySelector('.btn-submit');
         const originalText = submitBtn.innerHTML;
+
+        // Honeypot: real users never fill the "website" field; bots do.
+        const hp = form.querySelector('#website');
+        if (hp && hp.value.trim() !== '') {
+            // Silently act like success; bots don't know they were caught.
+            submitBtn.innerHTML = '<span class="btn-rune">ᛏ</span> Raven Sent!';
+            form.reset();
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 3000);
+            return;
+        }
+
         submitBtn.innerHTML = '<span class="btn-rune">ᛊ</span> Sending...';
         submitBtn.disabled = true;
-        
+
         try {
             const data = {
                 name: form.querySelector('#name').value,
@@ -397,15 +411,15 @@ function initContactForm() {
                 subject: 'Contact from BrierStudios',
                 message: form.querySelector('#message').value,
             };
-            
+
             const resp = await fetch('https://contact.brierstudios.com/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             });
-            
+
             const result = await resp.json();
-            
+
             if (resp.ok && result.success) {
                 submitBtn.innerHTML = '<span class="btn-rune">ᛏ</span> Raven Sent!';
                 submitBtn.style.borderColor = '#c8a23e';
@@ -422,8 +436,8 @@ function initContactForm() {
             submitBtn.style.color = '#c8a23e';
             submitBtn.style.boxShadow = '0 0 20px rgba(200,162,62,0.3)';
             form.reset();
-            }
-        
+        }
+
         setTimeout(() => {
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
