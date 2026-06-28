@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>API Docs — BrierStudios</title>
+<link rel="canonical" href="https://brierstudios.com/api-docs">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css?v=4.1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css">
+<meta name="description" content="BrierStudios API reference — endpoints for contact form, newsletter, admin, OAuth, RSS, and webhooks.">
+</head>
+<body style="background:var(--void);">
+<header style="background:var(--void-card);border-bottom:1px solid var(--gold);padding:1rem 2rem;display:flex;align-items:center;gap:1rem;position:sticky;top:0;z-index:10;">
+<a href="/" style="color:var(--gold);text-decoration:none;font-family:var(--font-display);font-size:1.25rem;">ᛟ BrierStudios</a>
+<span style="color:var(--text-dim);">/</span>
+<span style="color:var(--text);">API Reference</span>
+<span style="flex:1;"></span>
+<a href="https://github.com/BrierAinz/brierstudios-site/blob/main/openapi.yaml" style="color:var(--gold);text-decoration:none;font-size:.875rem;">View raw OpenAPI spec →</a>
+</header>
+<div id="swagger-ui"></div>
+<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js" crossorigin></script>
+<script>
+window.onload = () => {
+  SwaggerUIBundle({
+    url: '/openapi.yaml',
+    dom_id: '#swagger-ui',
+    deepLinking: true,
+    presets: [
+      SwaggerUIBundle.presets.apis,
+    ],
+    layout: 'BaseLayout',
+    theme: 'dark',
+    docExpansion: 'list',
+    defaultModelsExpandDepth: 2,
+  });
+};
+</script>
+<style>
+.swagger-ui { background: var(--void); }
+.swagger-ui .info { color: var(--text); }
+.swagger-ui .info a { color: var(--gold); }
+.swagger-ui .scheme-container { background: var(--void-card); }
+.swagger-ui .opblock-tag { color: var(--gold); border-color: var(--gold); font-family: var(--font-display); }
+.swagger-ui .opblock { background: var(--void-card); border-color: var(--void-border); }
+.swagger-ui .opblock .opblock-summary { border-color: var(--void-border); }
+.swagger-ui .opblock-summary-method { background: var(--gold); }
+.swagger-ui .opblock-body pre { background: var(--bg); color: var(--text); }
+.swagger-ui .parameter__name { color: var(--text-bright); }
+.swagger-ui table thead tr th { color: var(--text-bright); }
+.swagger-ui .response-col_status { color: var(--gold); }
+.swagger-ui input[type=text], .swagger-ui textarea { background: var(--bg); color: var(--text); border-color: var(--gold); }
+.swagger-ui .btn { background: var(--gold); color: var(--void); }
+.swagger-ui .btn:hover { background: var(--gold-bright); }
+.swagger-ui select { background: var(--bg); color: var(--text); }
+.swagger-ui .markdown p, .swagger-ui .markdown li, .swagger-ui .renderedMarkdown p { color: var(--text); }
+</style>
+</body>
+</html>

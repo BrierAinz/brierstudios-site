@@ -1,0 +1,446 @@
+openapi: 3.0.3
+info:
+  title: BrierStudios API
+  version: 4.1.0
+  description: |
+    BrierStudios API — endpoints exposed by contact.brierstudios.com (Cloudflare Worker).
+
+    ## Authentication
+    Admin endpoints require either:
+    - **Bearer token**: `Authorization: Bearer <ADMIN_TOKEN>`
+    - **Session cookie**: `Cookie: bs_session=<token>` (set via GitHub OAuth flow)
+
+    Public endpoints have no auth requirement.
+  contact:
+    name: BrierStudios
+    url: https://brierstudios.com
+  license:
+    name: MIT
+servers:
+  - url: https://contact.brierstudios.com
+    description: Production
+  - url: https://brierstudios-contact.gameoverhf12.workers.dev
+    description: Workers.dev fallback
+
+tags:
+  - name: Contact
+    description: Public contact form
+  - name: Newsletter
+    description: Email subscription
+  - name: Status
+    description: Health and monitoring
+  - name: Analytics
+    description: Tracking endpoints
+  - name: Admin
+    description: Authenticated admin endpoints
+  - name: Auth
+    description: GitHub OAuth flow
+  - name: Webhooks
+    description: Incoming webhooks
+  - name: RSS
+    description: Category RSS feeds
+  - name: Cron
+    description: Scheduled job endpoints
+
+paths:
+  # ── Public: Contact ──
+  /:
+    post:
+      tags: [Contact]
+      summary: Submit contact form
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactSubmission'
+      responses:
+        '200':
+          description: Message accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Turnstile verification failed
+        '429':
+          description: Rate limit exceeded (5/hr per IP)
+
+  # ── Public: Newsletter ──
+  /newsletter:
+    post:
+      tags: [Newsletter]
+      summary: Subscribe to newsletter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+                  format: email
+      responses:
+        '200':
+          description: Subscribed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  already: { type: boolean }
+
+  # ── Public: Vitals ──
+  /vitals:
+    post:
+      tags: [Analytics]
+      summary: Receive Web Vitals from client
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                metric: { type: string, enum: [LCP, INP, CLS, TTFB, Load, DOMContentLoaded] }
+                value: { type: number }
+                url: { type: string }
+      responses:
+        '200':
+          description: Recorded
+
+  # ── Public: Analytics pixel ──
+  /pixel.gif:
+    get:
+      tags: [Analytics]
+      summary: 1x1 tracking pixel
+      parameters:
+        - in: query
+          name: p
+          schema: { type: string }
+          description: Page path
+        - in: query
+          name: r
+          schema: { type: string }
+          description: Referrer
+        - in: query
+          name: t
+          schema: { type: number }
+          description: Timestamp
+      responses:
+        '200':
+          description: 1x1 transparent GIF
+          content:
+            image/gif:
+              schema:
+                type: string
+                format: binary
+
+  # ── Public: Status ──
+  /status:
+    get:
+      tags: [Status]
+      summary: System health check
+      responses:
+        '200':
+          description: Health status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+
+  # ── Public: Alerts ──
+  /alerts/subscribe:
+    post:
+      tags: [Newsletter]
+      summary: Subscribe to outage alerts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email: { type: string, format: email }
+      responses:
+        '200':
+          description: Subscribed to alerts
+
+  # ── RSS ──
+  /releases.xml:
+    get:
+      tags: [RSS]
+      summary: Main releases feed
+      responses:
+        '200':
+          description: RSS XML
+          content:
+            application/rss+xml:
+              schema:
+                type: string
+  /feed/{category}.xml:
+    get:
+      tags: [RSS]
+      summary: Category-specific feed
+      parameters:
+        - in: path
+          name: category
+          required: true
+          schema:
+            type: string
+            enum: [all, cli, lilith, security]
+      responses:
+        '200':
+          description: RSS XML
+          content:
+            application/rss+xml:
+              schema:
+                type: string
+
+  # ── Auth ──
+  /auth/login:
+    get:
+      tags: [Auth]
+      summary: Start GitHub OAuth flow
+      responses:
+        '302':
+          description: Redirect to GitHub
+  /auth/callback:
+    get:
+      tags: [Auth]
+      summary: OAuth callback
+      parameters:
+        - in: query
+          name: code
+          schema: { type: string }
+        - in: query
+          name: state
+          schema: { type: string }
+      responses:
+        '302':
+          description: Redirect to /admin with session cookie
+        '400':
+          description: Invalid state
+        '403':
+          description: User not allowed
+  /auth/logout:
+    post:
+      tags: [Auth]
+      summary: Clear session
+      responses:
+        '302':
+          description: Redirect to /admin
+
+  # ── Admin ──
+  /admin:
+    get:
+      tags: [Admin]
+      summary: Admin panel HTML
+      responses:
+        '200':
+          description: HTML
+          content:
+            text/html:
+              schema:
+                type: string
+  /admin/api/messages:
+    get:
+      tags: [Admin]
+      summary: List contact messages
+      security:
+        - BearerAuth: []
+        - SessionCookie: []
+      responses:
+        '200':
+          description: Messages list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: array
+                    items: { $ref: '#/components/schemas/ContactMessage' }
+                  count: { type: integer }
+        '401':
+          description: Unauthorized
+  /admin/api/delete:
+    post:
+      tags: [Admin]
+      summary: Delete a message
+      security:
+        - BearerAuth: []
+        - SessionCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [id]
+              properties:
+                id:
+                  type: string
+                  pattern: '^contact:'
+                  example: 'contact:abc-123-def'
+      responses:
+        '200':
+          description: Deleted
+        '400':
+          description: Invalid id
+        '401':
+          description: Unauthorized
+  /admin/api/export:
+    get:
+      tags: [Admin]
+      summary: Export messages as CSV
+      security:
+        - BearerAuth: []
+        - SessionCookie: []
+      responses:
+        '200':
+          description: CSV download
+          content:
+            text/csv:
+              schema:
+                type: string
+  /admin/vitals:
+    get:
+      tags: [Admin]
+      summary: Vitals dashboard data
+      security:
+        - BearerAuth: []
+        - SessionCookie: []
+      responses:
+        '200':
+          description: Aggregated metrics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  samples: { type: integer }
+                  timeRange:
+                    type: object
+                    nullable: true
+                  stats:
+                    type: object
+                    additionalProperties: { $ref: '#/components/schemas/MetricStats' }
+                  pages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        url: { type: string }
+                        views: { type: integer }
+                        lcp: { type: number, nullable: true }
+
+  # ── Webhooks ──
+  /webhook/github:
+    post:
+      tags: [Webhooks]
+      summary: Receive GitHub webhook
+      parameters:
+        - in: header
+          name: X-GitHub-Event
+          schema: { type: string }
+        - in: header
+          name: X-Hub-Signature-256
+          schema: { type: string }
+      responses:
+        '200':
+          description: Processed
+        '401':
+          description: Invalid signature
+
+  # ── Cron ──
+  /__cron/backup:
+    post:
+      tags: [Cron]
+      summary: Trigger KV-to-R2 backup
+      responses:
+        '200':
+          description: Backup created
+        '500':
+          description: R2 not bound
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+    SessionCookie:
+      type: apiKey
+      in: cookie
+      name: bs_session
+
+  schemas:
+    ContactSubmission:
+      type: object
+      required: [name, email, message]
+      properties:
+        name: { type: string, maxLength: 200 }
+        email: { type: string, format: email, maxLength: 200 }
+        subject: { type: string, maxLength: 500 }
+        message: { type: string, maxLength: 5000 }
+        cf-turnstile-response:
+          type: string
+          description: Turnstile token from widget
+
+    ContactResponse:
+      type: object
+      properties:
+        success: { type: boolean }
+        id: { type: string, format: uuid }
+
+    ContactMessage:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        email: { type: string }
+        subject: { type: string }
+        message: { type: string }
+        timestamp: { type: string, format: date-time }
+        ip: { type: string }
+
+    Error:
+      type: object
+      properties:
+        error: { type: string }
+
+    StatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [operational, degraded, down]
+        checks:
+          type: object
+          properties:
+            worker: { type: string }
+            kv: { type: string }
+            lastMessage: { type: string, format: date-time, nullable: true }
+        version: { type: string }
+        timestamp: { type: string, format: date-time }
+
+    MetricStats:
+      type: object
+      properties:
+        count: { type: integer }
+        avg: { type: number }
+        p50: { type: number }
+        p75: { type: number }
+        p95: { type: number }
+        min: { type: number }
+        max: { type: number }
