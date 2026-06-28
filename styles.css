@@ -1264,3 +1264,15 @@ section::before {
     .nav-container, .section-container, .footer-container { padding: 0 0.75rem; }
     .rune-circle { width: 90px; height: 90px; }
 }
+
+/* Honeypot field: hidden from humans + screen readers; bait for bots. */
+.hp-field {
+    position: absolute !important;
+    left: -9999px !important;
+    top: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
