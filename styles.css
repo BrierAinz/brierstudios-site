@@ -1276,3 +1276,113 @@ section::before {
     opacity: 0 !important;
     pointer-events: none !important;
 }
+
+
+/* ─── Light Theme (parchment) ─── */
+:root.light {
+  --void: #f4ecd8;
+  --void-lighter: #ebe1c8;
+  --void-card: #faf3df;
+  --void-border: #c8b88e;
+  --gold: #8a6d1b;
+  --gold-bright: #6b5012;
+  --gold-deep: #c9a84c;
+  --gold-glow: rgba(138, 109, 27, 0.12);
+  --gold-glow-strong: rgba(138, 109, 27, 0.25);
+  --text: #2a2010;
+  --text-dim: #6b5d3f;
+  --text-bright: #1a1208;
+}
+
+/* ─── Theme Toggle ─── */
+.theme-toggle {
+  background: transparent;
+  border: 1px solid var(--void-border);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5rem;
+  padding: 0;
+  transition: border-color 0.3s, transform 0.2s;
+  font-family: inherit;
+}
+.theme-toggle:hover {
+  border-color: var(--gold);
+  transform: rotate(15deg);
+}
+.theme-toggle .theme-icon-light { display: none; color: var(--gold); font-size: 1rem; }
+.theme-toggle .theme-icon-dark { display: inline; color: var(--gold); font-size: 1rem; }
+:root.light .theme-toggle .theme-icon-light { display: inline; }
+:root.light .theme-toggle .theme-icon-dark { display: none; }
+
+/* Light theme specific overrides */
+:root.light body {
+  background: var(--void);
+  color: var(--text);
+}
+:root.light .hero {
+  background: radial-gradient(ellipse at 50% 0%, rgba(138, 109, 27, 0.08) 0%, transparent 60%);
+}
+:root.light .nav-link { color: var(--text); }
+:root.light .nav-link:hover { color: var(--gold); }
+:root.light .section-title { color: var(--text-bright); }
+:root.light .card,
+:root.light .project-card,
+:root.light .skill-card,
+:root.light .contact-form,
+:root.light .terminal {
+  background: var(--void-card);
+  border-color: var(--void-border);
+}
+
+/* ─── Site Search (Fuse.js inline) ─── */
+.site-search {
+  max-width: 32rem;
+  margin: 2rem auto;
+  position: relative;
+}
+.site-search input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--void-card);
+  color: var(--text);
+  border: 1px solid var(--void-border);
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+.site-search-results {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  right: 0;
+  background: var(--void-card);
+  border: 1px solid var(--void-border);
+  border-radius: 6px;
+  max-height: 20rem;
+  overflow-y: auto;
+  z-index: 100;
+  display: none;
+}
+.site-search-results.active { display: block; }
+.site-search-result {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--void-border);
+  cursor: pointer;
+  color: var(--text);
+  text-decoration: none;
+  display: block;
+}
+.site-search-result:last-child { border-bottom: 0; }
+.site-search-result:hover { background: var(--gold-glow); }
+.site-search-result-title { font-weight: 600; color: var(--gold); }
+.site-search-result-section { font-size: 0.85rem; color: var(--text-dim); margin-top: 0.25rem; }
+
+/* ─── Smooth theme transitions ─── */
+body, .card, .nav, .hero, .section, .terminal, .project-card, .skill-card, .contact-form {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
