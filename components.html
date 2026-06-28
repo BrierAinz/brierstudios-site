@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Component Library — BrierStudios</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css?v=4.1">
+<style>
+body { background: var(--void); color: var(--text); margin: 0; padding: 8rem 1.5rem 4rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.container { max-width: 56rem; margin: 0 auto; }
+h1 { color: var(--gold); font-family: var(--font-display); font-size: 2.5rem; margin: 0 0 .5rem; }
+h2 { color: var(--gold); font-family: var(--font-display); margin: 3rem 0 1rem; padding-bottom: .5rem; border-bottom: 1px solid var(--gold); }
+.section { background: var(--void-card); border: 1px solid var(--void-border); border-radius: 8px; padding: 2rem; margin-bottom: 1.5rem; }
+.row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; padding: 1rem 0; }
+.demo-label { color: var(--text-dim); font-size: .875rem; font-family: 'JetBrains Mono', monospace; min-width: 8rem; }
+
+/* Button styles */
+.btn { display: inline-block; padding: .75rem 1.5rem; border: 0; border-radius: 6px; font-weight: 600; cursor: pointer; font-family: inherit; font-size: 1rem; text-decoration: none; }
+.btn-primary { background: var(--gold); color: var(--void); }
+.btn-primary:hover { background: var(--gold-bright); }
+.btn-secondary { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
+.btn-danger { background: transparent; color: #c026d3; border: 1px solid #c026d3; }
+.btn-ghost { background: transparent; color: var(--text-dim); border: 1px solid var(--void-border); }
+
+/* Tags */
+.tag { display: inline-block; padding: .25rem .75rem; border-radius: 999px; font-size: .75rem; font-weight: 600; }
+.tag-gold { background: rgba(201, 168, 76, .15); color: var(--gold); }
+.tag-green { background: rgba(34, 197, 94, .15); color: #22c55e; }
+.tag-red { background: rgba(239, 68, 68, .15); color: #ef4444; }
+.tag-blue { background: rgba(59, 130, 246, .15); color: #3b82f6; }
+
+/* Card */
+.card { background: var(--void-card); border: 1px solid var(--void-border); border-radius: 8px; padding: 1.5rem; min-width: 200px; }
+.card-title { color: var(--gold); margin: 0 0 .5rem; }
+.card-body { color: var(--text); font-size: .875rem; line-height: 1.5; margin: 0; }
+
+/* Input */
+input[type="text"], input[type="email"] { padding: .75rem 1rem; background: var(--bg); color: var(--text); border: 1px solid var(--void-border); border-radius: 6px; font-family: inherit; font-size: 1rem; min-width: 16rem; }
+input:focus { outline: none; border-color: var(--gold); }
+
+/* Rune decoration */
+.rune-display { font-family: var(--font-runic); font-size: 3rem; color: var(--gold); letter-spacing: .5rem; text-align: center; padding: 1rem; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Component Library</h1>
+<p style="color:var(--text-dim);">Reusable UI patterns across BrierStudios. All components use the dark fantasy palette and Cinzel/Inter typography.</p>
+
+<h2>Buttons</h2>
+<div class="section">
+<div class="row">
+<span class="demo-label">btn-primary</span>
+<button class="btn btn-primary">Send Raven</button>
+<button class="btn btn-primary" disabled>Disabled</button>
+</div>
+<div class="row">
+<span class="demo-label">btn-secondary</span>
+<button class="btn btn-secondary">Explore Work</button>
+</div>
+<div class="row">
+<span class="demo-label">btn-danger</span>
+<button class="btn btn-danger">Delete</button>
+</div>
+<div class="row">
+<span class="demo-label">btn-ghost</span>
+<button class="btn btn-ghost">Refresh</button>
+</div>
+</div>
+
+<h2>Tags</h2>
+<div class="section">
+<div class="row">
+<span class="tag tag-gold">Gold</span>
+<span class="tag tag-green">Operational</span>
+<span class="tag tag-red">Down</span>
+<span class="tag tag-blue">Beta</span>
+</div>
+</div>
+
+<h2>Cards</h2>
+<div class="section">
+<div class="row">
+<div class="card">
+<h3 class="card-title">Project Card</h3>
+<p class="card-body">Description text here. Used across project listings, releases, and skill sections.</p>
+</div>
+<div class="card">
+<h3 class="card-title">Lilith v5.1</h3>
+<p class="card-body">Dark fantasy goddess with bronze horns and honey-gold eyes. 9 realm variants available.</p>
+</div>
+</div>
+</div>
+
+<h2>Forms</h2>
+<div class="section">
+<div class="row">
+<span class="demo-label">text input</span>
+<input type="text" placeholder="Your name, traveler">
+</div>
+<div class="row">
+<span class="demo-label">email input</span>
+<input type="email" placeholder="raven@yourdomain.com">
+</div>
+</div>
+
+<h2>Runes</h2>
+<div class="section">
+<div class="rune-display">ᚺ ᛏ ᛗ ᚨ ᛚ ᛊ ᛒ ᚦ</div>
+<p style="color:var(--text-dim);text-align:center;margin:1rem 0 0;">HTMALSBTH — Where Ancient Meets Mythic</p>
+</div>
+
+<h2>Notifications / Toasts</h2>
+<div class="section">
+<div class="row" style="flex-direction:column;align-items:stretch;">
+<div style="background:rgba(34,197,94,.1);border:1px solid #22c55e;color:#22c55e;padding:1rem;border-radius:6px;">✓ Message sent successfully</div>
+<div style="background:rgba(239,68,68,.1);border:1px solid #ef4444;color:#ef4444;padding:1rem;border-radius:6px;margin-top:.5rem;">✕ Verification failed</div>
+<div style="background:rgba(201,168,76,.1);border:1px solid var(--gold);color:var(--gold);padding:1rem;border-radius:6px;margin-top:.5rem;">⚠ Rate limit exceeded. Try again in 1 hour.</div>
+</div>
+</div>
+
+<h2>Code blocks</h2>
+<div class="section">
+<pre style="background:var(--bg);color:var(--text);padding:1rem;border-radius:6px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:.875rem;border:1px solid var(--void-border);"><code>$ npm i -g @yggdrasil/cli
+$ ygg init my-project
+$ /realm vanaheim
+$ /summon agent</code></pre>
+</div>
+
+<p style="text-align:center;color:var(--text-dim);margin-top:3rem;">
+<a href="/" style="color:var(--gold);">← Back to BrierStudios</a>
+</p>
+</div>
+</body>
+</html>
