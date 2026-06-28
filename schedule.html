@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Schedule a Call — BrierStudios</title>
+<link rel="canonical" href="https://brierstudios.com/schedule">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css?v=4.1">
+<meta name="description" content="Book a discovery call with BrierStudios — 30 minutes, free, no pressure.">
+</head>
+<body>
+<main style="max-width:48rem;margin:0 auto;padding:8rem 1.5rem 4rem;">
+<h1 style="font-family:var(--font-display);color:var(--gold);font-size:2.5rem;margin-bottom:.5rem;">Schedule a Call</h1>
+<p style="color:var(--text-dim);margin-bottom:2rem;">30-minute discovery calls. Free, no commitment. Discuss your project, timeline, and budget.</p>
+
+<div style="background:var(--void-card);border:1px solid var(--void-border);border-radius:8px;padding:2rem;text-align:center;">
+<h2 style="margin:0 0 1rem;color:var(--gold);font-family:var(--font-display);">What to expect</h2>
+<ul style="text-align:left;color:var(--text);line-height:1.8;list-style:none;padding:0;margin:0 0 2rem;">
+<li style="padding:.5rem 0;border-bottom:1px solid var(--void-border);">⏱️ <strong>30 minutes</strong> — respects your time</li>
+<li style="padding:.5rem 0;border-bottom:1px solid var(--void-border);">💬 <strong>Discussion</strong> — what you want to build</li>
+<li style="padding:.5rem 0;border-bottom:1px solid var(--void-border);">📋 <strong>Scope estimate</strong> — ballpark timeline & cost</li>
+<li style="padding:.5rem 0;border-bottom:1px solid var(--void-border);">🤝 <strong>No pressure</strong> — quote in writing after</li>
+</ul>
+
+<!-- Calendly inline widget placeholder -->
+<div id="calendly-inline" style="min-width:320px;height:700px;background:var(--void);border:1px solid var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--muted);">
+<div style="text-align:center;padding:2rem;">
+<div style="font-size:3rem;margin-bottom:1rem;">⏰</div>
+<p style="margin:0 0 1rem;">Calendly widget loads here</p>
+<p style="font-size:.875rem;color:var(--muted);margin:0;">Replace <code>https://calendly.com/your-link</code> in the code</p>
+</div>
+</div>
+
+<script>
+(function() {
+  // Replace this URL with your actual Calendly link
+  var url = 'https://calendly.com/your-link';
+  var container = document.getElementById('calendly-inline');
+  if (!url || url.indexOf('your-link') !== -1) {
+    // No real URL configured — keep placeholder
+    return;
+  }
+  container.innerHTML = '';
+  var iframe = document.createElement('iframe');
+  iframe.src = url;
+  iframe.style.width = '100%';
+  iframe.style.height = '700px';
+  iframe.style.border = '0';
+  container.appendChild(iframe);
+})();
+</script>
+</div>
+
+<div style="margin-top:2rem;text-align:center;">
+<p style="color:var(--text-dim);">Prefer async? <a href="/#contact" style="color:var(--gold);">Send a message instead</a></p>
+</div>
+</main>
+</body>
+</html>

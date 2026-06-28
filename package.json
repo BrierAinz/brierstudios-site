@@ -1,0 +1,14 @@
+{
+  "name": "brierstudios-site",
+  "version": "4.1.0",
+  "type": "module",
+  "private": true,
+  "description": "BrierStudios — dark fantasy creative technology studio. Cloudflare Pages + Workers.",
+  "scripts": {
+    "test": "node --test tests/unit.test.mjs",
+    "test:unit": "node --test tests/unit.test.mjs",
+    "test:e2e": "node --test tests/e2e.test.mjs"
+  },
+  "keywords": ["brierstudios", "norse", "dark-fantasy", "lilith", "yggdrasil", "cloudflare-pages", "cloudflare-workers"],
+  "license": "MIT"
+}
