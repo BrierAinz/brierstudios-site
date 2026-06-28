@@ -737,11 +737,16 @@
                     </div>
                 </div>
                 <div class="rune-divider-vertical"></div>
-                <form id="contact-form" class="contact-form fade-in-right">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" placeholder="Your name, traveler" required>
-                    </div>
+                <form id="contact-form" class="contact-form fade-in-right" novalidate>
+                                    <!-- Honeypot: hidden from humans, bait for bots. CSS hides it; if filled, treat as bot. -->
+                                    <div class="hp-field" aria-hidden="true">
+                                        <label for="website">Website</label>
+                                        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name" data-i18n="form-name">Name</label>
+                                        <input type="text" id="name" name="name" placeholder="Your name, traveler" data-i18n-placeholder="form-name-ph" required>
+                                    </div>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" placeholder="raven@yourdomain.com" required>
@@ -750,6 +755,7 @@
                         <label for="message">Message</label>
                         <textarea id="message" name="message" rows="4" placeholder="Describe your quest..." required></textarea>
                     </div>
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAADsVMQOEJdUztYFx" data-callback="onTurnstileSuccess" data-theme="dark"></div>
                     <button type="submit" class="btn btn-primary btn-submit">
                         <span class="btn-rune">᛭</span> Send Raven
                     </button>
@@ -777,6 +783,7 @@
         </div>
     </footer>
 
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script src="script.js?v=4.1" defer></script>
 </body>
 </html>
