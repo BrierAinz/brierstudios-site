@@ -41,10 +41,22 @@ export default {
     }
 
     if (url.pathname === '/status') {
-      return handleStatus(request, env);
-    }
+          return handleStatus(request, env);
+        }
 
-    // Public contact form endpoint
+        if (url.pathname === '/admin/vitals') {
+          return handleVitalsDashboard(request, env);
+        }
+
+        if (url.pathname === '/admin/api/export' && request.method === 'GET') {
+          return handleExport(request, env);
+        }
+
+        if (url.pathname === '/__cron/backup' && request.method === 'POST') {
+          return handleCronBackup(request, env);
+        }
+
+        // Public contact form endpoint
     if (request.method !== 'POST') {
       return new Response('Method not allowed', { status: 405 });
     }
@@ -430,6 +442,133 @@ async function handleStatus(request, env) {
   });
 }
 
+async function handleVitalsDashboard(request, env) {
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': request.headers.get('Origin') || 'https://brierstudios.com',
+    'Content-Type': 'application/json',
+  };
+
+  if (!(await checkAuth(request, env))) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+      status: 401, headers: corsHeaders,
+    });
+  }
+
+  if (!env.VITALS) {
+    return new Response(JSON.stringify({ error: 'VITALS KV not configured' }), {
+      status: 500, headers: corsHeaders,
+    });
+  }
+
+  // Aggregate metrics from VITALS KV
+  const list = await env.VITALS.list({ prefix: 'vital:', limit: 500 });
+  const values = await Promise.all(list.keys.map(k => env.VITALS.get(k.name)));
+  const entries = values.filter(Boolean).map(v => { try { return JSON.parse(v); } catch { return null; } }).filter(Boolean);
+
+  const byMetric = {};
+  for (const e of entries) {
+    if (!e.metric) continue;
+    if (!byMetric[e.metric]) byMetric[e.metric] = [];
+    byMetric[e.metric].push(e.value);
+  }
+
+  const stats = {};
+  for (const [metric, vals] of Object.entries(byMetric)) {
+    const sorted = vals.slice().sort((a, b) => a - b);
+    const sum = vals.reduce((a, b) => a + b, 0);
+    stats[metric] = {
+      count: vals.length,
+      avg: Math.round(sum / vals.length * 100) / 100,
+      p50: sorted[Math.floor(sorted.length * 0.5)] || 0,
+      p95: sorted[Math.floor(sorted.length * 0.95)] || 0,
+      min: sorted[0] || 0,
+      max: sorted[sorted.length - 1] || 0,
+    };
+  }
+
+  // Top pages
+  const byUrl = {};
+  for (const e of entries) {
+    const u = e.url || 'unknown';
+    if (!byUrl[u]) byUrl[u] = { views: 0, lcp: [], cls: [], inp: [] };
+    byUrl[u].views++;
+    if (e.metric === 'LCP') byUrl[u].lcp.push(e.value);
+    if (e.metric === 'CLS') byUrl[u].cls.push(e.value);
+    if (e.metric === 'INP') byUrl[u].inp.push(e.value);
+  }
+
+  return new Response(JSON.stringify({
+    samples: entries.length,
+    timeRange: entries.length ? {
+      from: entries.map(e => e.timestamp).sort()[0],
+      to: entries.map(e => e.timestamp).sort().slice(-1)[0],
+    } : null,
+    stats,
+    pages: Object.entries(byUrl).map(([url, d]) => ({
+      url,
+      views: d.views,
+      lcp: d.lcp.length ? Math.round(d.lcp.reduce((a, b) => a + b, 0) / d.lcp.length * 100) / 100 : null,
+    })).sort((a, b) => b.views - a.views).slice(0, 10),
+  }, 2), { status: 200, headers: corsHeaders });
+}
+
+async function handleExport(request, env) {
+  if (!(await checkAuth(request, env))) {
+    return new Response('Unauthorized', { status: 401 });
+  }
+
+  if (!env.CONTACTS) {
+    return new Response('KV not configured', { status: 500 });
+  }
+
+  const list = await env.CONTACTS.list({ prefix: 'contact:', limit: 1000 });
+  const items = await Promise.all(list.keys.map(async (k) => {
+    const raw = await env.CONTACTS.get(k.name);
+    try { return JSON.parse(raw); } catch { return null; }
+  }));
+  const messages = items.filter(Boolean).sort((a, b) => (b.timestamp || '').localeCompare(a.timestamp || ''));
+
+  const csv = [
+    'id,timestamp,name,email,subject,message,ip',
+    ...messages.map(m =>
+      [m.id, m.timestamp, JSON.stringify(m.name || ''), JSON.stringify(m.email || ''),
+       JSON.stringify(m.subject || ''), JSON.stringify(m.message || '').replace(/\n/g, ' '),
+       m.ip || ''].join(',')
+    ),
+  ].join('\n');
+
+  return new Response(csv, {
+    headers: {
+      'Content-Type': 'text/csv; charset=utf-8',
+      'Content-Disposition': 'attachment; filename="contacts-' + new Date().toISOString().slice(0, 10) + '.csv"',
+    },
+  });
+}
+
+async function handleCronBackup(request, env) {
+  // Backup CONTACTS KV to R2 if bound
+  if (!env.R2 || !env.CONTACTS) {
+    return new Response(JSON.stringify({ error: 'R2 or KV not bound' }), {
+      status: 500, headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const date = new Date().toISOString().slice(0, 10);
+  const list = await env.CONTACTS.list({ prefix: 'contact:', limit: 1000 });
+  const items = await Promise.all(list.keys.map(async (k) => {
+    const raw = await env.CONTACTS.get(k.name);
+    return raw ? { key: k.name, value: JSON.parse(raw) } : null;
+  }));
+  const messages = items.filter(Boolean);
+
+  const key = `backups/contacts-${date}.json`;
+  await env.R2.put(key, JSON.stringify({ date, count: messages.length, messages }, null, 2));
+
+  return new Response(JSON.stringify({ ok: true, key, count: messages.length }), {
+    status: 200, headers: { 'Content-Type': 'application/json' },
+  });
+}
+
 const ADMIN_HTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -485,6 +624,8 @@ h1 { color:var(--gold); font-weight:600; letter-spacing:.05em; margin:0; }
     <div class="toolbar-actions">
       <span class="count-label" id="count"></span>
       <button id="refreshBtn">Refresh</button>
+      <a href="/vitals.html" style="text-decoration:none;"><button>Vitals</button></a>
+      <button id="exportBtn">Export CSV</button>
       <button id="logoutBtn">Logout</button>
     </div>
   </div>
@@ -602,6 +743,27 @@ function showLoginErr(msg) {
 document.getElementById('loginBtn').addEventListener('click', doLogin);
 document.getElementById('refreshBtn').addEventListener('click', loadMessages);
 document.getElementById('logoutBtn').addEventListener('click', doLogout);
+var exportBtn = document.getElementById('exportBtn');
+if (exportBtn) {
+  exportBtn.addEventListener('click', function() {
+    var a = document.createElement('a');
+    a.href = location.origin.replace('contact.', 'contact.') + '/admin/api/export';
+    a.download = 'contacts.csv';
+    // Need to set Authorization header on download — use fetch+blob instead
+    fetch('https://contact.brierstudios.com/admin/api/export', { headers: { 'Authorization': 'Bearer ' + currentToken }})
+      .then(function(r) { return r.blob(); })
+      .then(function(b) {
+        var url = URL.createObjectURL(b);
+        var a2 = document.createElement('a');
+        a2.href = url;
+        a2.download = 'contacts-' + new Date().toISOString().slice(0,10) + '.csv';
+        document.body.appendChild(a2);
+        a2.click();
+        document.body.removeChild(a2);
+        URL.revokeObjectURL(url);
+      });
+  });
+}
 document.getElementById('tokenInput').addEventListener('keypress', function(e) {
   if (e.key === 'Enter') doLogin();
 });
