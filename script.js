@@ -357,24 +357,27 @@ function initParallax() {
 function initFooterRunes() {
     const runesEl = document.getElementById('footer-runes');
     if (!runesEl) return;
-    
-    const original = runesEl.textContent;
-    const chars = original.split('');
-    
+
+    // If already rendered with spans, preserve them and animate
+    const allRunes = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ';
+
+    if (!runesEl.querySelector('span')) {
+        // Convert text to spans with clickable classes
+        const text = runesEl.textContent;
+        runesEl.innerHTML = text.split('').map(ch =>
+            ch === ' ' ? ' ' : '<span class="rune-clickable" data-rune="' + ch + '">' + ch + '</span>'
+        ).join('');
+    }
+
+    const spans = runesEl.querySelectorAll('span.rune-clickable');
     setInterval(() => {
-        // Randomly shift one character
-        const idx = Math.floor(Math.random() * chars.length);
-        if (chars[idx] !== ' ') {
-            const allRunes = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ';
-            const originalChar = original[idx];
-            chars[idx] = allRunes[Math.floor(Math.random() * allRunes.length)];
-            runesEl.textContent = chars.join('');
-            // Restore after a brief flash
-            setTimeout(() => {
-                chars[idx] = originalChar;
-                runesEl.textContent = chars.join('');
-            }, 200);
-        }
+        if (!spans.length) return;
+        const idx = Math.floor(Math.random() * spans.length);
+        const span = spans[idx];
+        const orig = span.textContent;
+        span.textContent = allRunes[Math.floor(Math.random() * allRunes.length)];
+        span.dataset.rune = span.textContent;
+        setTimeout(() => { span.textContent = orig; span.dataset.rune = orig; }, 200);
     }, 300);
 }
 

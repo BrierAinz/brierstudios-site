@@ -1386,3 +1386,55 @@ section::before {
 body, .card, .nav, .hero, .section, .terminal, .project-card, .skill-card, .contact-form {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
+
+
+/* ─── Easter Eggs (rune particles + rainbow) ─── */
+@keyframes runeFly {
+  0% { opacity: 1; transform: translate(0,0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.5); }
+}
+
+@keyframes rainbowBg {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+.rune-clickable {
+  display: inline-block;
+  position: relative;
+  user-select: none;
+}
+.rune-clickable:hover {
+  color: var(--gold-bright);
+  text-shadow: 0 0 12px var(--gold);
+}
+
+/* ─── Custom cursor ─── */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><text y="20" font-size="20" fill="%23c9a84c">ᛟ</text></svg>') 4 4, auto;
+  }
+  a, button, [role="button"] {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><text y="20" font-size="20" fill="%23e0c878">ᛏ</text></svg>') 4 4, pointer;
+  }
+}
+
+/* ─── Hero rune letters interactive ─── */
+.hero-runes {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-runic);
+  font-size: 1.5rem;
+  letter-spacing: 0.5rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.hero-runes span {
+  display: inline-block;
+  transition: color 0.3s, transform 0.3s;
+}
+.hero-runes span:hover {
+  color: var(--gold-bright);
+  transform: translateY(-4px);
+}
