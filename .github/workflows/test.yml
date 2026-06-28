@@ -1,0 +1,58 @@
+name: Tests + Performance Budget
+
+on:
+  push:
+    branches: [main, skadi-*]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run unit tests
+        run: npm run test:unit
+
+      - name: Run perf budget (against production)
+        if: github.event_name == 'workflow_dispatch'
+        run: npm run test:e2e
+        env:
+          PRODUCTION_URL: https://brierstudios.com
+
+      - name: Validate JSON files
+        run: |
+          for f in $(find . -name '*.json' -not -path './node_modules/*' -not -path './.git/*' | head -20); do
+            node -e "JSON.parse(require('fs').readFileSync('$f','utf-8'))" || exit 1
+          done
+
+      - name: Validate XML files
+        run: |
+          for f in sitemap.xml releases.xml; do
+            node -e "
+              const xml = require('fs').readFileSync('$f','utf-8');
+              if (!xml.includes('<?xml')) { console.error('$f: not XML'); process.exit(1); }
+            "
+          done
+
+      - name: Performance summary
+        run: |
+          echo "## Asset sizes" >> $GITHUB_STEP_SUMMARY
+          echo "| Asset | Size |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|------|" >> $GITHUB_STEP_SUMMARY
+          for f in index.html styles.css script.js; do
+            if [ -f "$f" ]; then
+              size=$(stat -c %s "$f" 2>/dev/null || stat -f %z "$f")
+              kb=$(echo "scale=1; $size/1024" | bc)
+              echo "| $f | ${kb} KB |" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
