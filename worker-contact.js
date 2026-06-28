@@ -19,7 +19,7 @@ export default {
 
     try {
       const data = await request.json();
-      const { name, email, subject, message } = data;
+      const { name, email, subject, message, 'cf-turnstile-response': turnstileToken } = data;
 
       // Validate required fields
       if (!name || !email || !message) {
@@ -35,6 +35,28 @@ export default {
           status: 400,
           headers: { 'Content-Type': 'application/json' },
         });
+      }
+
+      // Verify Turnstile token (skip if secret not configured, e.g. local dev)
+      if (env.TURNSTILE_SECRET) {
+        if (!turnstileToken) {
+          return new Response(JSON.stringify({ error: 'Verification token missing.' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+        const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `secret=${encodeURIComponent(env.TURNSTILE_SECRET)}&response=${encodeURIComponent(turnstileToken)}`,
+        });
+        const verifyResult = await verifyRes.json();
+        if (!verifyResult.success) {
+          return new Response(JSON.stringify({ error: 'Verification failed.' }), {
+            status: 403,
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
       }
 
       // Rate limiting via Cloudflare's built-in
