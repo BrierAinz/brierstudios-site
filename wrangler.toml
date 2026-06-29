@@ -13,3 +13,12 @@ id = "3fb19e866d3042efaf521d27c3a7efa8"
 routes = [
   { pattern = "contact.brierstudios.com/*", zone_name = "brierstudios.com" }
 ]
+
+# Optional: Durable Object for live admin feed (requires paid Workers plan)
+# [[durable_objects.bindings]]
+# name = "LIVE_FEED"
+# class_name = "AdminLiveFeed"
+
+# [[migrations]]
+# tag = "v1"
+# new_classes = ["AdminLiveFeed"]
