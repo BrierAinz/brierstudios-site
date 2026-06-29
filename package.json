@@ -8,7 +8,11 @@
     "test": "node --test tests/unit.test.mjs",
     "test:unit": "node --test tests/unit.test.mjs",
     "test:e2e": "node --test tests/e2e.test.mjs",
-    "rss:build": "node scripts/generate-rss.mjs"
+    "test:security": "node --test tests/security.test.mjs",
+    "test:perf": "node --test tests/perf-budget.mjs",
+    "test:all": "node --test tests/unit.test.mjs tests/security.test.mjs tests/e2e.test.mjs",
+    "rss:build": "node scripts/generate-rss.mjs",
+    "css:audit": "node scripts/css-purge.mjs"
   },
   "keywords": ["brierstudios", "norse", "dark-fantasy", "lilith", "yggdrasil", "cloudflare-pages", "cloudflare-workers"],
   "license": "MIT"
