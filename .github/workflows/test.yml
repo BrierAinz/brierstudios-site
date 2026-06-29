@@ -23,6 +23,9 @@ jobs:
       - name: Run unit tests
         run: npm run test:unit
 
+      - name: Run security tests
+        run: npm run test:security
+
       - name: Run perf budget (against production)
         if: github.event_name == 'workflow_dispatch'
         run: npm run test:e2e

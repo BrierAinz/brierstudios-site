@@ -89,10 +89,14 @@ export default {
                 }
 
                 if (url.pathname === '/analytics/top' && request.method === 'GET') {
-                  return handleAnalyticsTop(request, env);
-                }
+                      return handleAnalyticsTop(request, env);
+                    }
 
-                // Public contact form endpoint
+                    if (url.pathname === '/admin/query' && request.method === 'GET') {
+                      return handleAdminQuery(request, env);
+                    }
+
+                    // Public contact form endpoint
     if (request.method !== 'POST') {
       return new Response('Method not allowed', { status: 405 });
     }
@@ -180,12 +184,26 @@ async function handleContactPost(request, env) {
     };
 
     if (env.CONTACTS) {
-      await env.CONTACTS.put(`contact:${id}`, JSON.stringify(entry), {
-        expirationTtl: 90 * 24 * 60 * 60,
-      });
-    }
+          await env.CONTACTS.put(`contact:${id}`, JSON.stringify(entry), {
+            expirationTtl: 90 * 24 * 60 * 60,
+          });
+        }
 
-    // Forward to email via MailChannels (free for CF Workers on your own domain)
+        // Live broadcast to connected admin dashboards
+        if (env.LIVE_FEED) {
+          try {
+            const id = env.LIVE_FEED.idFromName('admin');
+            const stub = env.LIVE_FEED.get(id);
+            await stub.fetch('https://internal/broadcast', {
+              method: 'POST',
+              body: JSON.stringify({ type: 'message', data: entry }),
+            });
+          } catch (e) {
+            console.error('Live feed failed:', e.message);
+          }
+        }
+
+        // Forward to email via MailChannels (free for CF Workers on your own domain)
     if (env.MAIL_TO) {
       try {
         await sendEmail(entry, env);
@@ -724,6 +742,62 @@ async function handleCronBackup(request, env) {
   return new Response(JSON.stringify({ ok: true, key, count: messages.length }), {
     status: 200, headers: { 'Content-Type': 'application/json' },
   });
+}
+
+async function handleAdminQuery(request, env) {
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': request.headers.get('Origin') || 'https://brierstudios.com',
+    'Content-Type': 'application/json',
+  };
+
+  if (!(await checkAuth(request, env))) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+      status: 401, headers: corsHeaders,
+    });
+  }
+
+  const url = new URL(request.url);
+  const fields = (url.searchParams.get('fields') || '').split(',').filter(Boolean);
+  const limit = Math.min(parseInt(url.searchParams.get('limit') || '20', 10), 100);
+  const since = url.searchParams.get('since'); // ISO date
+
+  if (!env.CONTACTS) {
+    return new Response(JSON.stringify({ error: 'KV not configured' }), {
+      status: 500, headers: corsHeaders,
+    });
+  }
+
+  let prefix = 'contact:';
+  let list = await env.CONTACTS.list({ prefix, limit });
+  let messages = await Promise.all(list.keys.map(async (k) => {
+    const raw = await env.CONTACTS.get(k.name);
+    try { return JSON.parse(raw); } catch { return null; }
+  }));
+  messages = messages.filter(Boolean);
+
+  if (since) {
+    messages = messages.filter(m => m.timestamp >= since);
+  }
+
+  messages.sort((a, b) => (b.timestamp || '').localeCompare(a.timestamp || ''));
+  messages = messages.slice(0, limit);
+
+  // Field projection (GraphQL-style)
+  const DEFAULT_FIELDS = ['id', 'name', 'email', 'subject', 'message', 'timestamp', 'ip'];
+  const fieldList = fields.length ? fields : DEFAULT_FIELDS;
+  const projected = messages.map(m => {
+    const obj = {};
+    for (const f of fieldList) {
+      if (f in m) obj[f] = m[f];
+    }
+    return obj;
+  });
+
+  return new Response(JSON.stringify({
+    query: { fields: fieldList, limit, since },
+    count: projected.length,
+    messages: projected,
+  }, 2), { status: 200, headers: corsHeaders });
 }
 
 async function handleAnalyticsTop(request, env) {
